@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Bazaar Check</title>
+</head>
+<body>
+
+<header class="topbar">
+
+    <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="logo">
+        <img src="images/logo.png" alt="logo" class="logo-png">
+    </div>
+
+    <form class="search-box">
+        <span class="search-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)">
+
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="topbar-right">
+
+        <a href="#" class="icon-btn">
+            <i class="fa-regular fa-bell"></i>
+            <span class="dot"></span>
+        </a>
+
+        <a href="#" class="icon-btn">
+            <i class="fa-regular fa-heart"></i>
+        </a>
+
+        <a href="#" class="user-chip">
+            <img src="images/1.jpg" alt="user">
+            <span class="name">Hajar Ali</span>
+        </a>
+
+    </div>
+
+</header>
+
+  <aside class="sidebar" id="sidebar">
+
+    <div class="sidebar-head">
+
+        <div class="brand">
+            <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png">
+
+            <div class="brand-info">
+                <span class="brand-name">Bazaar Check</span>
+                <span class="brand-tagline">Smart shopping</span>
+            </div>
+        </div>
+
+        <button class="close-btn" id="closeBtn">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+
+    </div>
+
+    <nav>
+        <a href="index.html" class="active">
+            <i class="fa-solid fa-house"></i>
+            Home
+        </a>
+
+        <a href="search.html">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Search
+        </a>
+
+        <a href="categories.html">
+            <i class="fa-solid fa-layer-group"></i>
+            Categories
+        </a>
+
+        <a href="cart.html">
+            <i class="fa-solid fa-cart-shopping"></i>
+            My Cart
+        </a>
+
+        <a href="profile.html">
+            <i class="fa-regular fa-circle-user"></i>
+            Profile
+        </a>
+    </nav>
+
+</aside>
+
+<!-- Backdrop -->
+
+<div class="backdrop" id="backdrop"></div>
+
+
+<!-- Hero -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <div class="brand-label">
+            BAZAAR CHECK
+        </div>
+
+        <h1>
+            Find the <span>Best Prices</span> Near You
+        </h1>
+
+        <p>
+            Compare prices from different shops and make smarter
+            shopping decisions.
+        </p>
+
+        <div class="hero-search">
+
+            <input
+                type="text"
+                placeholder="Search for products..."
+            >
+
+            <button>Search</button>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-image">
+
+        <img
+            src="images/image.png"
+            alt="Shopping cart with groceries"
+        >
+
+    </div>
+
+</section>
+
+
+<script src="index.js"></script>
+</body>
+</html>
