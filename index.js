@@ -14,3 +14,20 @@ function closeSidebar(){
 }
 closeBtn.addEventListener('click',closeSidebar);
 backdrop.addEventListener('click',closeSidebar);
+
+// favorit button
+
+const favBtn = document.querySelectorAll('.fav-btn');
+favBtn.forEach(button => {
+    button.addEventListener('click',() =>{
+        if(button.classList.contains('active')){
+            button.innerHTML = '<i class="fa-regular fa-heart simple-heart"></i>';
+            button.classList.remove('active');
+        } else{
+            button.innerHTML = '<img src="images/red-heart.png" class="filled-heart">';
+            button.classList.add('active');
+        }
+    });
+});
+
+
