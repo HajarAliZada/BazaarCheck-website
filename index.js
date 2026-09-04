@@ -30,4 +30,44 @@ favBtn.forEach(button => {
     });
 });
 
+// Auto fill year in footer
+const yearSpan = document.getElementById('year');
+if(yearSpan){
+    yearSpan.textContent = new Date().getFullYear();
+}
 
+// selecting the filter that is clicked
+const filterItems = document.querySelectorAll('.filter-item');
+
+filterItems.forEach(item =>{
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.querySelector('.filter-item.active')?.classList.remove('active');
+        item.classList.add('active');
+    });
+});
+
+// toggle filter sidebar
+const filterToggle = document.querySelector('.filter-toggle');
+const filterPanel = document.querySelector('.filters');
+if(filterToggle){
+    filterToggle.addEventListener('click',() => {
+        filterPanel.classList.toggle('open');
+    });
+}
+
+// Sorting functionality
+const sortSelect = document.querySelector('.sort-select');
+const tableBody = document.querySelector('.price-table tbody');
+
+function getPrice(row){
+    return parseInt(row.querySelector('.price-cell').textContent);
+}
+
+function getDistance(row){
+    return parseFloat(row.children[3].textContent);
+}
+
+function getRating(row){
+    return parseFloat(row.children[4].textContent);
+}

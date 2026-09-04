@@ -1,0 +1,403 @@
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="stylesheet" href="index.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <title>Search Results . Bazaar Check</title>
+  </head>
+
+  <body>
+    <!-- ==================== TOPBAR ==================== -->
+    <header class="topbar">
+      <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="logo">
+        <img src="images/logo.png" alt="logo" class="logo-png" />
+      </div>
+
+      <form class="search-box">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search for products (e.g. rice, oil, flour...)"
+        />
+
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="topbar-right">
+        <a href="#" class="icon-btn">
+          <i class="fa-regular fa-bell"></i>
+          <span class="dot"></span>
+        </a>
+
+        <a href="#" class="icon-btn">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+
+        <a href="#" class="user-chip">
+          <img src="images/1.png" alt="user" />
+          <span class="name">Hajar Ali</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- ==================== SIDEBAR ==================== -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="brand">
+          <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png" />
+
+          <div class="brand-info">
+            <span class="brand-name">Bazaar Check</span>
+            <span class="brand-tagline">Smart shopping</span>
+          </div>
+        </div>
+
+        <button class="close-btn" id="closeBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav>
+        <a href="index.html">
+          <i class="fa-solid fa-house"></i>
+          Home
+        </a>
+
+        <a href="search.html" class="active">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search
+        </a>
+
+        <a href="categories.html">
+          <i class="fa-solid fa-layer-group"></i>
+          Categories
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          My Cart
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-regular fa-circle-user"></i>
+          Profile
+        </a>
+      </nav>
+    </aside>
+
+    <!-- ==================== BACKDROP ==================== -->
+    <div class="backdrop" id="backdrop"></div>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main class="page">
+      <!-- Page heading -->
+      <div class="page-head">
+        <h1>Search Results</h1>
+
+        <p>Showing shops with "rice" in stock, sorted by price.</p>
+      </div>
+
+      <!-- ==================== SEARCH LAYOUT ==================== -->
+      <div class="search-layout">
+        <!-- ==================== FILTER SIDEBAR ==================== -->
+        <aside class="filters">
+          <h4>Filters</h4>
+
+          <a href="#" class="filter-item active"> All Categories </a>
+
+          <a href="#" class="filter-item"> Food </a>
+
+          <a href="#" class="filter-item"> Beverages </a>
+
+          <a href="#" class="filter-item"> Household </a>
+
+          <a href="#" class="filter-item"> Personal Care </a>
+          <a href="#" class="filter-item"> Clothing </a>
+          <a href="#" class="filter-item"> Electronics </a>
+          <a href="#" class="filter-item"> Others </a>
+          <hr />
+
+          <h4>Shops</h4>
+
+          <a class="filter-item" href="#"> All Shops </a>
+        </aside>
+
+        <!-- ==================== RESULTS COLUMN ==================== -->
+        <div class="results-col">
+          <!-- ==================== TOOLBAR ==================== -->
+          <div class="toolbar">
+            <button class="filter-toggle">
+              <i class="fa-solid fa-bars"></i>Filters
+            </button>
+
+            <div class="toolbar-left">
+              <select class="select-box">
+                <option>All Categories</option>
+                <option>Food</option>
+                <option>Beverages</option>
+              </select>
+
+              <select class="select-box">
+                <option>All Shops</option>
+                <option>Shop A</option>
+                <option>Shop B</option>
+              </select>
+            </div>
+
+            <select class="select-box sort-select">
+              <option>Sort by: Price (Low to High)</option>
+
+              <option>Price (High to Low)</option>
+
+              <option>Distance</option>
+
+              <option>Rating</option>
+            </select>
+          </div>
+
+          <!-- ==================== PRICE TABLE ==================== -->
+          <div class="table-card">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th>Shops</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Distance</th>
+                  <th>Rating</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <!-- SHOP C -->
+                <tr>
+                  <td>
+                    <div class="shop-cell">
+                      <span class="shop-avatar">
+                        <img src="images/shop.png" alt="Shop C" />
+                      </span>
+
+                      Shop C
+                    </div>
+                  </td>
+
+                  <td>Rice (1 kg)</td>
+
+                  <td class="price-cell">
+                    115 AFG
+
+                    <span class="lowest-tag"> LOWEST </span>
+                  </td>
+
+                  <td>0.8 km</td>
+
+                  <td>⭐ 4.6</td>
+
+                  <td>
+                    <a href="shop.html" class="btn-view"> View </a>
+                  </td>
+                </tr>
+
+                <!-- SHOP A -->
+                <tr>
+                  <td>
+                    <div class="shop-cell">
+                      <span class="shop-avatar">
+                        <img src="images/shop.png" alt="Shop A" />
+                      </span>
+
+                      Shop A
+                    </div>
+                  </td>
+
+                  <td>Rice (1 kg)</td>
+
+                  <td class="price-cell">120 AFN</td>
+
+                  <td>1.2 km</td>
+
+                  <td>⭐ 4.3</td>
+
+                  <td>
+                    <a href="shop.html" class="btn-view"> View </a>
+                  </td>
+                </tr>
+                <!-- SHOP B -->
+                <tr>
+                  <td>
+                    <div class="shop-cell">
+                      <span class="shop-avatar">
+                        <img src="images/shop.png" alt="Shop B" />
+                      </span>
+
+                      Shop B
+                    </div>
+                  </td>
+
+                  <td>Rice (1 kg)</td>
+
+                  <td class="price-cell">135 AFN</td>
+
+                  <td>1.5 km</td>
+
+                  <td>⭐ 4.2</td>
+
+                  <td>
+                    <a href="shop.html" class="btn-view"> View </a>
+                  </td>
+                </tr>
+
+                <!-- SHOP c -->
+                <tr>
+                  <td>
+                    <div class="shop-cell">
+                      <span class="shop-avatar">
+                        <img src="images/shop.png" alt="Shop A" />
+                      </span>
+
+                      Shop D
+                    </div>
+                  </td>
+
+                  <td>Rice (1 kg)</td>
+
+                  <td class="price-cell">140 AFN</td>
+
+                  <td>1.7 km</td>
+
+                  <td>⭐ 4.0</td>
+
+                  <td>
+                    <a href="shop.html" class="btn-view"> View </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- ==================== STAT BOXES ==================== -->
+          <div class="stat-row">
+            <!-- Cheapest -->
+            <div class="stat-box">
+              <div class="stat-label">🏷️ Cheapest Price</div>
+
+              <div class="stat-value">
+                115 AFN
+
+                <span> at Shop C </span>
+              </div>
+            </div>
+            <!-- Average -->
+            <div class="stat-box">
+              <div class="stat-label">📊 Average Price</div>
+
+              <div class="stat-value">123 AFN</div>
+            </div>
+
+            <!-- Price Range -->
+            <div class="stat-box">
+              <div class="stat-label">📈 Price Range</div>
+
+              <div class="stat-value">115 - 135 AFG</div>
+            </div>
+          </div>
+        </div>
+        <!-- END RESULTS COLUMN -->
+      </div>
+      <!-- END SEARCH LAYOUT -->
+    </main>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="site-footer">
+      <div class="foot-top">
+        <!-- Footer brand -->
+        <div class="foot-brand">
+          <div class="logo">
+            <span class="logo-dot">🛒</span>
+            BazaarCheck
+          </div>
+
+          <p>
+            Compare prices from shops near you and always pay less for the
+            things you buy every day.
+          </p>
+
+          <div class="foot-social">
+            <a href="#" aria-label="Location"> 📍 </a>
+
+            <a href="#" aria-label="Email"> ✉️ </a>
+
+            <a href="#" aria-label="Phone"> 📞 </a>
+          </div>
+        </div>
+
+        <!-- Product -->
+        <div class="foot-col">
+          <h5>Product</h5>
+
+          <a href="search.html"> Search </a>
+
+          <a href="categories.html"> Categories </a>
+
+          <a href="compare.html"> Compare </a>
+
+          <a href="alerts.html"> Price Alerts </a>
+        </div>
+
+        <!-- Account -->
+        <div class="foot-col">
+          <h5>Account</h5>
+
+          <a href="profile.html"> Profile </a>
+
+          <a href="settings.html"> Settings </a>
+
+          <a href="login.html"> Login </a>
+
+          <a href="register.html"> Register </a>
+        </div>
+
+        <!-- Company -->
+        <div class="foot-col">
+          <h5>Company</h5>
+
+          <a href="#"> About Us </a>
+
+          <a href="#"> How it Works </a>
+
+          <a href="shops.html"> Partner Shops </a>
+
+          <a href="#"> Contact </a>
+        </div>
+      </div>
+
+      <!-- Footer bottom -->
+      <div class="foot-bottom">
+        <span>
+          © <span id="year"></span> BazaarCheck. All rights reserved.
+        </span>
+
+        <span> Made for smarter, cheaper shopping. </span>
+      </div>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>
+```
