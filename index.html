@@ -1,304 +1,366 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <title>Bazaar Check</title>
-</head>
-<body>
-
-<header class="topbar">
-
-    <button class="menu-btn">
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
-    </button>
+      </button>
 
-    <div class="logo">
-        <img src="images/logo.png" alt="logo" class="logo-png">
-    </div>
+      <div class="logo">
+        <img src="images/logo.png" alt="logo" class="logo-png" />
+      </div>
 
-    <form class="search-box">
+      <form class="search-box">
         <span class="search-icon">
-            <i class="fa-solid fa-magnifying-glass"></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
         </span>
 
-        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)">
+        <input
+          type="text"
+          placeholder="Search for products (e.g. rice, oil, flour...)"
+        />
 
         <button type="submit">Search</button>
-    </form>
+      </form>
 
-    <div class="topbar-right">
-
+      <div class="topbar-right">
         <a href="#" class="icon-btn">
-            <i class="fa-regular fa-bell"></i>
-            <span class="dot"></span>
+          <i class="fa-regular fa-bell"></i>
+          <span class="dot"></span>
         </a>
 
         <a href="#" class="icon-btn">
-            <i class="fa-regular fa-heart"></i>
+          <i class="fa-regular fa-heart"></i>
         </a>
 
         <a href="#" class="user-chip">
-            <img src="images/1.png" alt="user">
-            <span class="name">Hajar Ali</span>
+          <img src="images/1.png" alt="user" />
+          <span class="name">Hajar Ali</span>
         </a>
+      </div>
+    </header>
 
-    </div>
-
-</header>
-
-  <aside class="sidebar" id="sidebar">
-
-    <div class="sidebar-head">
-
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
         <div class="brand">
-            <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png">
+          <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png" />
 
-            <div class="brand-info">
-                <span class="brand-name">Bazaar Check</span>
-                <span class="brand-tagline">Smart shopping</span>
-            </div>
+          <div class="brand-info">
+            <span class="brand-name">Bazaar Check</span>
+            <span class="brand-tagline">Smart shopping</span>
+          </div>
         </div>
 
         <button class="close-btn" id="closeBtn">
-            <i class="fa-solid fa-xmark"></i>
+          <i class="fa-solid fa-xmark"></i>
         </button>
+      </div>
 
-    </div>
-
-    <nav>
+      <nav>
         <a href="index.html" class="active">
-            <i class="fa-solid fa-house"></i>
-            Home
+          <i class="fa-solid fa-house"></i>
+          Home
         </a>
 
         <a href="search.html">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            Search
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search
         </a>
 
         <a href="categories.html">
-            <i class="fa-solid fa-layer-group"></i>
-            Categories
+          <i class="fa-solid fa-layer-group"></i>
+          Categories
+        </a>
+
+        <a href="categories.html">
+          <i class="fa-solid fa-shop"></i>
+          Shops
         </a>
 
         <a href="cart.html">
-            <i class="fa-solid fa-cart-shopping"></i>
-            My Cart
+          <i class="fa-solid fa-cart-shopping"></i>
+          My Cart
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-code-compare"></i>
+          Compare
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-heart"></i>
+          Favorites
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-bell"></i>
+          Alerts
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-chart-line"></i>
+          Price History
         </a>
 
         <a href="profile.html">
-            <i class="fa-regular fa-circle-user"></i>
-            Profile
+          <i class="fa-regular fa-circle-user"></i>
+          Profile
         </a>
-    </nav>
 
-</aside>
+        <a href="cart.html">
+          <i class="fa-solid fa-gear"></i>
+          settings
+        </a>
 
-<!-- Backdrop -->
+        <hr />
 
-<div class="backdrop" id="backdrop"></div>
+        <a href="cart.html">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
+      </nav>
+    </aside>
 
+    <!-- Backdrop -->
 
-<!-- Hero -->
+    <div class="backdrop" id="backdrop"></div>
 
-<section class="hero">
-<div>
+    <!-- Hero -->
 
- <div class="hero-content">
+    <section class="hero">
+      <div>
+        <div class="hero-content">
+          <div class="brand-label">BAZAAR CHECK</div>
 
-        <div class="brand-label">
-            BAZAAR CHECK
-        </div>
+          <h1>Find the <span>Best Prices</span> Near You</h1>
 
-        <h1>
-            Find the <span>Best Prices</span> Near You
-        </h1>
+          <p>
+            Compare prices from different shops and make smarter shopping
+            decisions.
+          </p>
 
-        <p>
-            Compare prices from different shops and make smarter
-            shopping decisions.
-        </p>
-
-        <div class="hero-search">
-
-            <input
-                type="text"
-                placeholder="Search for products..."
-            >
+          <div class="hero-search">
+            <input type="text" placeholder="Search for products..." />
 
             <button>Search</button>
-
+          </div>
         </div>
+        <div class="chip-row">
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">🍚</span>Rice</a
+          >
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">🧴</span>Oil</a
+          >
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">🌾</span>Flour</a
+          >
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">🧂</span>Sugar</a
+          >
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">🍵</span>Tea</a
+          >
+          <a href="product-details.html" class="chip"
+            ><span class="emoji">➕</span>More</a
+          >
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img src="images/image.png" alt="Shopping cart with groceries" />
+      </div>
+    </section>
+
+    <section>
+      <div class="section-title">
+        <h3>
+          Popular Today
+          <span class="text-muted" style="font-weight: 400; font-size: 12.5px"
+            >Most searched products today</span
+          >
+        </h3>
+        <a href="search.html">View All →</a>
+      </div>
+
+<div class="grid grid-5">
+
+  <a href="product-details.html?product=rice" class="product-link">
+    <div class="product-card">
+      <button class="fav-btn">
+        <i class="fa-regular fa-heart simple-heart"></i>
+      </button>
+      <div class="thumb">
+        <img src="images/rice.png" alt="rice-bowl" />
+      </div>
+      <h4>Rice (1 kg)</h4>
+      <p class="form">From</p>
+      <p class="price">115 AFN</p>
     </div>
-       <div class="chip-row">
-                <a href="categories.html" class="chip"><span class="emoji">🍚</span>Rice</a>
-                <a href="categories.html" class="chip"><span class="emoji">🧴</span>Oil</a>
-                <a href="categories.html" class="chip"><span class="emoji">🌾</span>Flour</a>
-                <a href="categories.html" class="chip"><span class="emoji">🧂</span>Sugar</a>
-                <a href="categories.html" class="chip"><span class="emoji">🍵</span>Tea</a>
-                <a href="categories.html" class="chip"><span class="emoji">➕</span>More</a>
-            </div>
+  </a>
+
+  <a href="product-details.html?product=oil" class="product-link">
+    <div class="product-card">
+      <button class="fav-btn">
+        <i class="fa-regular fa-heart simple-heart"></i>
+      </button>
+      <div class="thumb">
+        <img src="images/oil.png" alt="oil" />
+      </div>
+      <h4>Oil (1L)</h4>
+      <p class="form">From</p>
+      <p class="price">170 AFN</p>
+    </div>
+  </a>
+
+  <a href="product-details.html?product=suger" class="product-link">
+    <div class="product-card">
+      <button class="fav-btn">
+        <i class="fa-regular fa-heart simple-heart"></i>
+      </button>
+      <div class="thumb">
+        <img src="images/sugar.png" alt="sugar" />
+      </div>
+      <h4>Sugar (1 kg)</h4>
+      <p class="form">From</p>
+      <p class="price">85 AFN</p>
+    </div>
+  </a>
+
+  <a href="product-details.html?product=tea" class="product-link">
+    <div class="product-card">
+      <button class="fav-btn">
+        <i class="fa-regular fa-heart simple-heart"></i>
+      </button>
+      <div class="thumb">
+        <img src="images/tea.png" alt="tea-bag" />
+      </div>
+      <h4>Tea (100 g)</h4>
+      <p class="form">From</p>
+      <p class="price">140 AFN</p>
+    </div>
+  </a>
+
+  <a href="product-details.html?product=flour" class="product-link">
+    <div class="product-card">
+      <button class="fav-btn">
+        <i class="fa-regular fa-heart simple-heart"></i>
+      </button>
+      <div class="thumb">
+        <img src="images/flour.png" alt="flour" />
+      </div>
+      <h4>Flour (1 kg)</h4>
+      <p class="form">From</p>
+      <p class="price">90 AFN</p>
+    </div>
+  </a>
+
 </div>
 
+    </section>
 
-    <div class="hero-image">
-
-        <img
-            src="images/image.png"
-            alt="Shopping cart with groceries"
-        >
-    </div>
-
-   
-
-</section>
-
-<section>
-
-<div class="section-title">
-  <h3>Popular Today <span class="text-muted" style="font-weight:400;font-size:12.5px;">Most searched products today</span></h3>
-  <a href="search.html">View All →</a>
-</div>
-
-
-  <div class="grid grid-5">
-      <div class="product-card">
-        <button class="fav-btn"> <i class="fa-regular fa-heart simple-heart"></i></button>
-        <div class="thumb"> <img src="images/rice.png" alt="rice-bowel"></div>
-        <h4> Rice (1 kg) </h4>
-        <p class="form">From</p>
-        <p class="price"> 115 AFN</p>
-    </div>
-
-        <div class="product-card">
-        <button class="fav-btn"> <i class="fa-regular fa-heart simple-heart"></i></button>
-        <div class="thumb"> <img src="images/oil.png" alt="oil"></div>
-        <h4> Oil (1L) </h4>
-        <p class="form">From</p>
-        <p class="price"> 170 AFN</p>
-    </div>
-
-        <div class="product-card">
-        <button class="fav-btn"> <i class="fa-regular fa-heart simple-heart"></i></button>
-        <div class="thumb"> <img src="images/sugar.png" alt="sugar"></div>
-        <h4> Sugar (1 kg) </h4>
-        <p class="form">From</p>
-        <p class="price"> 85 AFN</p>
-    </div>
-
-            <div class="product-card">
-        <button class="fav-btn"> <i class="fa-regular fa-heart simple-heart"></i></button>
-        <div class="thumb"> <img src="images/tea.png" alt="tea-bag"></div>
-        <h4> Tea (100 g) </h4>
-        <p class="form">From</p>
-        <p class="price"> 140 AFN</p>
-    </div>
-
-            <div class="product-card">
-        <button class="fav-btn"> <i class="fa-regular fa-heart simple-heart"></i></button>
-        <div class="thumb"> <img src="images/flour.png" alt="flour"></div>
-        <h4> Flour (1 kg) </h4>
-        <p class="form">From</p>
-        <p class="price"> 90 AFN</p>
-    </div>
-  </div>
-
-</section>
-
-<!-- ===== SECTION: WHY BAZAARCHECK (feature strip) ===== -->
-<section class="why-section">
-  <div class="section-heading">
-    <h3>Why BazaarCheck</h3>
-  </div>
-
-  <div class="feature-strip">
-    <div class="feature-item">
-      <div class="fi-icon">⚖️</div>
-      <div>
-        <h5>Compare Prices</h5>
-        <p>Find the best prices from different shops</p>
+    <!-- ===== SECTION: WHY BAZAARCHECK (feature strip) ===== -->
+    <section class="why-section">
+      <div class="section-heading">
+        <h3>Why BazaarCheck</h3>
       </div>
-    </div>
 
-    <div class="feature-item">
-      <div class="fi-icon">💰</div>
-      <div>
-        <h5>Save Money</h5>
-        <p>Compare and choose the cheapest options</p>
+      <div class="feature-strip">
+        <div class="feature-item">
+          <div class="fi-icon">⚖️</div>
+          <div>
+            <h5>Compare Prices</h5>
+            <p>Find the best prices from different shops</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="fi-icon">💰</div>
+          <div>
+            <h5>Save Money</h5>
+            <p>Compare and choose the cheapest options</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="fi-icon">⏱️</div>
+          <div>
+            <h5>Save Time</h5>
+            <p>All prices in one place, quick and easy</p>
+          </div>
+        </div>
+
+        <div class="feature-item">
+          <div class="fi-icon">🔔</div>
+          <div>
+            <h5>Smart Alerts</h5>
+            <p>Get notified when prices drop</p>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
 
-    <div class="feature-item">
-      <div class="fi-icon">⏱️</div>
-      <div>
-        <h5>Save Time</h5>
-        <p>All prices in one place, quick and easy</p>
+    <!-- ===== SECTION: FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <div class="logo"><span class="logo-dot">🛒</span> BazaarCheck</div>
+          <p>
+            Compare prices from shops near you and always pay less for the
+            things you buy every day.
+          </p>
+          <div class="foot-social">
+            <a href="#" aria-label="Location">📍</a>
+            <a href="#" aria-label="Email">✉️</a>
+            <a href="#" aria-label="Phone">📞</a>
+          </div>
+        </div>
+
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="search.html">Search</a>
+          <a href="categories.html">Categories</a>
+          <a href="compare.html">Compare</a>
+          <a href="alerts.html">Price Alerts</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Account</h5>
+          <a href="profile.html">Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#">About Us</a>
+          <a href="#">How it Works</a>
+          <a href="shops.html">Partner Shops</a>
+          <a href="#">Contact</a>
+        </div>
       </div>
-    </div>
 
-    <div class="feature-item">
-      <div class="fi-icon">🔔</div>
-      <div>
-        <h5>Smart Alerts</h5>
-        <p>Get notified when prices drop</p>
+      <div class="foot-bottom">
+        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span>Made for smarter, cheaper shopping.</span>
       </div>
-    </div>
-  </div>
-</section>
+    </footer>
 
-<!-- ===== SECTION: FOOTER ===== -->
-<footer class="site-footer">
-
-  <div class="foot-top">
-
-    <div class="foot-brand">
-      <div class="logo"><span class="logo-dot">🛒</span> BazaarCheck</div>
-      <p>Compare prices from shops near you and always pay less for the things you buy every day.</p>
-      <div class="foot-social">
-        <a href="#" aria-label="Location">📍</a>
-        <a href="#" aria-label="Email">✉️</a>
-        <a href="#" aria-label="Phone">📞</a>
-      </div>
-    </div>
-
-    <div class="foot-col">
-      <h5>Product</h5>
-      <a href="search.html">Search</a>
-      <a href="categories.html">Categories</a>
-      <a href="compare.html">Compare</a>
-      <a href="alerts.html">Price Alerts</a>
-    </div>
-
-    <div class="foot-col">
-      <h5>Account</h5>
-      <a href="profile.html">Profile</a>
-      <a href="settings.html">Settings</a>
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-    </div>
-
-    <div class="foot-col">
-      <h5>Company</h5>
-      <a href="#">About Us</a>
-      <a href="#">How it Works</a>
-      <a href="shops.html">Partner Shops</a>
-      <a href="#">Contact</a>
-    </div>
-
-  </div>
-
-  <div class="foot-bottom">
-    <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
-    <span>Made for smarter, cheaper shopping.</span>
-  </div>
-
-</footer>
-
-
-<script src="index.js"></script>
-</body>
+    <script src="index.js"></script>
+  </body>
 </html>

@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Product-Details . BazaarCheck</title>
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="logo">
+        <img src="images/logo.png" alt="logo" class="logo-png" />
+      </div>
+
+      <form class="search-box">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)"/>
+
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="topbar-right">
+        <a href="#" class="icon-btn">
+          <i class="fa-regular fa-bell"></i>
+          <span class="dot"></span>
+        </a>
+
+        <a href="#" class="icon-btn">
+          <i class="fa-regular fa-heart"></i>
+        </a>
+
+        <a href="#" class="user-chip">
+          <img src="images/1.png" alt="user" />
+          <span class="name">Hajar Ali</span>
+        </a>
+      </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="brand">
+          <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png" />
+
+          <div class="brand-info">
+            <span class="brand-name">Bazaar Check</span>
+            <span class="brand-tagline">Smart shopping</span>
+          </div>
+        </div>
+
+        <button class="close-btn" id="closeBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav>
+        <a href="index.html" class="active">
+          <i class="fa-solid fa-house"></i>
+          Home
+        </a>
+
+        <a href="search.html">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search
+        </a>
+
+        <a href="categories.html">
+          <i class="fa-solid fa-layer-group"></i>
+          Categories
+        </a>
+
+        <a href="categories.html">
+          <i class="fa-solid fa-shop"></i>
+          Shops
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          My Cart
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-code-compare"></i>
+          Compare
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-heart"></i>
+          Favorites
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-bell"></i>
+          Alerts
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-chart-line"></i>
+          Price History
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-regular fa-circle-user"></i>
+          Profile
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-gear"></i>
+          settings
+        </a>
+
+        <hr />
+
+        <a href="cart.html">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Logout
+        </a>
+      </nav>
+    </aside>
+
+    <!-- Backdrop -->
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <main class="page">
+      <div class="crumbs">
+        <a href="index.html">Home</a>
+        <span> / </span>
+        <span class="current"> Rice (1 kg) </span>
+      </div>
+
+      <div class="product-layout">
+        <div class = "product-summary"> 
+          <div class="summary-thumb">
+    <img src="images/rice.png" alt="Rice (1 kg)">
+</div>
+
+<h2>Rice (1 kg)</h2>
+
+<div class="summary-rating">⭐⭐⭐⭐⭐ 4.6 (120 reviews)</div>
+
+<p class="summary-label">Price Range</p>
+<p class="summary-price">115 AFN – 145 AFN</p>
+
+<button class="btn-outline-full" id="favBtn">
+    <i class="fa-regular fa-heart"></i> Add to Favorites
+</button>
+
+<button class="btn-ghost-full" id="alertBtn">
+    <i class="fa-regular fa-bell"></i> Set Price Alert
+</button>
+        </div>
+
+        <div class="product-details-col">
+          <div class="section-heading">
+    <h3>Compare prices from different shops</h3>
+</div>
+
+<div class="table-card">
+    <table class="price-table">
+        <thead>
+            <tr>
+                <th>Shop</th>
+                <th>Price</th>
+                <th>Distance</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="shopRows">
+         
+
+
+
+        </tbody>
+    </table>
+</div>
+
+<!-- product details section -->
+
+<div class="section-heading" style="margin-top:22px;">
+    <h3>Price History</h3>
+    <a href="price-history.html">Full history →</a>
+</div>
+
+<div class="history-preview">
+    <p>
+        Rice (1 kg) has trended upward over the last 3 weeks, from 105 AFN to 125 AFN on average.
+        <a href="price-history.html">View the full chart →</a>
+    </p>
+</div>
+
+        </div>
+      </div>
+
+    </main>
+
+    <!-- ===== SECTION: FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <div class="logo"><span class="logo-dot">🛒</span> BazaarCheck</div>
+          <p>
+            Compare prices from shops near you and always pay less for the
+            things you buy every day.
+          </p>
+          <div class="foot-social">
+            <a href="#" aria-label="Location">📍</a>
+            <a href="#" aria-label="Email">✉️</a>
+            <a href="#" aria-label="Phone">📞</a>
+          </div>
+        </div>
+
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="search.html">Search</a>
+          <a href="categories.html">Categories</a>
+          <a href="compare.html">Compare</a>
+          <a href="alerts.html">Price Alerts</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Account</h5>
+          <a href="profile.html">Profile</a>
+          <a href="settings.html">Settings</a>
+          <a href="login.html">Login</a>
+          <a href="register.html">Register</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#">About Us</a>
+          <a href="#">How it Works</a>
+          <a href="shops.html">Partner Shops</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span>Made for smarter, cheaper shopping.</span>
+      </div>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>

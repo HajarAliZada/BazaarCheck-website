@@ -404,6 +404,9 @@ body {
 /* SIDEBAR NAVIGATION  */
 .sidebar {
   width: 290px;
+  height:100vh;
+  overflow-y:auto;
+  overflow-x:hidden;
 }
 
 .sidebar nav {
@@ -721,9 +724,14 @@ body {
   justify-content:center;
   color:var(--red);
   transition:.15s transform;
+  cursor:pointer;
 }
 .product-card .fav-btn:hover{
     transform:scale(1.12);
+}
+.product-link {
+    text-decoration: none;
+    color: inherit;
 }
 .product-card h4{
     margin:0 0 4px;
@@ -1045,7 +1053,22 @@ body {
 .price-cell{ font-weight:700; color:var(--primary-dark); }
 .lowest-tag{
   background:var(--primary-light); color:var(--primary-dark); font-size:10.5px; font-weight:700;
-  padding:2px 7px; border-radius:6px; margin-left:6px;
+  padding:2px 7px; border-radius:6px; margin-left:6px;.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: #666;
+}
 }
 .btn-view{
   display:inline-block; background:var(--primary); color:var(--white); text-decoration:none;
@@ -1056,6 +1079,139 @@ body {
 .stat-label{ font-size:12px; color:var(--text-light); margin-bottom:4px; }
 .stat-value{ font-size:18px; font-weight:700; color:var(--primary-dark); }
 .stat-value span{ font-size:12px; font-weight:500; color:var(--text-light); }
+
+.crumbs{
+    font-size:12.5px;
+    color:var(--text-light);
+    margin-bottom:14px;
+}
+.crumbs a{
+    color:var(--text-light);
+    text-decoration:none;
+}
+.crumbs a:hover{
+    color:var(--primary-dark);
+}
+.crumbs span{
+    margin:0 4px;
+}
+.crumbs .current{
+    color:var(--black);
+    font-weight:600;
+}
+.product-layout{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:22px;
+    align-items:start;
+}
+
+/* Product summary */
+.product-summary{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:20px;
+    text-align:center;
+}
+.summary-thumb{
+    background:var(--surface-soft);
+    border-radius:var(--radius-sm);
+    height:190px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:14px;
+}
+.summary-thumb img{
+    max-width:90px;
+    max-height:90px;
+    object-fit:contain;
+}
+.product-summary h2{
+    margin:0 0 6px;
+    font-size:19px;
+    color:var(--black);
+}
+.summary-rating{
+    font-size:13px;
+    color:var(--black);
+    margin-bottom:12px;
+}
+.summary-label{
+    font-size:13px;
+    color:var(--text-light);
+    margin:10px 0 4px;
+}
+.summary-price{
+    font-weight:800;
+    font-size:18px;
+    color:var(--primary-dark);
+    margin:0 0 16px;
+}
+.btn-outline-full{
+    width:100%;
+    background:var(--surface);
+    color:var(--primary-dark);
+    border:1.5px solid var(--primary);
+    border-radius:var(--radius-sm);
+    padding:11px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    margin-bottom:10px;
+    transition:var(--transition);
+}
+.btn-outline-full:hover{
+    background:var(--primary-light);
+}
+.btn-outline-full.is-favorited{
+    background:var(--primary);
+    color:var(--white);
+    border-color:var(--primary);
+}
+.btn-ghost-full{
+    width:100%;
+    background:var(--surface-soft);
+    color:var(--text);
+    border:1px solid var(--border);
+    border-radius:var(--radius-sm);
+    padding:11px;
+    font-weight:600;
+    font-size:14px;
+    cursor:pointer;
+    transition:var(--transition);
+}
+.btn-ghost-full:hover{
+    background:var(--border);
+}
+
+/* Product details  */
+.history-preview{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:18px;
+}
+.history-preview p{
+    margin:0;
+    font-size:13px;
+    color:var(--text-light);
+    line-height:1.6;
+}
+.history-preview a{
+    color:var(--primary-dark);
+    font-weight:600;
+    text-decoration:none;
+}
+
+
+@media (max-width:900px){
+    .product-layout{
+        grid-template-columns:1fr;
+    }
+}
+
 @media (max-width:900px){
   .search-layout{ grid-template-columns:1fr; }
   .filters{ display:none; }
