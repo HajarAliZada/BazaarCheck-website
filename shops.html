@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,10 +12,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Product-Details . BazaarCheck</title>
-  </head>
-  <body>
-    <header class="topbar">
+    <title>Shops . Bazaar Check</title>
+</head>
+<body>
+        <header class="topbar">
       <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -29,7 +29,10 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
 
-        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)"/>
+        <input
+          type="text"
+          placeholder="Search for products (e.g. rice, oil, flour...)"
+        />
 
         <button type="submit">Search</button>
       </form>
@@ -68,7 +71,7 @@
       </div>
 
       <nav>
-        <a href="index.html" class="active">
+        <a href="index.html">
           <i class="fa-solid fa-house"></i>
           Home
         </a>
@@ -83,7 +86,7 @@
           Categories
         </a>
 
-        <a href="categories.html">
+        <a href="categories.html" class="active">
           <i class="fa-solid fa-shop"></i>
           Shops
         </a>
@@ -136,81 +139,91 @@
 
     <div class="backdrop" id="backdrop"></div>
 
+
     <main class="page">
-      <div class="crumbs">
-        <a href="index.html">Home</a>
+        <div class="crumbs">
+              <a href="index.html">Home</a>
         <span> / </span>
-         <a href="food.html">Food</a>
-    <span>/</span>
-        <span class="current"> Rice (1 kg) </span>
-      </div>
-
-      <div class="product-layout">
-        <div class = "product-summary"> 
-          <div class="summary-thumb">
-    <img src="images/rice.png" alt="Rice (1 kg)">
-</div>
-
-<h2>Rice (1 kg)</h2>
-
-<div class="summary-rating">⭐⭐⭐⭐⭐ 4.6 (120 reviews)</div>
-
-<p class="summary-label">Price Range</p>
-<p class="summary-price">115 AFN – 145 AFN</p>
-
-<button class="btn-outline-full" id="favBtn">
-    <i class="fa-regular fa-heart"></i> Add to Favorites
-</button>
-
-<button class="btn-ghost-full" id="alertBtn">
-    <i class="fa-regular fa-bell"></i> Set Price Alert
-</button>
+         <span class="current"> shops </span>
         </div>
-
-        <div class="product-details-col">
-          <div class="section-heading">
-    <h3>Compare prices from different shops</h3>
+<div class="page-head">
+    <h1>All Shops</h1>
+    <p>Browse every shop on Bazaar Check and find one near you.</p>
 </div>
 
-<div class="table-card">
-    <table class="price-table">
-        <thead>
-            <tr>
-                <th>Shop</th>
-                <th>Price</th>
-                <th>Distance</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="shopRows">
-         
+<!-- Cards of shops page-->
+<div class="shops-grid">
 
-
-
-        </tbody>
-    </table>
-</div>
-
-<!-- product details section -->
-
-<div class="section-heading" style="margin-top:22px;">
-    <h3>Price History</h3>
-    <a href="price-history.html">Full history →</a>
-</div>
-
-<div class="history-preview">
-    <p>
-        Rice (1 kg) has trended upward over the last 3 weeks, from 105 AFN to 125 AFN on average.
-        <a href="price-history.html">View the full chart →</a>
-    </p>
-</div>
-
+    <a href="shop.html?shop=shopA" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJft0LsyEhDLzR8dxZtNvDJk0MuqBWk8TRnx_KeRvYLvVtWVfVpu3Cw2g&s=10" alt="Shop A"></div>
+        <h4>Halal Shop</h4>
+        <p class="shop-card-location">📍 Kabul, Shahr-e-Naw</p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.3</span>
+            <span class="shop-card-distance">1.2 km</span>
         </div>
-      </div>
+        <p class="shop-card-count">180 products</p>
+    </a>
 
+    <a href="shop.html?shop=shopB" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://media.evendo.com/locations-resized/ShoppingImages/550x400/3c74bc1b-8002-4f3d-bdcf-a699f25c0c66" alt="Shop B"></div>
+        <h4>Solaiman Shop</h4>
+        <p class="shop-card-location">📍 Kabul, Wazir Akbar Khan</p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.2</span>
+            <span class="shop-card-distance">1.5 km</span>
+        </div>
+        <p class="shop-card-count">140 products</p>
+    </a>
+
+    <a href="shop.html?shop=shopC" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://static.where-e.com/Pakistan/F_A_T_A/Kurram/Kefayat-Supermarket_thumb_c9e9742de23e316dc2e5f0a391dbcc3d.jpg" alt="Shop C"></div>
+        <h4>Kefayat SuperMarket</h4>
+        <p class="shop-card-location">📍 Kabul, Karte Parwan</p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.6</span>
+            <span class="shop-card-distance">0.8 km</span>
+        </div>
+        <p class="shop-card-count">230 products</p>
+    </a>
+
+    <a href="shop.html?shop=shopD" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://s3-media0.fl.yelpcdn.com/bphoto/TKPEgkI54XH-0xph1eG99A/348s.jpg" alt="Shop D"></div>
+        <h4>Rezaiee Market</h4>
+        <p class="shop-card-location">📍 Kabul, Taimani</p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.1</span>
+            <span class="shop-card-distance">2.1 km</span>
+        </div>
+        <p class="shop-card-count">95 products</p>
+    </a>
+
+        <a href="shop.html?shop=shopF" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzlh3S_sUHNna_CQBn1HIdFrZR-kQPAcmhpTnDNbLiIz3rOWP41AtxWYk&s=10" alt="Shop D"></div>
+        <h4>Haji Zaki shop</h4>
+        <p class="shop-card-location">📍 Kabul, Ploli-khosk</p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.3</span>
+            <span class="shop-card-distance">3.1 km</span>
+        </div>
+        <p class="shop-card-count">130 products</p>
+    </a>
+
+        <a href="shop.html?shop=shopG" class="shop-card">
+        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIkL50xSicew6qmEfA97BynYwQlstTQnJ793xnwlp4aA&s=10" alt="Shop D"></div>
+        <h4>Mahaly Shop</h4>
+        <p class="shop-card-location">📍 Kabul, Qala-e-now </p>
+        <div class="shop-card-meta">
+            <span class="shop-card-rating">⭐ 4.7</span>
+            <span class="shop-card-distance">2.16 km</span>
+        </div>
+        <p class="shop-card-count">112 products</p>
+    </a>
+
+</div>
     </main>
 
-    <!-- ===== SECTION: FOOTER ===== -->
+        <!-- ===== SECTION: FOOTER ===== -->
     <footer class="site-footer">
       <div class="foot-top">
         <div class="foot-brand">
@@ -252,10 +265,11 @@
       </div>
 
       <div class="foot-bottom">
-        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span><span id="year"></span> BazaarCheck. All rights reserved.</span>
         <span>Made for smarter, cheaper shopping.</span>
       </div>
     </footer>
+
     <script src="index.js"></script>
-  </body>
+</body>
 </html>

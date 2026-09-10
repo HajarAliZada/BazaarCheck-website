@@ -1,9 +1,9 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="index.css" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,10 +12,11 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Product-Details . BazaarCheck</title>
-  </head>
-  <body>
-    <header class="topbar">
+    <title>Shop . Bazaar Check</title>
+</head>
+<body>
+
+      <header class="topbar">
       <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -29,7 +30,10 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
 
-        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)"/>
+        <input
+          type="text"
+          placeholder="Search for products (e.g. rice, oil, flour...)"
+        />
 
         <button type="submit">Search</button>
       </form>
@@ -68,7 +72,7 @@
       </div>
 
       <nav>
-        <a href="index.html" class="active">
+        <a href="index.html">
           <i class="fa-solid fa-house"></i>
           Home
         </a>
@@ -83,7 +87,7 @@
           Categories
         </a>
 
-        <a href="categories.html">
+        <a href="categories.html" class="active">
           <i class="fa-solid fa-shop"></i>
           Shops
         </a>
@@ -136,81 +140,68 @@
 
     <div class="backdrop" id="backdrop"></div>
 
-    <main class="page">
-      <div class="crumbs">
-        <a href="index.html">Home</a>
-        <span> / </span>
-         <a href="food.html">Food</a>
+<main class="page">
+  <div class="crumbs">
+    <a href="index.html">Home</a>
     <span>/</span>
-        <span class="current"> Rice (1 kg) </span>
-      </div>
-
-      <div class="product-layout">
-        <div class = "product-summary"> 
-          <div class="summary-thumb">
-    <img src="images/rice.png" alt="Rice (1 kg)">
+    <a href="shops.html">Shops</a>
+    <span>/</span>
+    <span class="current" id="crumbShopName">Shop</span>
 </div>
 
-<h2>Rice (1 kg)</h2>
+<div class="shop-header">
 
-<div class="summary-rating">⭐⭐⭐⭐⭐ 4.6 (120 reviews)</div>
+    <div class="shop-header-thumb">
+        <img id="shopImage" src="images/shop.png" alt="Shop">
+    </div>
 
-<p class="summary-label">Price Range</p>
-<p class="summary-price">115 AFN – 145 AFN</p>
+    <div class="shop-header-info">
+        <h2 id="shopName">Shop Name</h2>
+        <div class="shop-header-meta">
+            <span id="shopRating">⭐ 4.6 (230 reviews)</span>
+            <span id="shopLocation">📍 Kabul</span>
+            <span id="shopDistance">🚶 0.8 km away</span>
+        </div>
+    </div>
 
-<button class="btn-outline-full" id="favBtn">
-    <i class="fa-regular fa-heart"></i> Add to Favorites
-</button>
+    <a href="#" class="btn-view" id="directionsBtn">Get Directions</a>
 
-<button class="btn-ghost-full" id="alertBtn">
-    <i class="fa-regular fa-bell"></i> Set Price Alert
-</button>
+</div>
+
+<div class="shop-layout">
+
+    <div class="shop-about-card">
+        <h3 style="margin-top:0; font-size:15px;">About Shop</h3>
+        <p id="shopAbout" class="shop-about-text">Description goes here.</p>
+
+        <hr>
+
+        <h3 style="font-size:15px;">Contact</h3>
+        <p class="shop-about-text" id="shopPhone">📞 —</p>
+        <p class="shop-about-text" id="shopHours">🕐 —</p>
+    </div>
+
+    <div class="shop-products-col">
+        <div class="section-heading">
+            <h3>Products & Prices</h3>
         </div>
 
-        <div class="product-details-col">
-          <div class="section-heading">
-    <h3>Compare prices from different shops</h3>
-</div>
-
-<div class="table-card">
-    <table class="price-table">
-        <thead>
-            <tr>
-                <th>Shop</th>
-                <th>Price</th>
-                <th>Distance</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="shopRows">
-         
-
-
-
-        </tbody>
-    </table>
-</div>
-
-<!-- product details section -->
-
-<div class="section-heading" style="margin-top:22px;">
-    <h3>Price History</h3>
-    <a href="price-history.html">Full history →</a>
-</div>
-
-<div class="history-preview">
-    <p>
-        Rice (1 kg) has trended upward over the last 3 weeks, from 105 AFN to 125 AFN on average.
-        <a href="price-history.html">View the full chart →</a>
-    </p>
-</div>
-
+        <div class="table-card">
+            <table class="price-table">
+                <thead>
+                    <tr><th>Product</th><th>Price</th><th>Action</th></tr>
+                </thead>
+                <tbody id="shopProductRows">
+                    <!-- filled by JavaScript -->
+                </tbody>
+            </table>
         </div>
-      </div>
+    </div>
 
-    </main>
-
-    <!-- ===== SECTION: FOOTER ===== -->
+</div>
+    
+</main>
+        <!-- ===== SECTION: FOOTER ===== -->
     <footer class="site-footer">
       <div class="foot-top">
         <div class="foot-brand">
@@ -252,10 +243,12 @@
       </div>
 
       <div class="foot-bottom">
-        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span><span id="year"></span> BazaarCheck. All rights reserved.</span>
         <span>Made for smarter, cheaper shopping.</span>
       </div>
     </footer>
+
     <script src="index.js"></script>
-  </body>
+    
+</body>
 </html>

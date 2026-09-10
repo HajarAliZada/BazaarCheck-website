@@ -90,6 +90,9 @@ if(data){
   document.querySelector('.summary-price').textContent = data.priceRange;
   document.title = data.name + " · Bazaar Check";
 }
+if (data) {
+    document.querySelector('.current').textContent = data.name;
+}
 
 if(data){
     const tbody = document.getElementById('shopRows');
@@ -187,7 +190,6 @@ if(filterToggle){
 }
 
 const sortSelect = document.querySelector('.sort-select');
-
 const tableBody = document.querySelector('.price-table tbody');
 
 function getPrice(row) {
@@ -202,33 +204,183 @@ function getRating(row) {
     return parseFloat(row.children[4].textContent.replace('⭐', '').trim());
 }
 
-sortSelect.addEventListener('change', () => {
+if (sortSelect) {
+    sortSelect.addEventListener('change', () => {
 
-    const rows = Array.from(tableBody.querySelectorAll('tr'));
+        const rows = Array.from(tableBody.querySelectorAll('tr'));
 
-    const value = sortSelect.value;
+        const value = sortSelect.value;
 
-    rows.sort((a, b) => {
+        rows.sort((a, b) => {
 
-        if (value === 'price-low') {
-            return getPrice(a) - getPrice(b);
-        }
+            if (value === 'price-low') {
+                return getPrice(a) - getPrice(b);
+            }
 
-        if (value === 'price-high') {
-            return getPrice(b) - getPrice(a);
-        }
+            if (value === 'price-high') {
+                return getPrice(b) - getPrice(a);
+            }
 
-        if (value === 'distance') {
-            return getDistance(a) - getDistance(b);
-        }
+            if (value === 'distance') {
+                return getDistance(a) - getDistance(b);
+            }
 
-        if (value === 'rating') {
-            return getRating(b) - getRating(a);
-        }
+            if (value === 'rating') {
+                return getRating(b) - getRating(a);
+            }
 
-        return 0;
+            return 0;
+        });
+
+        rows.forEach(row => tableBody.appendChild(row));
     });
+}
 
-    rows.forEach(row => tableBody.appendChild(row));
-});
+// shop dynemic cards
+
+const shops = {
+  shopA: {
+    name: "Shop A",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJft0LsyEhDLzR8dxZtNvDJk0MuqBWk8TRnx_KeRvYLvVtWVfVpu3Cw2g&s=10",
+    rating: "⭐ 4.3 (180 reviews)",
+    location: "📍 Kabul, Shahr-e-Naw",
+    distance: "🚶 1.2 km away",
+    about: "A trusted neighborhood store offering fresh groceries at fair prices.",
+    phone: "📞 +93 70 111 2222",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 120 },
+      { name: "Oil (1 L)", price: 160 },
+      { name: "Tea (100 g)", price: 138 }
+    ]
+  },
+  shopC: {
+    name: "Shop C",
+    image: "images/shop-icon.png",
+    rating: "⭐ 4.6 (230 reviews)",
+    location: "📍 Kabul, Karte Parwan",
+    distance: "🚶 0.8 km away",
+    about: "Family-run since 2014, Shop C stocks fresh staples daily.",
+    phone: "📞 +93 70 123 4567",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 115 },
+      { name: "Oil (1 L)", price: 170 },
+      { name: "Flour (1 kg)", price: 90 },
+      { name: "Sugar (1 kg)", price: 85 },
+      { name: "Tea (100 g)", price: 140 }
+    ]
+  },
+  shopD: {
+    name: "Shop D",
+    image: "images/shop.png",
+    rating: "⭐ 4.7 (250 reviews)",
+    location: "📍 Kabul, Poli - Khoshk",
+    distance: "🚶 0.9 km away",
+    about: "Family-run since 2014, Shop D stocks fresh staples daily.",
+    phone: "📞 +93 70 123 4567",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 115 },
+      { name: "Oil (1 L)", price: 170 },
+      { name: "Flour (1 kg)", price: 90 },
+      { name: "Sugar (1 kg)", price: 85 },
+      { name: "Tea (100 g)", price: 140 }
+    ]
+  },
+
+    shopB: {
+    name: "Shop B",
+    image: "images/shop.png",
+    rating: "⭐ 4.3 (200 reviews)",
+    location: "📍 Kabul, Barchi",
+    distance: "🚶 1.8 km away",
+    about: "Family-run since 2015, Shop B stocks fresh staples daily.",
+    phone: "📞 +93 70 123 4567",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 115 },
+      { name: "Oil (1 L)", price: 170 },
+      { name: "Flour (1 kg)", price: 90 },
+      { name: "Sugar (1 kg)", price: 85 },
+      { name: "Tea (100 g)", price: 140 }
+    ]
+  },
+
+    
+    shopF: {
+    name: "Shop F",
+    image: "images/shop.png",
+    rating: "⭐ 4.3 (200 reviews)",
+    location: "📍 Kabul, Barchi",
+    distance: "🚶 1.8 km away",
+    about: "Family-run since 2015, Shop B stocks fresh staples daily.",
+    phone: "📞 +93 70 123 4567",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 115 },
+      { name: "Oil (1 L)", price: 170 },
+      { name: "Flour (1 kg)", price: 90 },
+      { name: "Sugar (1 kg)", price: 85 },
+      { name: "Tea (100 g)", price: 140 }
+    ]
+  },
+  
+    shopG: {
+    name: "Shop G",
+    image: "images/shop.png",
+    rating: "⭐ 4.3 (200 reviews)",
+    location: "📍 Kabul, Pole-Sorkh",
+    distance: "🚶 1.8 km away",
+    about: "Family-run since 2015, Shop B stocks fresh staples daily.",
+    phone: "📞 +93 70 123 4567",
+    hours: "🕐 Open 7:00 AM – 9:00 PM",
+    products: [
+      { name: "Rice (1 kg)", price: 115 },
+      { name: "Oil (1 L)", price: 170 },
+      { name: "Flour (1 kg)", price: 90 },
+      { name: "Sugar (1 kg)", price: 85 },
+      { name: "Tea (100 g)", price: 140 }
+    ]
+  },
+
+
+};
+
+
+const shopParams = new URLSearchParams(window.location.search);
+const shopId = shopParams.get('shop');
+const shopData = shops[shopId];
+
+console.log(shopData);
+
+if(shopData){
+  document.getElementById('shopName').textContent = shopData.name;
+  document.getElementById('crumbShopName').textContent = shopData.name;
+  document.getElementById('shopImage').src = shopData.image;
+document.getElementById('shopImage').alt = shopData.name;
+  document.getElementById('shopImage').src = shopData.image;
+  document.getElementById('shopImage').alt = shopData.name;
+  document.getElementById('shopRating').textContent = shopData.rating;
+  document.getElementById('shopLocation').textContent = shopData.location;
+  document.getElementById('shopDistance').textContent = shopData.distance;
+  document.getElementById('shopAbout').textContent = shopData.about;
+  document.getElementById('shopPhone').textContent = shopData.phone;
+  document.getElementById('shopHours').textContent = shopData.hours;
+  document.title = shopData.name + " · Bazaar Check";
+
+   const tbody = document.getElementById('shopProductRows');
+  let rowsHTML = "";
+
+  shopData.products.forEach(product => {
+    rowsHTML += `
+      <tr>
+        <td>${product.name}</td>
+        <td class="price-cell">${product.price} AFN</td>
+        <td><a href="product-details.html" class="btn-view">View</a></td>
+      </tr>
+    `;
+  });
+  tbody.innerHTML = rowsHTML;
+}
 
