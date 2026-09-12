@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="index.css" />
+      <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,7 +12,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Shops . Bazaar Check</title>
+    <title>Categories . BazaarCheck</title>
 </head>
 <body>
         <header class="topbar">
@@ -29,10 +29,7 @@
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
 
-        <input
-          type="text"
-          placeholder="Search for products (e.g. rice, oil, flour...)"
-        />
+        <input type="text" placeholder="Search for products (e.g. rice, oil, flour...)"/>
 
         <button type="submit">Search</button>
       </form>
@@ -81,12 +78,12 @@
           Search
         </a>
 
-        <a href="categories.html">
+        <a href="categories.html" class="active">
           <i class="fa-solid fa-layer-group"></i>
           Categories
         </a>
 
-        <a href="categories.html" class="active">
+        <a href="shops.html">
           <i class="fa-solid fa-shop"></i>
           Shops
         </a>
@@ -141,86 +138,66 @@
 
 
     <main class="page">
-        <div class="crumbs">
+       <div class="crumbs">
               <a href="index.html">Home</a>
         <span> / </span>
          <span class="current"> shops </span>
         </div>
-<div class="page-head">
-    <h1>All Shops</h1>
-    <p>Browse every shop on Bazaar Check and find one near you.</p>
-</div>
 
-<!-- Cards of shops page-->
-<div class="shops-grid">
-
-    <a href="shop.html?shop=shopA" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJft0LsyEhDLzR8dxZtNvDJk0MuqBWk8TRnx_KeRvYLvVtWVfVpu3Cw2g&s=10" alt="Shop A"></div>
-        <h4>Halal Shop</h4>
-        <p class="shop-card-location">📍 Kabul, Shahr-e-Naw</p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.3</span>
-            <span class="shop-card-distance">1.2 km</span>
+           <div class="page-head">
+            <h1>All Categories</h1>
+            <p>Browse products by category and compare prices across shops.</p>
         </div>
-        <p class="shop-card-count">180 products</p>
-    </a>
 
-    <a href="shop.html?shop=shopB" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://media.evendo.com/locations-resized/ShoppingImages/550x400/3c74bc1b-8002-4f3d-bdcf-a699f25c0c66" alt="Shop B"></div>
-        <h4>Solaiman Shop</h4>
-        <p class="shop-card-location">📍 Kabul, Wazir Akbar Khan</p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.2</span>
-            <span class="shop-card-distance">1.5 km</span>
+        <div class="categories-banner">
+            🛍️ Over <strong>500+ products</strong> across <strong>7 categories</strong> — find what you need faster.
         </div>
-        <p class="shop-card-count">140 products</p>
-    </a>
 
-    <a href="shop.html?shop=shopC" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://static.where-e.com/Pakistan/F_A_T_A/Kurram/Kefayat-Supermarket_thumb_c9e9742de23e316dc2e5f0a391dbcc3d.jpg" alt="Shop C"></div>
-        <h4>Kefayat SuperMarket</h4>
-        <p class="shop-card-location">📍 Kabul, Karte Parwan</p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.6</span>
-            <span class="shop-card-distance">0.8 km</span>
+        <div class="categories-grid">
+
+            <a href="search.html?category=food" class="category-card featured">
+                <div class="category-card-thumb" style="background:rgba(255,255,255,.22);">🍚</div>
+                <h4>Food</h4>
+                <p class="category-card-count">120+ items</p>
+            </a>
+
+            <a href="search.html?category=beverages" class="category-card">
+                <div class="category-card-thumb" style="background:#e8f4fd;">🥤</div>
+                <h4>Beverages</h4>
+                <p class="category-card-count">45+ items</p>
+            </a>
+
+            <a href="search.html?category=household" class="category-card">
+                <div class="category-card-thumb" style="background:#f0e8fd;">🧹</div>
+                <h4>Household</h4>
+                <p class="category-card-count">60+ items</p>
+            </a>
+
+            <a href="search.html?category=personal-care" class="category-card">
+                <div class="category-card-thumb" style="background:#fde8ef;">🧴</div>
+                <h4>Personal Care</h4>
+                <p class="category-card-count">60+ items</p>
+            </a>
+
+            <a href="search.html?category=clothing" class="category-card">
+                <div class="category-card-thumb" style="background:#e8fdf2;">👕</div>
+                <h4>Clothing</h4>
+                <p class="category-card-count">75+ items</p>
+            </a>
+
+            <a href="search.html?category=electronics" class="category-card">
+                <div class="category-card-thumb" style="background:#fdf8e8;">🔌</div>
+                <h4>Electronics</h4>
+                <p class="category-card-count">40+ items</p>
+            </a>
+
+            <a href="search.html?category=other" class="category-card">
+                <div class="category-card-thumb" style="background:#f0f0f0;">📦</div>
+                <h4>Other</h4>
+                <p class="category-card-count">100+ items</p>
+            </a>
+
         </div>
-        <p class="shop-card-count">230 products</p>
-    </a>
-
-    <a href="shop.html?shop=shopD" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://s3-media0.fl.yelpcdn.com/bphoto/TKPEgkI54XH-0xph1eG99A/348s.jpg" alt="Shop D"></div>
-        <h4>Rezaiee Market</h4>
-        <p class="shop-card-location">📍 Kabul, Taimani</p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.1</span>
-            <span class="shop-card-distance">2.1 km</span>
-        </div>
-        <p class="shop-card-count">95 products</p>
-    </a>
-
-        <a href="shop.html?shop=shopF" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzlh3S_sUHNna_CQBn1HIdFrZR-kQPAcmhpTnDNbLiIz3rOWP41AtxWYk&s=10" alt="Shop D"></div>
-        <h4>Haji Zaki Shop</h4>
-        <p class="shop-card-location">📍 Kabul, Ploli-khosk</p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.3</span>
-            <span class="shop-card-distance">3.1 km</span>
-        </div>
-        <p class="shop-card-count">130 products</p>
-    </a>
-
-        <a href="shop.html?shop=shopG" class="shop-card">
-        <div class="shop-card-thumb"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIkL50xSicew6qmEfA97BynYwQlstTQnJ793xnwlp4aA&s=10" alt="Shop D"></div>
-        <h4>Mahaly Shop</h4>
-        <p class="shop-card-location">📍 Kabul, Qala-e-now </p>
-        <div class="shop-card-meta">
-            <span class="shop-card-rating">⭐ 4.7</span>
-            <span class="shop-card-distance">2.16 km</span>
-        </div>
-        <p class="shop-card-count">112 products</p>
-    </a>
-
-</div>
     </main>
 
         <!-- ===== SECTION: FOOTER ===== -->

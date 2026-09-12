@@ -703,19 +703,26 @@ body {
 .product-card .thumb{
   background:var(--primary-light);
   border-radius:10px;
-  height:110px;
+  height:160px;
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:44px;
   margin-bottom:12px;
 }
+.product-card .thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    padding: 10px;
+}
 .product-card .fav-btn{
   position:absolute;
   top:12px;
   right:12px;
-  width:30px;
-  height:30px;
+  width:34px;
+  height:34px;
   border-radius:50%;
   background:#fff;
   border:1px solid var(--border);
@@ -745,13 +752,14 @@ body {
     text-align:center;
 }
 .product-card .price{
+    margin:0;
     font-weight:700;
     color:var(--primary-dark);
     font-size:15px;
     text-align:center;
 }
 .simple-heart {
-  font-size: 28px;
+  font-size: 18px;
   color: var(--danger);
 }
 .filled-heart {
@@ -1344,6 +1352,116 @@ body {
     border:none;
     border-top:1px solid var(--border);
     margin:16px 0;
+}
+
+.empty-state{
+    text-align:center;
+    padding:50px 20px;
+    color:var(--text-light);
+}
+.empty-state h3{
+    color:var(--black);
+    margin-bottom:6px;
+}
+/*   Categories Css codes   */
+
+/* ================================
+   CATEGORIES PAGE
+================================ */
+.categories-banner{
+    background:var(--primary-light);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:14px 18px;
+    font-size:13.5px;
+    color:var(--text);
+    margin-bottom:22px;
+}
+.categories-banner strong{
+    color:var(--primary-dark);
+}
+
+.categories-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+}
+
+.category-card{
+    display:block;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    padding:26px 16px;
+    text-align:center;
+    text-decoration:none;
+    color:var(--text);
+    transition:var(--transition);
+}
+.category-card:hover{
+    box-shadow:var(--shadow-md);
+    transform:translateY(-4px);
+    border-color:var(--primary-light);
+}
+
+.category-card-thumb{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:26px;
+    margin:0 auto 14px;
+    transition:var(--transition);
+}
+.category-card:hover .category-card-thumb{
+    transform:scale(1.08);
+}
+
+.category-card h4{
+    margin:0 0 4px;
+    font-size:14.5px;
+    color:var(--black);
+}
+.category-card-count{
+    font-size:12px;
+    color:var(--text-light);
+    margin:0;
+}
+
+/* Featured tile (Food) */
+.category-card.featured{
+    background:linear-gradient(135deg, var(--primary), var(--primary-dark));
+    border-color:transparent;
+}
+.category-card.featured h4,
+.category-card.featured .category-card-count{
+    color:var(--white);
+}
+
+/* Responsive */
+@media (max-width:1100px){
+    .categories-grid{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+@media (max-width:700px){
+    .categories-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+
+/*  Categories resposnsive   */
+@media (max-width:1100px){
+    .categories-grid{
+        grid-template-columns:repeat(3, 1fr);
+    }
+}
+@media (max-width:700px){
+    .categories-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
 }
 /* responsive of shops cards */
 @media (max-width:1100px){

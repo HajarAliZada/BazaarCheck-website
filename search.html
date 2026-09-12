@@ -25,18 +25,19 @@
         <img src="images/logo.png" alt="logo" class="logo-png" />
       </div>
 
-      <form class="search-box">
-        <span class="search-icon">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </span>
+<form class="search-box" action="search.html" method="GET">
+    <span class="search-icon">
+        <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
 
-        <input
-          type="text"
-          placeholder="Search for products (e.g. rice, oil, flour...)"
-        />
+    <input
+        type="text"
+        name="q"
+        placeholder="Search for products (e.g. rice, oil, flour...)"
+    >
 
-        <button type="submit">Search</button>
-      </form>
+    <button type="submit">Search</button>
+</form>
 
       <div class="topbar-right">
         <a href="#" class="icon-btn">
@@ -158,28 +159,19 @@
       <!-- ==================== SEARCH LAYOUT ==================== -->
       <div class="search-layout">
         <!-- ==================== FILTER SIDEBAR ==================== -->
-        <aside class="filters">
-          <h4>Filters</h4>
+       <aside class="filters">
+    <h4>Filters</h4>
+    <a href="search.html?category=all" class="filter-item" data-category="all">All Categories</a>
+    <a href="search.html?category=food" class="filter-item" data-category="food">Food</a>
+    <a href="search.html?category=beverages" class="filter-item" data-category="beverages">Beverages</a>
+    <a href="search.html?category=household" class="filter-item" data-category="household">Household</a>
+    <a href="search.html?category=personal-care" class="filter-item" data-category="personal-care">Personal Care</a>
 
-          <a href="#" class="filter-item active"> All Categories </a>
+    <hr>
 
-          <a href="#" class="filter-item"> Food </a>
-
-          <a href="#" class="filter-item"> Beverages </a>
-
-          <a href="#" class="filter-item"> Household </a>
-
-          <a href="#" class="filter-item"> Personal Care </a>
-          <a href="#" class="filter-item"> Clothing </a>
-          <a href="#" class="filter-item"> Electronics </a>
-          <a href="#" class="filter-item"> Others </a>
-          <hr />
-
-          <h4>Shops</h4>
-
-          <a class="filter-item" href="#"> All Shops </a>
-        </aside>
-
+    <h4>Shops</h4>
+    <a href="search.html?shop=all" class="filter-item" data-shop="all">All Shops</a>
+</aside>
         <!-- ==================== RESULTS COLUMN ==================== -->
         <div class="results-col">
           <!-- ==================== TOOLBAR ==================== -->
@@ -265,7 +257,7 @@
                         <img src="images/shop.png" alt="Shop A" />
                       </span>
 
-                      Shop A
+                      Halal Shop
                     </div>
                   </td>
 
@@ -289,7 +281,7 @@
                         <img src="images/shop.png" alt="Shop B" />
                       </span>
 
-                      Shop B
+                      Solaiman Shop
                     </div>
                   </td>
 
@@ -314,7 +306,7 @@
                         <img src="images/shop.png" alt="Shop A" />
                       </span>
 
-                      Shop D
+                      Kefayat SuperMarket
                     </div>
                   </td>
 
@@ -343,7 +335,7 @@
               <div class="stat-value">
                 115 AFN
 
-                <span> at Shop C </span>
+                <span> at Kefayat SuperMarket</span>
               </div>
             </div>
             <!-- Average -->
