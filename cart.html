@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -12,10 +12,10 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Categories . BazaarCheck</title>
+    <title> Cart . BazaarCheck</title>
 </head>
 <body>
-        <header class="topbar">
+    <header class="topbar">
       <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -35,11 +35,6 @@
       </form>
 
       <div class="topbar-right">
-        <a href="cart.html" class="icon-btn" style="position:relative;">
-    <i class="fa-solid fa-cart-shopping"></i>
-    <span id="cartCount" class="cart-badge" style="display:none;">0</span>
-</a>
-
         <a href="#" class="icon-btn">
           <i class="fa-regular fa-bell"></i>
           <span class="dot"></span>
@@ -73,7 +68,7 @@
       </div>
 
       <nav>
-        <a href="index.html">
+        <a href="index.html" >
           <i class="fa-solid fa-house"></i>
           Home
         </a>
@@ -83,37 +78,37 @@
           Search
         </a>
 
-        <a href="categories.html" class="active">
+        <a href="categories.html">
           <i class="fa-solid fa-layer-group"></i>
           Categories
         </a>
 
-        <a href="shops.html">
+        <a href="categories.html">
           <i class="fa-solid fa-shop"></i>
           Shops
         </a>
 
-        <a href="cart.html">
+        <a href="cart.html" class="active">
           <i class="fa-solid fa-cart-shopping"></i>
           My Cart
         </a>
 
-        <a href="cart.html">
+        <a href="compare.html">
           <i class="fa-solid fa-code-compare"></i>
           Compare
         </a>
 
-        <a href="cart.html">
+        <a href="favorites.html">
           <i class="fa-solid fa-heart"></i>
           Favorites
         </a>
 
-        <a href="cart.html">
+        <a href="Alerts.html">
           <i class="fa-solid fa-bell"></i>
           Alerts
         </a>
 
-        <a href="cart.html">
+        <a href="price-history.html">
           <i class="fa-solid fa-chart-line"></i>
           Price History
         </a>
@@ -123,14 +118,14 @@
           Profile
         </a>
 
-        <a href="cart.html">
+        <a href="settings.html">
           <i class="fa-solid fa-gear"></i>
           settings
         </a>
 
         <hr />
 
-        <a href="cart.html">
+        <a href="login.html">
           <i class="fa-solid fa-right-from-bracket"></i>
           Logout
         </a>
@@ -141,71 +136,56 @@
 
     <div class="backdrop" id="backdrop"></div>
 
-
     <main class="page">
-       <div class="crumbs">
+          <div class="crumbs">
               <a href="index.html">Home</a>
         <span> / </span>
-         <span class="current"> shops </span>
+         <span class="current"> Cart </span>
         </div>
 
-           <div class="page-head">
-            <h1>All Categories</h1>
-            <p>Browse products by category and compare prices across shops.</p>
+                <div class="page-head">
+            <h1>My Cart</h1>
+            <p>Your shopping list, ready to be optimized across nearby shops.</p>
         </div>
 
-        <div class="categories-banner">
-            🛍️ Over <strong>500+ products</strong> across <strong>7 categories</strong> — find what you need faster.
-        </div>
+        <div class="cart-layout">
 
-        <div class="categories-grid">
+            <div class="cart-list-card">
+                <div id="cartItemsContainer">
+                    <!-- filled by JavaScript -->
+                </div>
+            </div>
 
-            <a href="search.html?category=food" class="category-card featured">
-                <div class="category-card-thumb" style="background:rgba(255,255,255,.22);">🍚</div>
-                <h4>Food</h4>
-                <p class="category-card-count">120+ items</p>
-            </a>
+            <div class="cart-summary-card">
+                <h3 style="margin-top:0;">Summary</h3>
 
-            <a href="search.html?category=beverages" class="category-card">
-                <div class="category-card-thumb" style="background:#e8f4fd;">🥤</div>
-                <h4>Beverages</h4>
-                <p class="category-card-count">45+ items</p>
-            </a>
+                <div class="summary-row">
+                    <span>Items</span>
+                    <span id="summaryItemCount">0</span>
+                </div>
+                <div class="summary-row">
+                    <span>Products</span>
+                    <span id="summaryProductCount">0</span>
+                </div>
 
-            <a href="search.html?category=household" class="category-card">
-                <div class="category-card-thumb" style="background:#f0e8fd;">🧹</div>
-                <h4>Household</h4>
-                <p class="category-card-count">60+ items</p>
-            </a>
+                <hr>
 
-            <a href="search.html?category=personal-care" class="category-card">
-                <div class="category-card-thumb" style="background:#fde8ef;">🧴</div>
-                <h4>Personal Care</h4>
-                <p class="category-card-count">60+ items</p>
-            </a>
+                <div class="summary-total">
+                    <span>Total Estimated Cost</span>
+                    <span id="summaryTotal">0 AFN</span>
+                </div>
 
-            <a href="search.html?category=clothing" class="category-card">
-                <div class="category-card-thumb" style="background:#e8fdf2;">👕</div>
-                <h4>Clothing</h4>
-                <p class="category-card-count">75+ items</p>
-            </a>
+                <button class="btn-primary-full" id="findComboBtn">Find Best Combination</button>
+                <button class="btn-ghost-full" id="clearCartBtn">Clear List</button>
 
-            <a href="search.html?category=electronics" class="category-card">
-                <div class="category-card-thumb" style="background:#fdf8e8;">🔌</div>
-                <h4>Electronics</h4>
-                <p class="category-card-count">40+ items</p>
-            </a>
-
-            <a href="search.html?category=other" class="category-card">
-                <div class="category-card-thumb" style="background:#f0f0f0;">📦</div>
-                <h4>Other</h4>
-                <p class="category-card-count">100+ items</p>
-            </a>
+                <p class="cart-hint">"Find Best Combination" checks nearby shops to build the cheapest possible basket for your list.</p>
+            </div>
 
         </div>
     </main>
 
-        <!-- ===== SECTION: FOOTER ===== -->
+
+   <!-- ===== SECTION: FOOTER ===== -->
     <footer class="site-footer">
       <div class="foot-top">
         <div class="foot-brand">
@@ -251,7 +231,7 @@
         <span>Made for smarter, cheaper shopping.</span>
       </div>
     </footer>
-
-    <script src="index.js"></script>
+     <script src="index.js"></script>
+    <script src="index2.js"> </script>
 </body>
 </html>

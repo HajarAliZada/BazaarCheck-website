@@ -551,3 +551,153 @@ if(shopData){
   tbody.innerHTML = rowsHTML;
 }
 
+/*      CART HELPERS (used on every page) */
+
+function getCart(){
+  const cartData = localStorage.getItem('cart');
+  return cartData ? JSON.parse(cartData) : [];
+}
+
+function saveCart(cartItems){
+  localStorage.setItem('cart', JSON.stringify(cartItems));
+  updateCartBadge();
+}
+
+function addToCart(product, shop, price, image){
+  const cart = getCart();
+
+  // check if this exact product+shop combo is already in the cart
+  const existing = cart.find(item => item.product === product && item.shop === shop);
+
+  if(existing){
+    existing.qty += 1; // already in cart, just bump the quantity
+  } else {
+    cart.push({ product, shop, price, image, qty: 1 }); // new item
+  }
+
+  saveCart(cart);
+}
+
+function removeFromCart(product, shop){
+  let cart = getCart();
+  cart = cart.filter(item => !(item.product === product && item.shop === shop));
+  saveCart(cart);
+}
+
+function updateCartBadge(){
+  const badge = document.getElementById('cartCount');
+  if(!badge) return;
+
+  const cart = getCart();
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+
+  badge.textContent = totalItems;
+  badge.style.display = totalItems > 0 ? 'flex' : 'none';
+}
+
+// run this on every page load, so the badge is always correct
+updateCartBadge();
+
+// cart
+
+document.querySelectorAll('.add-cart-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const product = button.dataset.product;
+        const shop = button.dataset.shop;
+        const price = parseInt(button.dataset.price);
+        const image = button.dataset.image;
+
+        addToCart(product, shop, price,image);
+        const originalText = button.innerHTML;
+        button.innerHTML = '<i class = "fa-solid fa-check"></i> Added';
+
+        setTimeout(() => {
+          button.innerHTML = originalText;
+        }, 2000);
+    });
+});
+
+// Empty cart JavaScript codes
+
+function showEmptyCartMessage() {
+  const container = document.getElementById('cartItemsContainer');
+
+  if(!container) return;
+  const cart = getCart();
+
+  if(cart.length === 0){
+    container.innerHTML = `
+       <div class="cart-empty">
+                <div class="cart-empty-icon">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </div>
+
+                <h3>Your cart is empty</h3>
+
+                <p>You haven't chosen any products yet.</p>
+
+                <a href="index.html" class="empty-cart-btn">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    Start Shopping
+                </a>
+            </div>
+    `;
+  }
+}
+
+// adding the added product cards
+
+function renderCart() {
+  const container = document.getElementById('cartItemsContainer');
+  if(!container) return;
+  const cart = getCart();
+
+  if(cart.length === 0){
+    showEmptyCartMessage();
+    return;
+  }
+
+  container.innerHTML = '';
+
+  cart.forEach(item => {
+    const cartItem = document.createElement('div');
+
+    cartItem.className = 'cart-item';
+
+    cartItem.innerHTML = `
+         <div class="cart-item-info">
+                <h3>${item.product}</h3>
+                <p>Shop: ${item.shop}</p>
+                <p>Price: ${item.price}</p>
+                <p>Quantity: ${item.qty}</p>
+            </div>
+
+            <button 
+                class="remove-cart-btn"
+                data-product="${item.product}"
+                data-shop="${item.shop}">
+                Remove
+            </button>
+    `;
+
+    container.appendChild(cartItem);
+  });
+    container.querySelectorAll('.remove-cart-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            removeFromCart(
+                this.dataset.product,
+                this.dataset.shop
+            );
+
+            renderCart();
+        });
+    });
+
+}
+
+
+// calling the empty function
+renderCart();
