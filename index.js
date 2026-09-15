@@ -102,8 +102,8 @@ const priceTableBody = document.querySelector('.price-table tbody');
 if(priceTableBody && document.querySelector('.page-head h1')){
 
   const searchParams = new URLSearchParams(window.location.search);
-  const searchQuery = searchParams.get('q');       // e.g. "rice" or null
-  const categoryFilter = searchParams.get('category'); // e.g. "food" or null
+  const searchQuery = searchParams.get('q');       
+  const categoryFilter = searchParams.get('category');
 
   // --- Step 4a: filter the catalog based on the URL ---
   let results = catalog;
@@ -118,7 +118,7 @@ if(priceTableBody && document.querySelector('.page-head h1')){
     results = results.filter(item => item.category === categoryFilter);
   }
 
-  // --- Step 4b: update the page heading to reflect what's shown ---
+  // -- update the page heading to reflect what's shown ---
   const heading = document.querySelector('.page-head h1');
   const subheading = document.querySelector('.page-head p');
 
@@ -131,7 +131,7 @@ if(priceTableBody && document.querySelector('.page-head h1')){
   }
   subheading.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} found.`;
 
-  // --- Step 4c: highlight the matching filter link as active ---
+  // ---highlight the matching filter link as active ---
   document.querySelectorAll('.filter-item[data-category]').forEach(link => {
     link.classList.remove('active');
     if(link.dataset.category === (categoryFilter || "all")){
@@ -139,7 +139,7 @@ if(priceTableBody && document.querySelector('.page-head h1')){
     }
   });
 
-  // --- Step 4d: render the table (or an empty state) ---
+  // -- render the table or an empty state---
   function renderTable(rows){
     if(rows.length === 0){
       document.querySelector('.table-card').innerHTML = `
@@ -180,7 +180,7 @@ if(priceTableBody && document.querySelector('.page-head h1')){
 
   renderTable(results);
 
-  // --- Step 4e: update the stat boxes based on current results ---
+  // ---update the stat boxes based on current results ---
   function renderStats(rows){
     const statRow = document.querySelector('.stat-row');
     if(!statRow) return;
@@ -215,11 +215,11 @@ if(priceTableBody && document.querySelector('.page-head h1')){
 
   renderStats(results);
 
-  // --- Step 4f: hook up sorting to work on the CURRENT filtered results ---
+  // ---  hook up sorting to work on the CURRENT filtered results ---
   const sortSelect = document.querySelector('.sort-select');
   if(sortSelect){
     sortSelect.addEventListener('change', () => {
-      const sorted = [...results]; // copy so we don't mutate the original filtered list
+      const sorted = [...results]; 
       const value = sortSelect.value;
 
       sorted.sort((a, b) => {
@@ -598,7 +598,7 @@ function updateCartBadge(){
 // run this on every page load, so the badge is always correct
 updateCartBadge();
 
-// cart
+// cart button in homePage
 
 document.querySelectorAll('.add-cart-btn').forEach(button => {
     button.addEventListener('click', function(event) {
@@ -640,7 +640,7 @@ function showEmptyCartMessage() {
                 <p>You haven't chosen any products yet.</p>
 
                 <a href="index.html" class="empty-cart-btn">
-                    <i class="fa-solid fa-bag-shopping"></i>
+                   <i class="fa-solid fa-basket-shopping"></i>
                     Start Shopping
                 </a>
             </div>
@@ -650,54 +650,112 @@ function showEmptyCartMessage() {
 
 // adding the added product cards
 
-function renderCart() {
+function renderCart(){
   const container = document.getElementById('cartItemsContainer');
   if(!container) return;
+
   const cart = getCart();
 
   if(cart.length === 0){
     showEmptyCartMessage();
+    if(document.getElementById('summaryItemCount')){
+      document.getElementById('summaryItemCount').textContent = "0";
+      document.getElementById('summaryProductCount').textContent = "0";
+      document.getElementById('summaryTotal').textContent = "0 AFN";
+    }
     return;
   }
 
   container.innerHTML = '';
 
   cart.forEach(item => {
+    const lineTotal = item.price * item.qty;
     const cartItem = document.createElement('div');
-
     cartItem.className = 'cart-item';
 
     cartItem.innerHTML = `
-         <div class="cart-item-info">
-                <h3>${item.product}</h3>
-                <p>Shop: ${item.shop}</p>
-                <p>Price: ${item.price}</p>
-                <p>Quantity: ${item.qty}</p>
-            </div>
+      <div class="cart-item-thumb">
+        <img src="${item.image}" alt="${item.product}">
+      </div>
 
-            <button 
-                class="remove-cart-btn"
-                data-product="${item.product}"
-                data-shop="${item.shop}">
-                Remove
-            </button>
+      <div class="cart-item-info">
+        <h5>${item.product}</h5>
+        <span>${item.shop} · ${item.price} AFN each</span>
+      </div>
+
+      <div class="cart-qty">
+        <button class="qty-minus" data-product="${item.product}" data-shop="${item.shop}">−</button>
+        <span>${item.qty}</span>
+        <button class="qty-plus" data-product="${item.product}" data-shop="${item.shop}">+</button>
+      </div>
+
+      <div class="cart-item-price">${lineTotal} AFN</div>
+
+      <button class="cart-remove-btn" data-product="${item.product}" data-shop="${item.shop}">
+        <i class="fa-solid fa-trash"></i>
+      </button>
     `;
 
     container.appendChild(cartItem);
   });
-    container.querySelectorAll('.remove-cart-btn').forEach(button => {
-        button.addEventListener('click', function () {
-            removeFromCart(
-                this.dataset.product,
-                this.dataset.shop
-            );
 
-            renderCart();
-        });
+  container.querySelectorAll('.cart-remove-btn').forEach(button => {
+    button.addEventListener('click', function(){
+      removeFromCart(this.dataset.product, this.dataset.shop);
+      renderCart();
     });
+  });
 
+  container.querySelectorAll('.qty-plus').forEach(button => {
+    button.addEventListener('click', function(){
+      updateCartQty(this.dataset.product, this.dataset.shop, +1);
+    });
+  });
+
+  container.querySelectorAll('.qty-minus').forEach(button => {
+    button.addEventListener('click', function(){
+      updateCartQty(this.dataset.product, this.dataset.shop, -1);
+    });
+  });
+
+  const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
+  const totalProducts = cart.length;
+  const totalCost = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+ const itemCount = document.getElementById('summaryItemCount');
+const productCount = document.getElementById('summaryProductCount');
+const summaryTotal = document.getElementById('summaryTotal');
+
+if(itemCount) itemCount.textContent = totalItems;
+if(productCount) productCount.textContent = totalProducts;
+if(summaryTotal) summaryTotal.textContent = totalCost + " AFN";
+}
+
+function updateCartQty(product, shop, change){
+  const cart = getCart();
+  const item = cart.find(i => i.product === product && i.shop === shop);
+
+  if(item){
+    item.qty += change;
+    if(item.qty <= 0){
+      removeFromCart(product, shop);
+    } else {
+      saveCart(cart);
+    }
+  }
+  renderCart();
 }
 
 
 // calling the empty function
 renderCart();
+
+const clearCartBtn = document.getElementById('clearCartBtn');
+
+if(clearCartBtn){
+  clearCartBtn.addEventListener('click', function(){
+    localStorage.removeItem('cart');
+    renderCart();
+    updateCartBadge();
+  });
+}
