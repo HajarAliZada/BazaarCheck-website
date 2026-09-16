@@ -14,6 +14,23 @@ function closeSidebar(){
 }
 closeBtn.addEventListener('click',closeSidebar);
 backdrop.addEventListener('click',closeSidebar);
+// Dark mode button
+/*
+const button = document.getElementById("darkModeBtn");
+const body = document.body;
+if(button){
+  button.addEventListener("click", function(){
+  body.classList.toggle("dark");
+
+  if(body.classList.contains("dark")){
+    button.textContent = "☀️";
+  }
+  else{
+    button.textContent = "🌙";
+  }
+});
+}
+*/
 
 //Product data object in product details page
 const products = {
@@ -64,7 +81,7 @@ const products = {
   },
 
     tea: {
-    name: "Tea (100 gr)",
+    name: "Tea (100 g)",
     image: "images/tea.png",
     rating: "4.1 (60 reviews)",
     priceRange: "80 AFN – 95 AFN",
@@ -87,13 +104,17 @@ const catalog = [
   { product: "Oil (1 L)",    category: "food",       shop: "Kefayat SuperMarket", price: 170, distance: 0.8, rating: 4.6 },
 
   { product: "Flour (1 kg)", category: "food",       shop: "Solaiman Shop", price: 80,  distance: 1.5, rating: 4.2 },
-  { product: "Flour (1 kg)", category: "food",       shop: "Kefayat SuperMarketShop C", price: 90,  distance: 0.8, rating: 4.6 },
+  { product: "Flour (1 kg)", category: "food",       shop: "Kefayat SuperMarket", price: 90,  distance: 0.8, rating: 4.6 },
 
   { product: "Tea (100 g)",  category: "beverages",  shop: "Halal Shop", price: 138, distance: 1.2, rating: 4.3 },
   { product: "Tea (100 g)",  category: "beverages",  shop: "Kefayat SuperMarket", price: 140, distance: 0.8, rating: 4.6 },
 
   { product: "Soap Bar",     category: "personal-care", shop: "Kefayat SuperMarket", price: 45, distance: 0.8, rating: 4.6 },
-  { product: "Dish Soap",    category: "household",  shop: "Rezaiee Market", price: 60, distance: 2.1, rating: 4.1 }
+  { product: "Dish Soap",    category: "household",  shop: "Rezaiee Market", price: 60, distance: 2.1, rating: 4.1 },
+
+  { product: "Sugar (1 kg)",  category: "food",       shop: "Mahaly Shop", price: 85, distance: 1.2, rating: 4.3 },
+  { product: "Sugar (1 kg)",  category: "food",       shop: "Solaiman Shop", price: 135, distance: 1.5, rating: 4.2 },
+
 ];
 
 // Only run this logic if we're actually on the search page
@@ -759,3 +780,303 @@ if(clearCartBtn){
     updateCartBadge();
   });
 }
+
+// combination codes
+
+function findBestCombination(){
+   console.log("BUTTON CLICKED"); 
+  const cart = getCart();
+
+  if(cart.length === 0){
+    showEmptyCartModal();
+    return;
+  }
+
+  let bestTotal = 0;
+  let originalTotal = 0;
+  let resultRows = [];
+
+  cart.forEach(cartItem => {
+    const matches = catalog.filter(entry => entry.product === cartItem.product);
+    let cheapest = matches[0];
+    matches.forEach(entry => {
+      if(entry.price < cheapest.price){
+        cheapest = entry;
+      }
+    });
+
+    const cheapestLineTotal = cheapest.price * cartItem.qty;
+    const originalLineTotal = cartItem.price * cartItem.qty;
+
+    bestTotal += cheapestLineTotal;
+    originalTotal += originalLineTotal;
+
+      resultRows.push({
+      product: cartItem.product,
+      bestShop: cheapest.shop,
+      bestPrice: cheapest.price,
+      qty: cartItem.qty,
+      lineTotal: cheapestLineTotal
+
+  });
+});
+
+const savings = originalTotal - bestTotal;
+
+showBestCombinationResult(resultRows,bestTotal, originalTotal, savings);
+}
+
+// find combination Modal
+function showBestCombinationResult(rows, bestTotal, originalTotal, savings){
+  const modal = document.getElementById('comboModal');
+  const body = document.getElementById('comboModalBody');
+
+  let rowsHTML = "";
+  rows.forEach(row => {
+    rowsHTML += `
+      <div class="combo-row">
+        <div>
+          <strong>${row.product}</strong>
+          <div class="combo-shop">Buy from ${row.bestShop} · ${row.qty} × ${row.bestPrice} AFN</div>
+        </div>
+        <div><strong>${row.lineTotal} AFN</strong></div>
+      </div>
+    `;
+  });
+
+  let savingsHTML = "";
+  if(savings > 0){
+    savingsHTML = `
+      <div class="combo-savings">
+        <span class="amount">You save ${savings} AFN</span>
+        <span class="label">compared to your current shop selections</span>
+      </div>
+    `;
+  } else {
+    savingsHTML = `
+      <div class="combo-savings">
+        <span class="amount">${bestTotal} AFN</span>
+        <span class="label">You're already buying at the best prices!</span>
+      </div>
+    `;
+  }
+
+  body.innerHTML = rowsHTML + savingsHTML;
+  modal.style.display = "flex";
+}
+
+// close Modal property
+const findComboBtn = document.getElementById('findComboBtn');
+if(findComboBtn){
+  findComboBtn.addEventListener('click', findBestCombination);
+}
+
+const closeComboModal = document.getElementById('closeComboModal');
+const comboModal = document.getElementById('comboModal');
+if(closeComboModal){
+  closeComboModal.addEventListener('click', () => {
+    comboModal.style.display = "none";
+  });
+}
+if(comboModal){
+  comboModal.addEventListener('click', (e) => {
+    // only close if they clicked the dark background, not the box itself
+    if(e.target === comboModal){
+      comboModal.style.display = "none";
+    }
+  });
+}
+
+// Modal for empty cart for find combination button
+function showEmptyCartModal(){
+
+  const modal = document.getElementById('comboModal');
+  const body = document.getElementById('comboModalBody');
+
+  body.innerHTML = `
+    <div class="empty-cart-message">
+
+      <div class="empty-cart-icon">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </div>
+
+      <h2>Your Cart is Empty</h2>
+
+      <p>
+        You haven't added any products yet.
+        Choose some products and come back to find the best combination.
+      </p>
+
+      <button class="choose-products-btn" onclick="window.location.href='index.html'">
+        <i class="fa-solid fa-bag-shopping"></i>
+        Choose Products
+      </button>
+
+    </div>
+  `;
+
+  modal.style.display = "flex";
+}
+
+
+// ========= compare page =============
+let compareSelected = [];
+
+function initCompareSelect(){
+  const select = document.getElementById('compareProductSelect');
+  if(!select) return;
+
+  const uniqueProducts = [...new Set(catalog.map(entry => entry.product))];
+
+    uniqueProducts.forEach(productName => {
+    const option = document.createElement('option');
+    option.value = productName;
+    option.textContent = productName;
+    select.appendChild(option);
+  });
+
+    select.addEventListener('change', () => {
+    const chosen = select.value;
+    if(!chosen) return;
+
+    if(compareSelected.length >= 3){
+      alert("You can compare up to 3 products at a time.");
+      select.value = "";
+      return;
+    }
+
+        if(!compareSelected.includes(chosen)){
+      compareSelected.push(chosen);
+      renderCompare();
+    }
+
+    select.value = "";
+  });
+}
+
+function removeCompareProduct(productName){
+  compareSelected = compareSelected.filter(p => p !== productName);
+  renderCompare();
+}
+
+function renderCompareChips(){
+  const chipsContainer = document.getElementById('compareChips');
+  if(!chipsContainer) return;
+
+  chipsContainer.innerHTML = "";
+
+  compareSelected.forEach(productName => {
+    const chip = document.createElement('div');
+    chip.className = 'compare-chip';
+    chip.innerHTML = `
+      ${productName}
+      <button data-product="${productName}"><i class="fa-solid fa-xmark"></i></button>
+    `;
+    chipsContainer.appendChild(chip);
+  });
+
+  chipsContainer.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      removeCompareProduct(btn.dataset.product);
+    });
+  });
+}
+
+function renderCompareTable(){
+  const emptyState = document.getElementById('compareEmpty');
+  const tableWrap = document.getElementById('compareTableWrap');
+  const hint = document.getElementById('compareHint');
+
+  if(compareSelected.length === 0){
+    emptyState.style.display = "block";
+    tableWrap.style.display = "none";
+    hint.style.display = "none";
+    return;
+  }
+
+  emptyState.style.display = "none";
+  tableWrap.style.display = "block";
+
+  const relevantEntries = catalog.filter(entry => compareSelected.includes(entry.product));
+  const shopNames = [...new Set(relevantEntries.map(entry => entry.shop))];
+
+  const thead = document.getElementById('compareTableHead');
+  let headHTML = "<tr><th>Shop</th>";
+  compareSelected.forEach(p => headHTML += `<th>${p}</th>`);
+  headHTML += "<th>Total</th></tr>";
+  thead.innerHTML = headHTML;
+
+   const bestPricePerProduct = {};
+  compareSelected.forEach(productName => {
+    const prices = catalog
+      .filter(entry => entry.product === productName)
+      .map(entry => entry.price);
+    bestPricePerProduct[productName] = Math.min(...prices);
+  });
+
+  // one row per shop 
+
+  let bodyHTML = "";
+  let bestShopName = null;
+  let bestShopTotal = Infinity;
+  let bestShopComplete = false;
+
+  shopNames.forEach(shopName => {
+    let rowTotal = 0;
+    let hasAllProducts = true;
+    let cellsHTML = "";
+
+    compareSelected.forEach(productName => {
+      const match = catalog.find(entry => entry.shop === shopName && entry.product === productName);
+
+      if(match){
+        rowTotal += match.price;
+        const isBest = match.price === bestPricePerProduct[productName];
+        cellsHTML += `<td class="${isBest ? 'compare-cell-best' : ''}">${match.price} AFN${isBest ? ' <span class="lowest-tag">LOWEST</span>' : ''}</td>`;
+      } else {
+        hasAllProducts = false;
+        cellsHTML += `<td class="compare-cell-empty">Not available</td>`;
+      }
+    });
+
+    
+     if(hasAllProducts && rowTotal < bestShopTotal){
+      bestShopTotal = rowTotal;
+      bestShopName = shopName;
+      bestShopComplete = true;
+    }
+
+    bodyHTML += `
+      <tr data-shop="${shopName}">
+        <td><div class="shop-cell"><span class="shop-avatar">🏪</span> ${shopName}</div></td>
+        ${cellsHTML}
+        <td>${hasAllProducts ? rowTotal + " AFN" : "—"}</td>
+      </tr>
+    `;
+  });
+
+  document.getElementById('compareTableBody').innerHTML = bodyHTML;
+
+    if(bestShopComplete){
+    const winningRow = document.querySelector(`tr[data-shop="${bestShopName}"]`);
+    if(winningRow){
+      winningRow.classList.add('compare-row-winner');
+      winningRow.lastElementChild.classList.add('compare-total-best');
+    }
+
+    hint.style.display = "block";
+    hint.innerHTML = `<strong>${bestShopName}</strong> has the best total for everything you selected: <strong>${bestShopTotal} AFN</strong>.`;
+  } else {
+    hint.style.display = "block";
+    hint.textContent = "No single shop carries all selected products — compare prices individually above.";
+  }
+}
+
+function renderCompare(){
+  renderCompareChips();
+  renderCompareTable();
+  initCompareSelect();
+}
+
+renderCompareTable();
+renderCompare();

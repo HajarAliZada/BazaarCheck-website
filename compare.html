@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="index.css" />
+         <link rel="stylesheet" href="index.css" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-    <title>Categories . BazaarCheck</title>
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"rel="stylesheet"/>
+
+    <title>Compare . Bazaar Check</title>
+
 </head>
 <body>
-        <header class="topbar">
+       <header class="topbar">
       <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
       </button>
@@ -83,7 +83,7 @@
           Search
         </a>
 
-        <a href="categories.html" class="active">
+        <a href="categories.html">
           <i class="fa-solid fa-layer-group"></i>
           Categories
         </a>
@@ -98,7 +98,7 @@
           My Cart
         </a>
 
-        <a href="compare.html">
+        <a href="compare.html" class="active">
           <i class="fa-solid fa-code-compare"></i>
           Compare
         </a>
@@ -130,7 +130,7 @@
 
         <hr />
 
-        <a href="cart.html">
+        <a href="home.html">
           <i class="fa-solid fa-right-from-bracket"></i>
           Logout
         </a>
@@ -140,72 +140,47 @@
     <!-- Backdrop -->
 
     <div class="backdrop" id="backdrop"></div>
-
-
+    
+    
     <main class="page">
-       <div class="crumbs">
+
+          <div class="crumbs">
               <a href="index.html">Home</a>
         <span> / </span>
-         <span class="current"> shops </span>
+         <span class="current"> Compare </span>
+        </div>
+       <div class="page-head">
+            <h1>Compare Products & Shops</h1>
+            <p>Pick up to 3 products and see which shop gives the best combined price.</p>
         </div>
 
-           <div class="page-head">
-            <h1>All Categories</h1>
-            <p>Browse products by category and compare prices across shops.</p>
+        <div class="compare-picker">
+            <select id="compareProductSelect" class="select-box">
+                <option value="">+ Add a product to compare</option>
+            </select>
         </div>
 
-        <div class="categories-banner">
-            🛍️ Over <strong>500+ products</strong> across <strong>7 categories</strong> — find what you need faster.
+        <div id="compareChips" class="compare-chips"></div>
+
+        <div id="compareEmpty" class="empty-state">
+            <i class="fa-solid fa-code-compare"></i>
+            <h3>No products selected yet</h3>
+            <p>Choose a product above to start comparing shops.</p>
         </div>
 
-        <div class="categories-grid">
-
-            <a href="search.html?category=food" class="category-card featured">
-                <div class="category-card-thumb" style="background:rgba(255,255,255,.22);">🍚</div>
-                <h4>Food</h4>
-                <p class="category-card-count">120+ items</p>
-            </a>
-
-            <a href="search.html?category=beverages" class="category-card">
-                <div class="category-card-thumb" style="background:#e8f4fd;">🥤</div>
-                <h4>Beverages</h4>
-                <p class="category-card-count">45+ items</p>
-            </a>
-
-            <a href="search.html?category=household" class="category-card">
-                <div class="category-card-thumb" style="background:#f0e8fd;">🧹</div>
-                <h4>Household</h4>
-                <p class="category-card-count">60+ items</p>
-            </a>
-
-            <a href="search.html?category=personal-care" class="category-card">
-                <div class="category-card-thumb" style="background:#fde8ef;">🧴</div>
-                <h4>Personal Care</h4>
-                <p class="category-card-count">60+ items</p>
-            </a>
-
-            <a href="search.html?category=clothing" class="category-card">
-                <div class="category-card-thumb" style="background:#e8fdf2;">👕</div>
-                <h4>Clothing</h4>
-                <p class="category-card-count">75+ items</p>
-            </a>
-
-            <a href="search.html?category=electronics" class="category-card">
-                <div class="category-card-thumb" style="background:#fdf8e8;">🔌</div>
-                <h4>Electronics</h4>
-                <p class="category-card-count">40+ items</p>
-            </a>
-
-            <a href="search.html?category=other" class="category-card">
-                <div class="category-card-thumb" style="background:#f0f0f0;">📦</div>
-                <h4>Other</h4>
-                <p class="category-card-count">100+ items</p>
-            </a>
-
+        <div id="compareTableWrap" class="table-card" style="display:none;">
+            <table class="price-table" id="compareTable">
+                <thead id="compareTableHead"></thead>
+                <tbody id="compareTableBody"></tbody>
+            </table>
         </div>
+
+        <p id="compareHint" class="cart-hint" style="display:none;"></p>
+
     </main>
 
-        <!-- ===== SECTION: FOOTER ===== -->
+
+    <!-- ===== SECTION: FOOTER ===== -->
     <footer class="site-footer">
       <div class="foot-top">
         <div class="foot-brand">
@@ -253,5 +228,6 @@
     </footer>
 
     <script src="index.js"></script>
+    
 </body>
 </html>

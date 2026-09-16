@@ -4,7 +4,8 @@
 
 :root {
   --primary: #1ea855;
-  --primary-dark: #167a3d;
+  --primary-dark: #2f9456;
+  --primary-dark2:#041c0d;
   --primary-light: #f2fbf5;
 
   --white: #ffffff;
@@ -113,6 +114,17 @@ body {
   object-fit: contain;
 }
 
+/* ================================
+   DARK MODE BUTTON
+
+body.dark{
+  background:var(--primary-dark2);
+  color:var(--primary-light);
+}
+#darkModeBtn{
+  border:none;
+}
+================================ */
 /* ================================
    SEARCH BOX
 ================================ */
@@ -1749,6 +1761,248 @@ body {
     max-height:36px;
     object-fit:contain;
 }
+/*  Modal for find combination  */
+
+.combo-modal{
+    position:fixed;
+    inset:0;
+    background:rgba(16,24,40,0.5);
+    z-index:70;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.combo-modal-box{
+    background:var(--surface);
+    border-radius:var(--radius-lg);
+    padding:24px;
+    max-width:440px;
+    width:100%;
+    max-height:80vh;
+    overflow-y:auto;
+}
+.combo-modal-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+.combo-modal-head h3{
+    margin:0;
+    font-size:17px;
+}
+.combo-modal-close{
+    width:30px;
+    height:30px;
+    border-radius:50%;
+    background:var(--surface-soft);
+    border:none;
+    color:var(--text);
+    cursor:pointer;
+}
+.combo-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 0;
+    border-bottom:1px solid var(--border);
+    font-size:13.5px;
+}
+.combo-row:last-child{
+    border-bottom:none;
+}
+.combo-row .combo-shop{
+    color:var(--text-light);
+    font-size:12px;
+}
+.combo-savings{
+    background:var(--primary-light);
+    border-radius:var(--radius-sm);
+    padding:14px 16px;
+    margin-top:14px;
+    text-align:center;
+}
+.combo-savings .amount{
+    font-size:22px;
+    font-weight:800;
+    color:var(--primary-dark);
+    display:block;
+}
+.combo-savings .label{
+    font-size:12.5px;
+    color:var(--text);
+}
+ /* Empty Modal for find combination button */
+
+.empty-cart-message {
+  text-align: center;
+  padding: 35px 25px 30px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.empty-cart-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  background: #f5f7fa;
+}
+
+.empty-cart-icon i {
+  font-size: 34px;
+}
+
+.empty-cart-message h2 {
+  margin: 0 0 10px;
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.empty-cart-message p {
+  margin: 0 auto 25px;
+  max-width: 340px;
+  line-height: 1.6;
+  font-size: 15px;
+  color: #777;
+}
+
+.choose-products-btn {
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+
+  transition: 0.2s ease;
+}
+
+.choose-products-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* compare page css codes */
+
+.compare-picker{
+    margin-bottom:16px;
+}
+.compare-picker .select-box{
+    width:100%;
+    max-width:360px;
+    padding:11px 14px;
+}
+
+.compare-chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+.compare-chip{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--primary-light);
+    color:var(--primary-dark);
+    border-radius:20px;
+    padding:8px 8px 8px 14px;
+    font-size:13px;
+    font-weight:600;
+}
+.compare-chip button{
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    background:rgba(255,255,255,.6);
+    border:none;
+    color:var(--primary-dark);
+    font-size:12px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.compare-chip button:hover{
+    background:var(--white);
+}
+
+.compare-cell-empty{
+    color:var(--text-muted);
+}
+.compare-cell-best{
+    color:var(--primary-dark);
+    font-weight:700;
+}
+.compare-total-best{
+    color:var(--primary-dark);
+    font-weight:800;
+}
+.compare-row-winner{
+    background:var(--primary-light);
+}
+
+/* Dropdown of compare page */
+.compare-picker{
+    margin-bottom:18px;
+}
+
+.compare-picker .select-box{
+    appearance:none;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+
+    width:100%;
+    max-width:380px;
+    padding:13px 42px 13px 16px;
+
+    background-color:var(--surface);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 16px center;
+
+    border:1.5px solid var(--border);
+    border-radius:var(--radius-md);
+
+    font-size:14px;
+    font-weight:600;
+    color:var(--text);
+    cursor:pointer;
+
+    transition:var(--transition);
+    box-shadow:var(--shadow-sm);
+}
+
+.compare-picker .select-box:hover{
+    border-color:var(--primary);
+}
+
+.compare-picker .select-box:focus{
+    outline:none;
+    border-color:var(--primary);
+    box-shadow:0 0 0 3px var(--primary-light);
+}
+
+.compare-picker .select-box option[value=""]{
+    color:var(--text-muted);
+}
+.compare-picker .select-box option{
+    color:var(--text);
+    padding:10px;
+}
+
 /* Responsive of categories */
 @media (max-width:1100px){
     .categories-grid{
