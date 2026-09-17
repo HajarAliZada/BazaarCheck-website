@@ -9,9 +9,7 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"rel="stylesheet"/>
-
-    <title>Compare . Bazaar Check</title>
-
+    <title>Favorites . BazaarCheck</title>
 </head>
 <body>
        <header class="topbar">
@@ -137,49 +135,32 @@
     </aside>
 
     <!-- Backdrop -->
-
     <div class="backdrop" id="backdrop"></div>
-    
-    
+
     <main class="page">
 
-          <div class="crumbs">
-              <a href="index.html">Home</a>
-        <span> / </span>
-         <span class="current"> Compare </span>
-        </div>
-       <div class="page-head">
-            <h1>Compare Products & Shops</h1>
-            <p>Pick up to 3 products and see which shop gives the best combined price.</p>
+        <div class="crumbs">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <span class="current">Favorites</span>
         </div>
 
-        <div class="compare-picker">
-            <select id="compareProductSelect" class="select-box">
-                <option value="">+ Add a product to compare</option>
-            </select>
+        <div class="page-head">
+            <h1>My Favorites</h1>
+            <p>Products you're keeping an eye on.</p>
         </div>
 
-        <div id="compareChips" class="compare-chips"></div>
-
-        <div id="compareEmpty" class="empty-state">
-            <i class="fa-solid fa-code-compare"></i>
-            <h3>No products selected yet</h3>
-            <p>Choose a product above to start comparing shops.</p>
+        <div class="fav-list-card">
+            <div id="favItemsContainer">
+                <!-- filled by JavaScript -->
+            </div>
         </div>
 
-        <div id="compareTableWrap" class="table-card" style="display:none;">
-            <table class="price-table" id="compareTable">
-                <thead id="compareTableHead"></thead>
-                <tbody id="compareTableBody"></tbody>
-            </table>
-        </div>
-
-        <p id="compareHint" class="cart-hint" style="display:none;"></p>
-
+        <button class="btn-ghost-full" id="clearFavBtn" style="max-width:220px; margin-top:16px;">
+            Clear All Favorites
+        </button>
     </main>
-
-
-    <!-- ===== SECTION: FOOTER ===== -->
+     <!-- ===== SECTION: FOOTER ===== -->
     <footer class="site-footer">
       <div class="foot-top">
         <div class="foot-brand">
@@ -227,6 +208,5 @@
     </footer>
 
     <script src="index.js"></script>
-    
 </body>
 </html>

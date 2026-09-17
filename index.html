@@ -16,7 +16,7 @@
   </head>
   <body>
     <header class="topbar">
-      <button class="menu-btn">
+  <button class="menu-btn">
         <i class="fa-solid fa-bars"></i>
       </button>
 
@@ -50,9 +50,11 @@
           <span class="dot"></span>
         </a>
 
-        <a href="#" class="icon-btn">
-          <i class="fa-regular fa-heart"></i>
-        </a>
+             <a href="favorites.html" class="icon-btn" style="position:relative;">
+    <i class="fa-regular fa-heart"></i>
+    <span id="favCount" class="cart-badge" style="display:none;">0</span>
+</a>
+    
 
         <a href="#" class="user-chip">
           <img src="images/1.png" alt="user" />
@@ -208,7 +210,11 @@
 <div class="grid grid-5">
 
 <div class="product-card">
-   <button class="fav-btn">
+   <button class="fav-btn"
+         data-product="Rice (1 kg)"
+        data-shop="Shop C"
+        data-price="115"
+        data-image="images/rice2.png">
         <i class="fa-regular fa-heart simple-heart"></i>
       </button>
      <a href="product-details.html?product=rice" class="product-link">
@@ -231,7 +237,11 @@
 </div>
 
     <div class="product-card">
-      <button class="fav-btn">
+        <button class="fav-btn"
+         data-product="Oil (1 L)"
+        data-shop="Haji Zaki Shop"
+        data-price="170 AFG"
+        data-image="images/oil.png">
         <i class="fa-regular fa-heart simple-heart"></i>
       </button>
         <a href="product-details.html?product=oil" class="product-link">
@@ -256,9 +266,13 @@
   
 
     <div class="product-card">
-      <button class="fav-btn">
+         <button class="fav-btn"
+         data-product="Sugar(1 kg)"
+        data-shop="Solaiman Shop"
+        data-price="85 AFG"
+        data-image="images/sugar.png">
         <i class="fa-regular fa-heart simple-heart"></i>
-      </button>
+    </button>
       <a href="product-details.html?product=sugar" class="product-link">
       <div class="thumb">
         <img src="images/sugar.png" alt="sugar" />
@@ -279,9 +293,13 @@
     </div>
   
     <div class="product-card">
-      <button class="fav-btn">
+       <button class="fav-btn"
+         data-product="Tea (100 gr)"
+        data-shop="Kefayat SuperMarket"
+        data-price="140 AFG"
+        data-image="images/tea.png">
         <i class="fa-regular fa-heart simple-heart"></i>
-      </button>
+    </button>
        <a href="product-details.html?product=tea" class="product-link">
       <div class="thumb">
         <img src="images/tea.png" alt="tea-bag" />
@@ -301,9 +319,13 @@
     </div>
 
     <div class="product-card">
-      <button class="fav-btn">
+       <button class="fav-btn"
+         data-product="Flour (1 kg)"
+        data-shop="Mahaly Shop"
+        data-price="90 AFG"
+        data-image="images/flour.png">
         <i class="fa-regular fa-heart simple-heart"></i>
-      </button>
+    </button>
        <a href="product-details.html?product=flour" class="product-link">
       <div class="thumb">
         <img src="images/flour.png" alt="flour" />

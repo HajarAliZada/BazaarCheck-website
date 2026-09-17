@@ -305,19 +305,37 @@ if(data){
 
 // favorit button
 
-const favBtn = document.querySelectorAll('.fav-btn');
-favBtn.forEach(button => {
-    button.addEventListener('click',(e) =>{
-        e.preventDefault();
-        e.stopPropagation();
-        if(button.classList.contains('active')){
-            button.innerHTML = '<i class="fa-regular fa-heart simple-heart"></i>';
-            button.classList.remove('active');
-        } else{
-            button.innerHTML = '<img src="images/red-heart.png" class="filled-heart">';
-            button.classList.add('active');
-        }
-    });
+/* ================================
+   FAVORITE BUTTONS (homepage/search/product cards)
+================================ */
+document.querySelectorAll('.fav-btn').forEach(btn => {
+
+  // on page load, check if this exact product is already saved, and show it as active
+  const product = btn.dataset.product;
+  const shop = btn.dataset.shop;
+
+  if(product && shop && isFavorited(product, shop)){
+    btn.classList.add('is-favorited');
+    btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const price = parseInt(btn.dataset.price);
+    const image = btn.dataset.image;
+
+    const nowFavorited = toggleFavorite(product, shop, price, image);
+
+    if(nowFavorited){
+      btn.classList.add('is-favorited');
+      btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+    } else {
+      btn.classList.remove('is-favorited');
+      btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+    }
+  });
 });
 
 // favorite button on product details page
@@ -918,8 +936,7 @@ function showEmptyCartModal(){
   modal.style.display = "flex";
 }
 
-
-// ========= compare page =============
+//========= compare page =============
 let compareSelected = [];
 
 function initCompareSelect(){
@@ -986,6 +1003,8 @@ function renderCompareTable(){
   const emptyState = document.getElementById('compareEmpty');
   const tableWrap = document.getElementById('compareTableWrap');
   const hint = document.getElementById('compareHint');
+
+    if(!emptyState || !tableWrap || !hint) return;
 
   if(compareSelected.length === 0){
     emptyState.style.display = "block";
@@ -1080,3 +1099,164 @@ function renderCompare(){
 
 renderCompareTable();
 renderCompare();
+
+// favorites helper used in every pages
+function getFavorites(){
+  const data = localStorage.getItem('favorites');
+  return data ? JSON.parse(data) : [];
+}
+
+function saveFavorites(favItems){
+  localStorage.setItem('favorites', JSON.stringify(favItems));
+  updateFavBadge();
+}
+
+function isFavorited(product, shop){
+  const favorites = getFavorites();
+  return favorites.some(item => item.product === product && item.shop === shop);
+}
+
+
+function toggleFavorite(product, shop, price, image){
+  let favorites = getFavorites();
+  const alreadySaved = isFavorited(product, shop);
+
+  if(alreadySaved){
+    favorites = favorites.filter(item => !(item.product === product && item.shop === shop));
+  } else {
+    favorites.push({ product, shop, price, image });
+  }
+
+  saveFavorites(favorites);
+  return !alreadySaved;
+}
+
+function updateFavBadge(){
+  const badge = document.getElementById('favCount');
+  if(!badge) return;
+
+  const favorites = getFavorites();
+  badge.textContent = favorites.length;
+  badge.style.display = favorites.length > 0 ? 'flex' : 'none';
+}
+
+updateFavBadge();
+
+
+/*         RENDER FAVORITES PAGE      */
+function renderFavoritesPage(){
+  const container = document.getElementById('favItemsContainer');
+  if(!container) return;
+
+  const favorites = getFavorites();
+
+  if(favorites.length === 0){
+    container.innerHTML = `
+      <div class="fav-empty">
+        <div class="fav-empty-icon"><i class="fa-solid fa-heart"></i></div>
+        <h3>No favorites yet</h3>
+        <p>Tap the heart on any product to save it here.</p>
+        <a href="index.html" class="empty-cart-btn">
+          <i class="fa-solid fa-bag-shopping"></i> Browse Products
+        </a>
+      </div>
+    `;
+    return;
+  }
+
+  let rowsHTML = "";
+
+  favorites.forEach(item => {
+    rowsHTML += `
+      <div class="fav-item">
+        <div class="fav-item-thumb">
+          <img src="${item.image}" alt="${item.product}">
+        </div>
+
+        <div class="fav-item-info">
+          <h5>${item.product}</h5>
+          <span>${item.shop}</span>
+        </div>
+
+        <div class="fav-item-price">${item.price} AFN</div>
+
+        <div class="fav-item-actions">
+          <button class="fav-add-cart-btn"
+                  data-product="${item.product}"
+                  data-shop="${item.shop}"
+                  data-price="${item.price}"
+                  data-image="${item.image}">
+            Add to Cart
+          </button>
+
+          <button class="fav-remove-btn"
+                  data-product="${item.product}"
+                  data-shop="${item.shop}">
+            <i class="fa-solid fa-heart"></i>
+          </button>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = rowsHTML;
+
+  // "Add to cart" favorites list
+  container.querySelectorAll('.fav-add-cart-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      addToCart(btn.dataset.product, btn.dataset.shop, parseInt(btn.dataset.price), btn.dataset.image);
+
+      const original = btn.textContent;
+      btn.textContent = "Added ✓";
+      setTimeout(() => { btn.textContent = original; }, 1200);
+    });
+  });
+
+  // wire up remove unfavorites buttons
+  container.querySelectorAll('.fav-remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleFavorite(btn.dataset.product, btn.dataset.shop);
+      renderFavoritesPage();
+    });
+  });
+}
+
+renderFavoritesPage();
+
+/*       CLEAR ALL FAVORITES        */
+const clearFavBtn = document.getElementById('clearFavBtn');
+
+if(clearFavBtn){
+
+  clearFavBtn.addEventListener('click', () => {
+
+    // Don't show confirmation if there are no favorites
+    if(getFavorites().length === 0) return;
+
+    // Prevent creating the message multiple times
+    if(document.querySelector('.clear-fav-confirm')) return;
+
+    const confirmBox = document.createElement('div');
+    confirmBox.className = 'clear-fav-confirm';
+
+    confirmBox.innerHTML = `
+      <span>Remove all favorites?</span>
+      <button class="confirm-yes">Yes</button>
+      <button class="confirm-no">Cancel</button>
+    `;
+
+    clearFavBtn.insertAdjacentElement('afterend', confirmBox);
+
+    confirmBox.querySelector('.confirm-yes').addEventListener('click', () => {
+      saveFavorites([]);
+      renderFavoritesPage();
+
+      confirmBox.remove();
+    });
+
+    confirmBox.querySelector('.confirm-no').addEventListener('click', () => {
+      confirmBox.remove();
+    });
+  });
+
+}
