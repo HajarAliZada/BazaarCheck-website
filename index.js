@@ -117,6 +117,14 @@ const catalog = [
 
 ];
 
+const productImages = {
+  "Rice (1 kg)": "images/rice2.png",
+  "Oil (1 L)": "images/oil.png",
+  "Flour (1 kg)": "images/flour.png",
+  "Tea (100 g)": "images/tea.png",
+  "Sugar (1 kg)": "images/sugar.png"
+};
+
 // Only run this logic if we're actually on the search page
 const priceTableBody = document.querySelector('.price-table tbody');
 
@@ -305,9 +313,6 @@ if(data){
 
 // favorit button
 
-/* ================================
-   FAVORITE BUTTONS (homepage/search/product cards)
-================================ */
 document.querySelectorAll('.fav-btn').forEach(btn => {
 
   // on page load, check if this exact product is already saved, and show it as active
@@ -605,13 +610,12 @@ function saveCart(cartItems){
 function addToCart(product, shop, price, image){
   const cart = getCart();
 
-  // check if this exact product+shop combo is already in the cart
   const existing = cart.find(item => item.product === product && item.shop === shop);
 
   if(existing){
-    existing.qty += 1; // already in cart, just bump the quantity
+    existing.qty += 1; 
   } else {
-    cart.push({ product, shop, price, image, qty: 1 }); // new item
+    cart.push({ product, shop, price, image, qty: 1 }); 
   }
 
   saveCart(cart);
@@ -634,7 +638,6 @@ function updateCartBadge(){
   badge.style.display = totalItems > 0 ? 'flex' : 'none';
 }
 
-// run this on every page load, so the badge is always correct
 updateCartBadge();
 
 // cart button in homePage
@@ -785,8 +788,6 @@ function updateCartQty(product, shop, change){
   renderCart();
 }
 
-
-// calling the empty function
 renderCart();
 
 const clearCartBtn = document.getElementById('clearCartBtn');
@@ -898,7 +899,6 @@ if(closeComboModal){
 }
 if(comboModal){
   comboModal.addEventListener('click', (e) => {
-    // only close if they clicked the dark background, not the box itself
     if(e.target === comboModal){
       comboModal.style.display = "none";
     }
@@ -1230,10 +1230,9 @@ if(clearFavBtn){
 
   clearFavBtn.addEventListener('click', () => {
 
-    // Don't show confirmation if there are no favorites
+  
     if(getFavorites().length === 0) return;
 
-    // Prevent creating the message multiple times
     if(document.querySelector('.clear-fav-confirm')) return;
 
     const confirmBox = document.createElement('div');
@@ -1257,6 +1256,282 @@ if(clearFavBtn){
     confirmBox.querySelector('.confirm-no').addEventListener('click', () => {
       confirmBox.remove();
     });
+  });
+
+}
+
+// =========== Alerts page ============
+
+// Alert Helper used on every page
+function getAlerts(){
+  const data = localStorage.getItem('alerts');
+  return data ? JSON.parse(data) : []
+}
+
+function saveAlerts(alertItems){
+  localStorage.setItem('alerts', JSON.stringify(alertItems));
+  updateAlertBadge();
+}
+
+function addAlert(product, targetPrice, image){
+  const alerts = getAlerts();
+
+  const existing = alerts.find(a => a.product === product);
+  if(existing){
+    existing.targetPrice = targetPrice;
+    existing.enabled = true;
+  }
+  else{
+    alerts.push({product,targetPrice, image,enabled:true});
+  }
+  saveAlerts(alerts);
+}
+
+function removeAlert(product){
+  let alerts = getAlerts();
+
+  alerts = alerts.filter(a => a.product !== product);
+
+  saveAlerts(alerts);
+}
+
+// finding the cheapist price from my caltalog
+function getCurrentLowestPrice(productName){
+  const matches = catalog.filter(entry => entry.product === productName);
+  if(matches.length === 0)  return null;
+  return Math.min(...matches.map(entry => entry.price));
+}
+
+function updateAlertBadge(){
+  const badge = document.getElementById('alertCount');
+  if(!badge) return;
+
+  const alerts = getAlerts();
+  const triggeredCount = alerts.filter(a => {
+    const current = getCurrentLowestPrice(a.product);
+    return a.enabled && current !== null && current <= a.targetPrice;
+  }).length;
+
+    badge.textContent = triggeredCount;
+  badge.style.display = triggeredCount > 0 ? 'flex' : 'none';
+}
+
+updateAlertBadge();
+
+/* RENDER ALERTS PAGE */
+function renderAlertsPage(){
+  const container = document.getElementById('alertItemsContainer');
+  if(!container) return; 
+
+  const alerts = getAlerts();
+
+  if(alerts.length === 0){
+    container.innerHTML = `
+      <div class="alert-empty">
+        <div class="alert-empty-icon"><i class="fa-solid fa-bell"></i></div>
+        <h3>No price alerts yet</h3>
+        <p>Add an alert to get notified when a product drops below your target price.</p>
+      </div>
+    `;
+    return;
+  }
+
+  let rowsHTML = "";
+
+  alerts.forEach(alert => {
+    const currentPrice = getCurrentLowestPrice(alert.product);
+    const isTriggered = alert.enabled && currentPrice !== null && currentPrice <= alert.targetPrice;
+
+    rowsHTML += `
+      <div class="alert-item">
+        <div class="alert-item-thumb">
+          <img src="${alert.image || 'images/placeholder.png'}" alt="${alert.product}">
+        </div>
+
+        <div class="alert-item-info">
+          <h5>${alert.product}
+            <span class="alert-status ${isTriggered ? 'triggered' : 'waiting'}">
+              ${isTriggered ? '🎉 Triggered' : 'Waiting'}
+            </span>
+          </h5>
+          <span>
+            Notify me when price goes below ${alert.targetPrice} AFN
+            ${currentPrice !== null ? ` · Current lowest: ${currentPrice} AFN` : ''}
+          </span>
+        </div>
+
+        <label class="switch">
+          <input type="checkbox" data-product="${alert.product}" ${alert.enabled ? 'checked' : ''}>
+          <span class="slider"></span>
+        </label>
+
+        <button class="alert-remove-btn" data-product="${alert.product}">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    `;
+  });
+
+  container.innerHTML = rowsHTML;
+
+
+  container.querySelectorAll('.switch input').forEach(input => {
+    input.addEventListener('change', () => {
+      toggleAlertEnabled(input.dataset.product);
+      renderAlertsPage();
+    });
+  });
+
+
+  container.querySelectorAll('.alert-remove-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      removeAlert(btn.dataset.product);
+      renderAlertsPage();
+    });
+  });
+}
+
+renderAlertsPage();
+
+/*  ADD NEW ALERT MODAL */
+
+const addAlertBtn = document.getElementById('addAlertBtn');
+
+const alertModal = document.getElementById('alertModal');
+const closeAlertModal = document.getElementById('closeAlertModal');
+const cancelAlertModal = document.getElementById('cancelAlertModal');
+
+const alertProduct = document.getElementById('alertProduct');
+const alertTargetPrice = document.getElementById('alertTargetPrice');
+
+const saveAlertModal = document.getElementById('saveAlertModal');
+const alertModalError = document.getElementById('alertModalError');
+
+if(addAlertBtn){
+
+  addAlertBtn.addEventListener('click', () => {
+
+    const uniqueProducts = [
+      ...new Set(catalog.map(entry => entry.product))
+    ];
+    alertProduct.innerHTML =
+      '<option value="">Select a product</option>';
+
+    uniqueProducts.forEach(productName => {
+
+      const option = document.createElement('option');
+
+      option.value = productName;
+      option.textContent = productName;
+
+      alertProduct.appendChild(option);
+
+    });
+
+    alertProduct.value = "";
+    alertTargetPrice.value = "";
+
+    alertModalError.textContent = "";
+    alertModalError.classList.remove('show');
+
+    alertModal.classList.add('show');
+    setTimeout(() => {
+      alertProduct.focus();
+    }, 100);
+
+  });
+
+}
+
+function closeAlertModalWindow(){
+
+  alertModal.classList.remove('show');
+
+}
+
+
+if(closeAlertModal){
+
+  closeAlertModal.addEventListener(
+    'click',
+    closeAlertModalWindow
+  );
+
+}
+
+
+if(cancelAlertModal){
+
+  cancelAlertModal.addEventListener(
+    'click',
+    closeAlertModalWindow
+  );
+
+}
+if(alertModal){
+
+  alertModal.addEventListener('click', (e) => {
+
+    if(e.target === alertModal){
+
+      closeAlertModalWindow();
+
+    }
+
+  });
+
+}
+
+document.addEventListener('keydown', (e) => {
+
+  if(e.key === 'Escape' &&
+     alertModal.classList.contains('show')){
+
+    closeAlertModalWindow();
+
+  }
+
+});
+
+if(saveAlertModal){
+
+  saveAlertModal.addEventListener('click', () => {
+
+    const chosenProduct = alertProduct.value;
+
+    const target = parseInt(alertTargetPrice.value);
+    if(!chosenProduct){
+
+      alertModalError.textContent =
+        "Please select a product.";
+
+      alertModalError.classList.add('show');
+
+      return;
+
+    }
+
+    if(!target || isNaN(target) || target <= 0){
+
+      alertModalError.textContent =
+        "Please enter a valid target price.";
+
+      alertModalError.classList.add('show');
+
+      return;
+
+    }
+
+    const image = productImages[chosenProduct];
+    addAlert(
+      chosenProduct,
+      target,
+      image
+    );
+
+    renderAlertsPage();
+    closeAlertModalWindow();
+
   });
 
 }
