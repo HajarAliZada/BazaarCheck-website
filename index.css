@@ -2733,6 +2733,49 @@ body.dark{
   font-size: 13px;
 }
 
+/*    price-history page    */
+.history-picker{
+    margin-bottom:18px;
+}
+.history-picker .select-box{
+    max-width:280px;
+}
+
+.history-chart-card{
+    padding:24px 24px 12px;
+}
+#historyChart{
+    width:100%;
+    height:220px;
+    display:block;
+}
+.history-chart-labels{
+    display:flex;
+    justify-content:space-between;
+    padding:8px 4px 0;
+    font-size:11.5px;
+    color:var(--text-light);
+}
+
+.history-trend-badge{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:12.5px;
+    font-weight:700;
+    padding:5px 12px;
+    border-radius:20px;
+    margin-bottom:14px;
+}
+.history-trend-badge.up{
+    background:#fdeeee;
+    color:var(--danger);
+}
+.history-trend-badge.down{
+    background:var(--primary-light);
+    color:var(--primary-dark);
+}
+
 @media (max-width: 500px) {
   .alert-modal {
     padding: 15px;

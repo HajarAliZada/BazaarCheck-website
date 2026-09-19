@@ -1,19 +1,19 @@
-const sidebar = document.getElementById('sidebar');
-const backdrop = document.getElementById('backdrop');
-const menuBtn = document.querySelector('.menu-btn');
-const closeBtn = document.getElementById('closeBtn');
+const sidebar = document.getElementById("sidebar");
+const backdrop = document.getElementById("backdrop");
+const menuBtn = document.querySelector(".menu-btn");
+const closeBtn = document.getElementById("closeBtn");
 
-menuBtn.addEventListener('click',() => {
-    sidebar.classList.add('open');
-    backdrop.classList.add('show');
+menuBtn.addEventListener("click", () => {
+  sidebar.classList.add("open");
+  backdrop.classList.add("show");
 });
 
-function closeSidebar(){
-    sidebar.classList.remove('open');
-    backdrop.classList.remove('show');
+function closeSidebar() {
+  sidebar.classList.remove("open");
+  backdrop.classList.remove("show");
 }
-closeBtn.addEventListener('click',closeSidebar);
-backdrop.addEventListener('click',closeSidebar);
+closeBtn.addEventListener("click", closeSidebar);
+backdrop.addEventListener("click", closeSidebar);
 // Dark mode button
 /*
 const button = document.getElementById("darkModeBtn");
@@ -34,27 +34,63 @@ if(button){
 
 //Product data object in product details page
 const products = {
-    rice:{
-        name:"Rice (1 kg)",
-        image: "images/rice2.png",
-        rating: "4.6 (120 reviews)",
-        priceRange:"115 AFN - 145 AFN",
-        shops:[
-            {name:"Halal Shop",shopId:"shopA", price: 115, distance: "0.8 km", lowest:true},
-            {name:"Solaiman Shop",shopId:"shopB", price: 120, distance: "1.2 km", lowest:false},
-            {name:"Kefayat SuperMarket",shopId:"shopC", price: 145, distance: "1.5 km", lowest:false}
-        ]
-    },
-      oil: {
+  rice: {
+    name: "Rice (1 kg)",
+    image: "images/rice2.png",
+    rating: "4.6 (120 reviews)",
+    priceRange: "115 AFN - 145 AFN",
+    shops: [
+      {
+        name: "Halal Shop",
+        shopId: "shopA",
+        price: 115,
+        distance: "0.8 km",
+        lowest: true,
+      },
+      {
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 120,
+        distance: "1.2 km",
+        lowest: false,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 145,
+        distance: "1.5 km",
+        lowest: false,
+      },
+    ],
+  },
+  oil: {
     name: "Oil (1 L)",
     image: "images/oil.png",
     rating: "4.3 (95 reviews)",
     priceRange: "160 AFN – 180 AFN",
     shops: [
-      { name: "Halal Shop",shopId:"shopA", price: 160, distance: "1.2 km", lowest: true },
-      { name: "Kefayat SuperMarket",shopId:"shopC", price: 170, distance: "0.8 km", lowest: false },
-      { name: "Rezaiee Market",shopId:"shopD", price: 180, distance: "2.1 km", lowest: false }
-    ]
+      {
+        name: "Halal Shop",
+        shopId: "shopA",
+        price: 160,
+        distance: "1.2 km",
+        lowest: true,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 170,
+        distance: "0.8 km",
+        lowest: false,
+      },
+      {
+        name: "Rezaiee Market",
+        shopId: "shopD",
+        price: 180,
+        distance: "2.1 km",
+        lowest: false,
+      },
+    ],
   },
   flour: {
     name: "Flour (1 kg)",
@@ -62,59 +98,202 @@ const products = {
     rating: "4.1 (60 reviews)",
     priceRange: "80 AFN – 95 AFN",
     shops: [
-      { name: "Solaiman Shop",shopId:"shopB", price: 80, distance: "1.5 km", lowest: true },
-      { name: "Kefayat SuperMarket",shopId:"shopC", price: 90, distance: "0.8 km", lowest: false }
-    ]
+      {
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 80,
+        distance: "1.5 km",
+        lowest: true,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 90,
+        distance: "0.8 km",
+        lowest: false,
+      },
+    ],
   },
 
-    sugar: {
+  sugar: {
     name: "Sugar (1 kg)",
     image: "images/sugar.png",
     rating: "4.1 (60 reviews)",
     priceRange: "70 AFN – 95 AFN",
     shops: [
-      { name: "Solaiman Shop",shopId:"shopB", price: 80, distance: "1.5 km", lowest: true },
-      { name: "Kefayat SuperMarket",shopId:"shopC", price: 90, distance: "0.8 km", lowest: false },
-      { name: "Halal Shop",shopId:"shopA", price: 170, distance: "0.8 km", lowest: false },
-      { name: "Rezaiee Market",shopId:"shopD", price: 180, distance: "2.1 km", lowest: false }
-    ]
+      {
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 80,
+        distance: "1.5 km",
+        lowest: true,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 90,
+        distance: "0.8 km",
+        lowest: false,
+      },
+      {
+        name: "Halal Shop",
+        shopId: "shopA",
+        price: 170,
+        distance: "0.8 km",
+        lowest: false,
+      },
+      {
+        name: "Rezaiee Market",
+        shopId: "shopD",
+        price: 180,
+        distance: "2.1 km",
+        lowest: false,
+      },
+    ],
   },
 
-    tea: {
+  tea: {
     name: "Tea (100 g)",
     image: "images/tea.png",
     rating: "4.1 (60 reviews)",
     priceRange: "80 AFN – 95 AFN",
     shops: [
-      { name: "Solaiman Shop",shopId:"shopB", price: 80, distance: "1.5 km", lowest: true },
-      { name: "Halal Shop",shopId:"shopA", price: 160, distance: "1.2 km", lowest: false },
-      { name: "Kefayat SuperMarket",shopId:"shopC", price: 90, distance: "0.8 km", lowest: false }
-    ]
+      {
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 80,
+        distance: "1.5 km",
+        lowest: true,
+      },
+      {
+        name: "Halal Shop",
+        shopId: "shopA",
+        price: 160,
+        distance: "1.2 km",
+        lowest: false,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 90,
+        distance: "0.8 km",
+        lowest: false,
+      },
+    ],
   },
-
 };
 
 // The full catalog — every product, at every shop, with its category
 const catalog = [
-  { product: "Rice (1 kg)",  category: "food",       shop: "Kefayat SuperMarket", price: 115, distance: 0.8, rating: 4.6 },
-  { product: "Rice (1 kg)",  category: "food",       shop: "Halal Shop", price: 120, distance: 1.2, rating: 4.3 },
-  { product: "Rice (1 kg)",  category: "food",       shop: "Solaiman Shop", price: 135, distance: 1.5, rating: 4.2 },
+  {
+    product: "Rice (1 kg)",
+    category: "food",
+    shop: "Kefayat SuperMarket",
+    price: 115,
+    distance: 0.8,
+    rating: 4.6,
+  },
+  {
+    product: "Rice (1 kg)",
+    category: "food",
+    shop: "Halal Shop",
+    price: 120,
+    distance: 1.2,
+    rating: 4.3,
+  },
+  {
+    product: "Rice (1 kg)",
+    category: "food",
+    shop: "Solaiman Shop",
+    price: 135,
+    distance: 1.5,
+    rating: 4.2,
+  },
 
-  { product: "Oil (1 L)",    category: "food",       shop: "Halal Shop", price: 160, distance: 1.2, rating: 4.3 },
-  { product: "Oil (1 L)",    category: "food",       shop: "Kefayat SuperMarket", price: 170, distance: 0.8, rating: 4.6 },
+  {
+    product: "Oil (1 L)",
+    category: "food",
+    shop: "Halal Shop",
+    price: 160,
+    distance: 1.2,
+    rating: 4.3,
+  },
+  {
+    product: "Oil (1 L)",
+    category: "food",
+    shop: "Kefayat SuperMarket",
+    price: 170,
+    distance: 0.8,
+    rating: 4.6,
+  },
 
-  { product: "Flour (1 kg)", category: "food",       shop: "Solaiman Shop", price: 80,  distance: 1.5, rating: 4.2 },
-  { product: "Flour (1 kg)", category: "food",       shop: "Kefayat SuperMarket", price: 90,  distance: 0.8, rating: 4.6 },
+  {
+    product: "Flour (1 kg)",
+    category: "food",
+    shop: "Solaiman Shop",
+    price: 80,
+    distance: 1.5,
+    rating: 4.2,
+  },
+  {
+    product: "Flour (1 kg)",
+    category: "food",
+    shop: "Kefayat SuperMarket",
+    price: 90,
+    distance: 0.8,
+    rating: 4.6,
+  },
 
-  { product: "Tea (100 g)",  category: "beverages",  shop: "Halal Shop", price: 138, distance: 1.2, rating: 4.3 },
-  { product: "Tea (100 g)",  category: "beverages",  shop: "Kefayat SuperMarket", price: 140, distance: 0.8, rating: 4.6 },
+  {
+    product: "Tea (100 g)",
+    category: "beverages",
+    shop: "Halal Shop",
+    price: 138,
+    distance: 1.2,
+    rating: 4.3,
+  },
+  {
+    product: "Tea (100 g)",
+    category: "beverages",
+    shop: "Kefayat SuperMarket",
+    price: 140,
+    distance: 0.8,
+    rating: 4.6,
+  },
 
-  { product: "Soap Bar",     category: "personal-care", shop: "Kefayat SuperMarket", price: 45, distance: 0.8, rating: 4.6 },
-  { product: "Dish Soap",    category: "household",  shop: "Rezaiee Market", price: 60, distance: 2.1, rating: 4.1 },
+  {
+    product: "Soap Bar",
+    category: "personal-care",
+    shop: "Kefayat SuperMarket",
+    price: 45,
+    distance: 0.8,
+    rating: 4.6,
+  },
+  {
+    product: "Dish Soap",
+    category: "household",
+    shop: "Rezaiee Market",
+    price: 60,
+    distance: 2.1,
+    rating: 4.1,
+  },
 
-  { product: "Sugar (1 kg)",  category: "food",       shop: "Mahaly Shop", price: 85, distance: 1.2, rating: 4.3 },
-  { product: "Sugar (1 kg)",  category: "food",       shop: "Solaiman Shop", price: 135, distance: 1.5, rating: 4.2 },
-
+  {
+    product: "Sugar (1 kg)",
+    category: "food",
+    shop: "Mahaly Shop",
+    price: 85,
+    distance: 1.2,
+    rating: 4.3,
+  },
+  {
+    product: "Sugar (1 kg)",
+    category: "food",
+    shop: "Solaiman Shop",
+    price: 135,
+    distance: 1.5,
+    rating: 4.2,
+  },
 ];
 
 const productImages = {
@@ -122,56 +301,58 @@ const productImages = {
   "Oil (1 L)": "images/oil.png",
   "Flour (1 kg)": "images/flour.png",
   "Tea (100 g)": "images/tea.png",
-  "Sugar (1 kg)": "images/sugar.png"
+  "Sugar (1 kg)": "images/sugar.png",
 };
 
 // Only run this logic if we're actually on the search page
-const priceTableBody = document.querySelector('.price-table tbody');
+const priceTableBody = document.querySelector(".price-table tbody");
 
-if(priceTableBody && document.querySelector('.page-head h1')){
-
+if (priceTableBody && document.querySelector(".page-head h1")) {
   const searchParams = new URLSearchParams(window.location.search);
-  const searchQuery = searchParams.get('q');       
-  const categoryFilter = searchParams.get('category');
+  const searchQuery = searchParams.get("q");
+  const categoryFilter = searchParams.get("category");
 
   // --- Step 4a: filter the catalog based on the URL ---
   let results = catalog;
 
-  if(searchQuery){
-    results = results.filter(item =>
-      item.product.toLowerCase().includes(searchQuery.toLowerCase())
+  if (searchQuery) {
+    results = results.filter((item) =>
+      item.product.toLowerCase().includes(searchQuery.toLowerCase()),
     );
   }
 
-  if(categoryFilter && categoryFilter !== "all"){
-    results = results.filter(item => item.category === categoryFilter);
+  if (categoryFilter && categoryFilter !== "all") {
+    results = results.filter((item) => item.category === categoryFilter);
   }
 
   // -- update the page heading to reflect what's shown ---
-  const heading = document.querySelector('.page-head h1');
-  const subheading = document.querySelector('.page-head p');
+  const heading = document.querySelector(".page-head h1");
+  const subheading = document.querySelector(".page-head p");
 
-  if(searchQuery){
+  if (searchQuery) {
     heading.textContent = `Search Results for "${searchQuery}"`;
-  } else if(categoryFilter && categoryFilter !== "all"){
-    heading.textContent = categoryFilter.charAt(0).toUpperCase() + categoryFilter.slice(1) + " Products";
+  } else if (categoryFilter && categoryFilter !== "all") {
+    heading.textContent =
+      categoryFilter.charAt(0).toUpperCase() +
+      categoryFilter.slice(1) +
+      " Products";
   } else {
     heading.textContent = "All Products";
   }
-  subheading.textContent = `${results.length} result${results.length !== 1 ? 's' : ''} found.`;
+  subheading.textContent = `${results.length} result${results.length !== 1 ? "s" : ""} found.`;
 
   // ---highlight the matching filter link as active ---
-  document.querySelectorAll('.filter-item[data-category]').forEach(link => {
-    link.classList.remove('active');
-    if(link.dataset.category === (categoryFilter || "all")){
-      link.classList.add('active');
+  document.querySelectorAll(".filter-item[data-category]").forEach((link) => {
+    link.classList.remove("active");
+    if (link.dataset.category === (categoryFilter || "all")) {
+      link.classList.add("active");
     }
   });
 
   // -- render the table or an empty state---
-  function renderTable(rows){
-    if(rows.length === 0){
-      document.querySelector('.table-card').innerHTML = `
+  function renderTable(rows) {
+    if (rows.length === 0) {
+      document.querySelector(".table-card").innerHTML = `
         <div class="empty-state">
           <h3>No products found</h3>
           <p>Try a different search term or category.</p>
@@ -181,10 +362,10 @@ if(priceTableBody && document.querySelector('.page-head h1')){
     }
 
     // find the lowest price among current results, to tag it
-    const lowestPrice = Math.min(...rows.map(r => r.price));
+    const lowestPrice = Math.min(...rows.map((r) => r.price));
 
     let rowsHTML = "";
-    rows.forEach(item => {
+    rows.forEach((item) => {
       rowsHTML += `
         <tr>
           <td>
@@ -195,7 +376,7 @@ if(priceTableBody && document.querySelector('.page-head h1')){
           <td>${item.product}</td>
           <td class="price-cell">
             ${item.price} AFN
-            ${item.price === lowestPrice ? '<span class="lowest-tag">LOWEST</span>' : ''}
+            ${item.price === lowestPrice ? '<span class="lowest-tag">LOWEST</span>' : ""}
           </td>
           <td>${item.distance} km</td>
           <td>⭐ ${item.rating}</td>
@@ -210,20 +391,22 @@ if(priceTableBody && document.querySelector('.page-head h1')){
   renderTable(results);
 
   // ---update the stat boxes based on current results ---
-  function renderStats(rows){
-    const statRow = document.querySelector('.stat-row');
-    if(!statRow) return;
+  function renderStats(rows) {
+    const statRow = document.querySelector(".stat-row");
+    if (!statRow) return;
 
-    if(rows.length === 0){
+    if (rows.length === 0) {
       statRow.style.display = "none";
       return;
     }
     statRow.style.display = "grid";
 
-    const prices = rows.map(r => r.price);
+    const prices = rows.map((r) => r.price);
     const cheapest = Math.min(...prices);
-    const cheapestShop = rows.find(r => r.price === cheapest).shop;
-    const average = Math.round(prices.reduce((sum, p) => sum + p, 0) / prices.length);
+    const cheapestShop = rows.find((r) => r.price === cheapest).shop;
+    const average = Math.round(
+      prices.reduce((sum, p) => sum + p, 0) / prices.length,
+    );
     const highest = Math.max(...prices);
 
     statRow.innerHTML = `
@@ -245,54 +428,53 @@ if(priceTableBody && document.querySelector('.page-head h1')){
   renderStats(results);
 
   // ---  hook up sorting to work on the CURRENT filtered results ---
-  const sortSelect = document.querySelector('.sort-select');
-  if(sortSelect){
-    sortSelect.addEventListener('change', () => {
-      const sorted = [...results]; 
+  const sortSelect = document.querySelector(".sort-select");
+  if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+      const sorted = [...results];
       const value = sortSelect.value;
 
       sorted.sort((a, b) => {
-        if(value === 'price-low')  return a.price - b.price;
-        if(value === 'price-high') return b.price - a.price;
-        if(value === 'distance')   return a.distance - b.distance;
-        if(value === 'rating')     return b.rating - a.rating;
+        if (value === "price-low") return a.price - b.price;
+        if (value === "price-high") return b.price - a.price;
+        if (value === "distance") return a.distance - b.distance;
+        if (value === "rating") return b.rating - a.rating;
         return 0;
       });
 
       renderTable(sorted);
     });
   }
-
 }
 
-
 const params = new URLSearchParams(window.location.search);
-const productId = params.get('product');
+const productId = params.get("product");
 
-console.log(productId); 
+console.log(productId);
 
 const data = products[productId];
 
-console.log(data); 
+console.log(data);
 
-if(data){
-  document.querySelector('.product-summary h2').textContent = data.name;
-  document.querySelector('.summary-thumb img').src = data.image;
-  document.querySelector('.summary-thumb img').alt = data.name;
-  document.querySelector('.summary-rating').textContent = "⭐⭐⭐⭐⭐ " + data.rating;
-  document.querySelector('.summary-price').textContent = data.priceRange;
+if (data) {
+  document.querySelector(".product-summary h2").textContent = data.name;
+  document.querySelector(".summary-thumb img").src = data.image;
+  document.querySelector(".summary-thumb img").alt = data.name;
+  document.querySelector(".summary-rating").textContent =
+    "⭐⭐⭐⭐⭐ " + data.rating;
+  document.querySelector(".summary-price").textContent = data.priceRange;
   document.title = data.name + " · Bazaar Check";
 }
 if (data) {
-    document.querySelector('.current').textContent = data.name;
+  document.querySelector(".current").textContent = data.name;
 }
 
-if(data){
-    const tbody = document.getElementById('shopRows');
-    let rowsHTML = "";
+if (data) {
+  const tbody = document.getElementById("shopRows");
+  let rowsHTML = "";
 
-    data.shops.forEach(shop =>{
-        rowsHTML += `
+  data.shops.forEach((shop) => {
+    rowsHTML += `
         <tr>
         <td>
         <div class="shop-cell">
@@ -301,30 +483,29 @@ if(data){
         </td>
         <td class="price-cell">
         ${shop.price} AFN
-        ${shop.lowest ? '<span class="lowest-tag">Lowest</span>' : ''}
+        ${shop.lowest ? '<span class="lowest-tag">Lowest</span>' : ""}
         </td>
         <td>${shop.distance}</td>
         <td><a href="shop.html?shop=${shop.shopId}" class="btn-view"> View in shop</a></td>
         </tr>
         `;
-    });
-    tbody.innerHTML = rowsHTML;
+  });
+  tbody.innerHTML = rowsHTML;
 }
 
 // favorit button
 
-document.querySelectorAll('.fav-btn').forEach(btn => {
-
+document.querySelectorAll(".fav-btn").forEach((btn) => {
   // on page load, check if this exact product is already saved, and show it as active
   const product = btn.dataset.product;
   const shop = btn.dataset.shop;
 
-  if(product && shop && isFavorited(product, shop)){
-    btn.classList.add('is-favorited');
+  if (product && shop && isFavorited(product, shop)) {
+    btn.classList.add("is-favorited");
     btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
   }
 
-  btn.addEventListener('click', (e) => {
+  btn.addEventListener("click", (e) => {
     e.preventDefault();
     e.stopPropagation();
 
@@ -333,115 +514,112 @@ document.querySelectorAll('.fav-btn').forEach(btn => {
 
     const nowFavorited = toggleFavorite(product, shop, price, image);
 
-    if(nowFavorited){
-      btn.classList.add('is-favorited');
+    if (nowFavorited) {
+      btn.classList.add("is-favorited");
       btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
     } else {
-      btn.classList.remove('is-favorited');
+      btn.classList.remove("is-favorited");
       btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
     }
   });
 });
 
 // favorite button on product details page
-const favBtnDetails = document.getElementById('favBtn');
-if(favBtnDetails){
-    favBtnDetails.addEventListener('click',() =>{
-        favBtnDetails.classList.toggle('is-favorited');
+const favBtnDetails = document.getElementById("favBtn");
+if (favBtnDetails) {
+  favBtnDetails.addEventListener("click", () => {
+    favBtnDetails.classList.toggle("is-favorited");
 
-        if(favBtnDetails.classList.contains('is-favorited')){
-            favBtnDetails.innerHTML = '<img src="images/red-heart.png" class="filled-heart"> Added to favorites';
-        } else{ 
-            favBtnDetails.innerHTML = '<i class="fa-regular fa-heart simple-heart"></i> Add to favorites';
-        }
-
-    });
+    if (favBtnDetails.classList.contains("is-favorited")) {
+      favBtnDetails.innerHTML =
+        '<img src="images/red-heart.png" class="filled-heart"> Added to favorites';
+    } else {
+      favBtnDetails.innerHTML =
+        '<i class="fa-regular fa-heart simple-heart"></i> Add to favorites';
+    }
+  });
 }
 
 // price alert button on product details page
-const alertBtn = document.getElementById('alertBtn');
-if(alertBtn){
-    alertBtn.addEventListener('click',() =>{
-        const target = prompt('Notify me when the price drops below (AFN):');
-        if(target){
-            alert(`You will be notified when the price drops below ${target} AFN`);
-        }
-    });
+const alertBtn = document.getElementById("alertBtn");
+if (alertBtn) {
+  alertBtn.addEventListener("click", () => {
+    const target = prompt("Notify me when the price drops below (AFN):");
+    if (target) {
+      alert(`You will be notified when the price drops below ${target} AFN`);
+    }
+  });
 }
-    
-
 
 // Auto fill year in footer
-const yearSpan = document.getElementById('year');
-if(yearSpan){
-    yearSpan.textContent = new Date().getFullYear();
+const yearSpan = document.getElementById("year");
+if (yearSpan) {
+  yearSpan.textContent = new Date().getFullYear();
 }
 
 // selecting the filter that is clicked
-const filterItems = document.querySelectorAll('.filter-item');
+const filterItems = document.querySelectorAll(".filter-item");
 
-filterItems.forEach(item =>{
-    item.addEventListener('click', (e) => {
-        e.preventDefault();
-        document.querySelector('.filter-item.active')?.classList.remove('active');
-        item.classList.add('active');
-    });
+filterItems.forEach((item) => {
+  item.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.querySelector(".filter-item.active")?.classList.remove("active");
+    item.classList.add("active");
+  });
 });
 
 // toggle filter sidebar
-const filterToggle = document.querySelector('.filter-toggle');
-const filterPanel = document.querySelector('.filters');
-if(filterToggle){
-    filterToggle.addEventListener('click',() => {
-        filterPanel.classList.toggle('open');
-    });
+const filterToggle = document.querySelector(".filter-toggle");
+const filterPanel = document.querySelector(".filters");
+if (filterToggle) {
+  filterToggle.addEventListener("click", () => {
+    filterPanel.classList.toggle("open");
+  });
 }
 
-const sortSelect = document.querySelector('.sort-select');
-const tableBody = document.querySelector('.price-table tbody');
+const sortSelect = document.querySelector(".sort-select");
+const tableBody = document.querySelector(".price-table tbody");
 
 function getPrice(row) {
-    return parseInt(row.querySelector('.price-cell').textContent);
+  return parseInt(row.querySelector(".price-cell").textContent);
 }
 
 function getDistance(row) {
-    return parseFloat(row.children[3].textContent);
+  return parseFloat(row.children[3].textContent);
 }
 
 function getRating(row) {
-    return parseFloat(row.children[4].textContent.replace('⭐', '').trim());
+  return parseFloat(row.children[4].textContent.replace("⭐", "").trim());
 }
 
 if (sortSelect) {
-    sortSelect.addEventListener('change', () => {
+  sortSelect.addEventListener("change", () => {
+    const rows = Array.from(tableBody.querySelectorAll("tr"));
 
-        const rows = Array.from(tableBody.querySelectorAll('tr'));
+    const value = sortSelect.value;
 
-        const value = sortSelect.value;
+    rows.sort((a, b) => {
+      if (value === "price-low") {
+        return getPrice(a) - getPrice(b);
+      }
 
-        rows.sort((a, b) => {
+      if (value === "price-high") {
+        return getPrice(b) - getPrice(a);
+      }
 
-            if (value === 'price-low') {
-                return getPrice(a) - getPrice(b);
-            }
+      if (value === "distance") {
+        return getDistance(a) - getDistance(b);
+      }
 
-            if (value === 'price-high') {
-                return getPrice(b) - getPrice(a);
-            }
+      if (value === "rating") {
+        return getRating(b) - getRating(a);
+      }
 
-            if (value === 'distance') {
-                return getDistance(a) - getDistance(b);
-            }
-
-            if (value === 'rating') {
-                return getRating(b) - getRating(a);
-            }
-
-            return 0;
-        });
-
-        rows.forEach(row => tableBody.appendChild(row));
+      return 0;
     });
+
+    rows.forEach((row) => tableBody.appendChild(row));
+  });
 }
 
 // shop dynemic cards
@@ -449,20 +627,22 @@ if (sortSelect) {
 const shops = {
   shopA: {
     name: "Halal Shop",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJft0LsyEhDLzR8dxZtNvDJk0MuqBWk8TRnx_KeRvYLvVtWVfVpu3Cw2g&s=10",
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJft0LsyEhDLzR8dxZtNvDJk0MuqBWk8TRnx_KeRvYLvVtWVfVpu3Cw2g&s=10",
     rating: "⭐ 4.3 (180 reviews)",
     location: "📍 Kabul, Shahr-e-Naw",
     distance: "🚶 1.2 km away",
-    about: "A trusted neighborhood store offering fresh groceries at fair prices.",
+    about:
+      "A trusted neighborhood store offering fresh groceries at fair prices.",
     phone: "📞 +93 70 111 2222",
     hours: "🕐 Open 7:00 AM – 9:00 PM",
     products: [
-       { id: "rice", name: "Rice (1 kg)", price: 120 },
+      { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
   shopB: {
     name: " Solaiman Shop",
@@ -477,9 +657,9 @@ const shops = {
       { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
   shopC: {
     name: "Kefayat SuperMarket",
@@ -491,15 +671,15 @@ const shops = {
     phone: "📞 +93 70 123 4567",
     hours: "🕐 Open 7:00 AM – 9:00 PM",
     products: [
-         { id: "rice", name: "Rice (1 kg)", price: 120 },
+      { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
 
-    shopD: {
+  shopD: {
     name: "Rezaiee Market",
     image: "images/shop.png",
     rating: "⭐ 4.3 (200 reviews)",
@@ -512,13 +692,12 @@ const shops = {
       { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
 
-    
-    shopF: {
+  shopF: {
     name: "Haji Zaki Shop",
     image: "images/shop.png",
     rating: "⭐ 4.3 (200 reviews)",
@@ -528,15 +707,15 @@ const shops = {
     phone: "📞 +93 70 123 4567",
     hours: "🕐 Open 7:00 AM – 9:00 PM",
     products: [
-           { id: "rice", name: "Rice (1 kg)", price: 120 },
+      { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
-  
-    shopG: {
+
+  shopG: {
     name: "Mahaly Shop",
     image: "images/shop.png",
     rating: "⭐ 4.3 (200 reviews)",
@@ -546,45 +725,40 @@ const shops = {
     phone: "📞 +93 70 123 4567",
     hours: "🕐 Open 7:00 AM – 9:00 PM",
     products: [
-
       { id: "rice", name: "Rice (1 kg)", price: 120 },
       { id: "oil", name: "Oil (1 L)", price: 160 },
       { id: "tea", name: "Tea (100 g)", price: 138 },
-      {id:"flour", name: "Flour (1 kg)", price: 90 },
-      {id: "sugar", name: "Sugar (1 kg)", price: 85 },
-    ]
+      { id: "flour", name: "Flour (1 kg)", price: 90 },
+      { id: "sugar", name: "Sugar (1 kg)", price: 85 },
+    ],
   },
-
-
 };
 
-
 const shopParams = new URLSearchParams(window.location.search);
-const shopId = shopParams.get('shop');
+const shopId = shopParams.get("shop");
 const shopData = shops[shopId];
 
 console.log(shopData);
 
-if(shopData){
-  document.getElementById('shopName').textContent = shopData.name;
-  document.getElementById('crumbShopName').textContent = shopData.name;
-  document.getElementById('shopImage').src = shopData.image;
-  document.getElementById('shopImage').alt = shopData.name;
-  document.getElementById('shopImage').alt = shopData.name;
-  document.getElementById('shopRating').textContent = shopData.rating;
-  document.getElementById('shopLocation').textContent = shopData.location;
-  document.getElementById('shopDistance').textContent = shopData.distance;
-  document.getElementById('shopAbout').textContent = shopData.about;
-  document.getElementById('shopPhone').textContent = shopData.phone;
-  document.getElementById('shopHours').textContent = shopData.hours;
+if (shopData) {
+  document.getElementById("shopName").textContent = shopData.name;
+  document.getElementById("crumbShopName").textContent = shopData.name;
+  document.getElementById("shopImage").src = shopData.image;
+  document.getElementById("shopImage").alt = shopData.name;
+  document.getElementById("shopImage").alt = shopData.name;
+  document.getElementById("shopRating").textContent = shopData.rating;
+  document.getElementById("shopLocation").textContent = shopData.location;
+  document.getElementById("shopDistance").textContent = shopData.distance;
+  document.getElementById("shopAbout").textContent = shopData.about;
+  document.getElementById("shopPhone").textContent = shopData.phone;
+  document.getElementById("shopHours").textContent = shopData.hours;
   document.title = shopData.name + " · Bazaar Check";
 
-   const tbody = document.getElementById('shopProductRows');
+  const tbody = document.getElementById("shopProductRows");
   let rowsHTML = "";
 
-  shopData.products.forEach(product => {
-    rowsHTML +=
-    `
+  shopData.products.forEach((product) => {
+    rowsHTML += `
       <tr>
         <td>${product.name}</td>
         <td class="price-cell">${product.price} AFN</td>
@@ -597,80 +771,84 @@ if(shopData){
 
 /*      CART HELPERS (used on every page) */
 
-function getCart(){
-  const cartData = localStorage.getItem('cart');
+function getCart() {
+  const cartData = localStorage.getItem("cart");
   return cartData ? JSON.parse(cartData) : [];
 }
 
-function saveCart(cartItems){
-  localStorage.setItem('cart', JSON.stringify(cartItems));
+function saveCart(cartItems) {
+  localStorage.setItem("cart", JSON.stringify(cartItems));
   updateCartBadge();
 }
 
-function addToCart(product, shop, price, image){
+function addToCart(product, shop, price, image) {
   const cart = getCart();
 
-  const existing = cart.find(item => item.product === product && item.shop === shop);
+  const existing = cart.find(
+    (item) => item.product === product && item.shop === shop,
+  );
 
-  if(existing){
-    existing.qty += 1; 
+  if (existing) {
+    existing.qty += 1;
   } else {
-    cart.push({ product, shop, price, image, qty: 1 }); 
+    cart.push({ product, shop, price, image, qty: 1 });
   }
 
   saveCart(cart);
 }
 
-function removeFromCart(product, shop){
+function removeFromCart(product, shop) {
   let cart = getCart();
-  cart = cart.filter(item => !(item.product === product && item.shop === shop));
+  cart = cart.filter(
+    (item) => !(item.product === product && item.shop === shop),
+  );
   saveCart(cart);
 }
 
-function updateCartBadge(){
-  const badge = document.getElementById('cartCount');
-  if(!badge) return;
+function updateCartBadge() {
+  const badge = document.getElementById("cartCount");
+  if (!badge) return;
 
   const cart = getCart();
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
 
   badge.textContent = totalItems;
-  badge.style.display = totalItems > 0 ? 'flex' : 'none';
+  badge.style.display = totalItems > 0 ? "flex" : "none";
 }
 
 updateCartBadge();
 
 // cart button in homePage
 
-document.querySelectorAll('.add-cart-btn').forEach(button => {
-    button.addEventListener('click', function(event) {
-        event.preventDefault();
-        event.stopPropagation();
+document.querySelectorAll(".add-cart-btn").forEach((button) => {
+  button.addEventListener("click", function (event) {
+    event.preventDefault();
+    event.stopPropagation();
 
-        const product = button.dataset.product;
-        const shop = button.dataset.shop;
-        const price = parseInt(button.dataset.price);
-        const image = button.dataset.image;
+    const product = button.dataset.product;
+    const shop = button.dataset.shop;
+    const price = parseInt(button.dataset.price);
+    const image = button.dataset.image;
 
-        addToCart(product, shop, price,image);
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class = "fa-solid fa-check"></i> Added';
+    addToCart(product, shop, price, image);
+    const originalText = button.innerHTML;
+    button.innerHTML = '<i class = "fa-solid fa-check"></i> Added';
 
-        setTimeout(() => {
-          button.innerHTML = originalText;
-        }, 2000);
-    });
+    setTimeout(() => {
+      button.innerHTML = originalText;
+    }, 2000);
+  });
 });
 
 // Empty cart JavaScript codes
 
 function showEmptyCartMessage() {
-  const container = document.getElementById('cartItemsContainer');
+  const container = document.getElementById("cartItemsContainer");
 
-  if(!container) return;
+  if (!container) return;
   const cart = getCart();
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
     container.innerHTML = `
        <div class="cart-empty">
                 <div class="cart-empty-icon">
@@ -692,28 +870,28 @@ function showEmptyCartMessage() {
 
 // adding the added product cards
 
-function renderCart(){
-  const container = document.getElementById('cartItemsContainer');
-  if(!container) return;
+function renderCart() {
+  const container = document.getElementById("cartItemsContainer");
+  if (!container) return;
 
   const cart = getCart();
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
     showEmptyCartMessage();
-    if(document.getElementById('summaryItemCount')){
-      document.getElementById('summaryItemCount').textContent = "0";
-      document.getElementById('summaryProductCount').textContent = "0";
-      document.getElementById('summaryTotal').textContent = "0 AFN";
+    if (document.getElementById("summaryItemCount")) {
+      document.getElementById("summaryItemCount").textContent = "0";
+      document.getElementById("summaryProductCount").textContent = "0";
+      document.getElementById("summaryTotal").textContent = "0 AFN";
     }
     return;
   }
 
-  container.innerHTML = '';
+  container.innerHTML = "";
 
-  cart.forEach(item => {
+  cart.forEach((item) => {
     const lineTotal = item.price * item.qty;
-    const cartItem = document.createElement('div');
-    cartItem.className = 'cart-item';
+    const cartItem = document.createElement("div");
+    cartItem.className = "cart-item";
 
     cartItem.innerHTML = `
       <div class="cart-item-thumb">
@@ -741,45 +919,45 @@ function renderCart(){
     container.appendChild(cartItem);
   });
 
-  container.querySelectorAll('.cart-remove-btn').forEach(button => {
-    button.addEventListener('click', function(){
+  container.querySelectorAll(".cart-remove-btn").forEach((button) => {
+    button.addEventListener("click", function () {
       removeFromCart(this.dataset.product, this.dataset.shop);
       renderCart();
     });
   });
 
-  container.querySelectorAll('.qty-plus').forEach(button => {
-    button.addEventListener('click', function(){
+  container.querySelectorAll(".qty-plus").forEach((button) => {
+    button.addEventListener("click", function () {
       updateCartQty(this.dataset.product, this.dataset.shop, +1);
     });
   });
 
-  container.querySelectorAll('.qty-minus').forEach(button => {
-    button.addEventListener('click', function(){
+  container.querySelectorAll(".qty-minus").forEach((button) => {
+    button.addEventListener("click", function () {
       updateCartQty(this.dataset.product, this.dataset.shop, -1);
     });
   });
 
   const totalItems = cart.reduce((sum, item) => sum + item.qty, 0);
   const totalProducts = cart.length;
-  const totalCost = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+  const totalCost = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
 
- const itemCount = document.getElementById('summaryItemCount');
-const productCount = document.getElementById('summaryProductCount');
-const summaryTotal = document.getElementById('summaryTotal');
+  const itemCount = document.getElementById("summaryItemCount");
+  const productCount = document.getElementById("summaryProductCount");
+  const summaryTotal = document.getElementById("summaryTotal");
 
-if(itemCount) itemCount.textContent = totalItems;
-if(productCount) productCount.textContent = totalProducts;
-if(summaryTotal) summaryTotal.textContent = totalCost + " AFN";
+  if (itemCount) itemCount.textContent = totalItems;
+  if (productCount) productCount.textContent = totalProducts;
+  if (summaryTotal) summaryTotal.textContent = totalCost + " AFN";
 }
 
-function updateCartQty(product, shop, change){
+function updateCartQty(product, shop, change) {
   const cart = getCart();
-  const item = cart.find(i => i.product === product && i.shop === shop);
+  const item = cart.find((i) => i.product === product && i.shop === shop);
 
-  if(item){
+  if (item) {
     item.qty += change;
-    if(item.qty <= 0){
+    if (item.qty <= 0) {
       removeFromCart(product, shop);
     } else {
       saveCart(cart);
@@ -790,11 +968,11 @@ function updateCartQty(product, shop, change){
 
 renderCart();
 
-const clearCartBtn = document.getElementById('clearCartBtn');
+const clearCartBtn = document.getElementById("clearCartBtn");
 
-if(clearCartBtn){
-  clearCartBtn.addEventListener('click', function(){
-    localStorage.removeItem('cart');
+if (clearCartBtn) {
+  clearCartBtn.addEventListener("click", function () {
+    localStorage.removeItem("cart");
     renderCart();
     updateCartBadge();
   });
@@ -802,11 +980,11 @@ if(clearCartBtn){
 
 // combination codes
 
-function findBestCombination(){
-   console.log("BUTTON CLICKED"); 
+function findBestCombination() {
+  console.log("BUTTON CLICKED");
   const cart = getCart();
 
-  if(cart.length === 0){
+  if (cart.length === 0) {
     showEmptyCartModal();
     return;
   }
@@ -815,11 +993,13 @@ function findBestCombination(){
   let originalTotal = 0;
   let resultRows = [];
 
-  cart.forEach(cartItem => {
-    const matches = catalog.filter(entry => entry.product === cartItem.product);
+  cart.forEach((cartItem) => {
+    const matches = catalog.filter(
+      (entry) => entry.product === cartItem.product,
+    );
     let cheapest = matches[0];
-    matches.forEach(entry => {
-      if(entry.price < cheapest.price){
+    matches.forEach((entry) => {
+      if (entry.price < cheapest.price) {
         cheapest = entry;
       }
     });
@@ -830,28 +1010,27 @@ function findBestCombination(){
     bestTotal += cheapestLineTotal;
     originalTotal += originalLineTotal;
 
-      resultRows.push({
+    resultRows.push({
       product: cartItem.product,
       bestShop: cheapest.shop,
       bestPrice: cheapest.price,
       qty: cartItem.qty,
-      lineTotal: cheapestLineTotal
-
+      lineTotal: cheapestLineTotal,
+    });
   });
-});
 
-const savings = originalTotal - bestTotal;
+  const savings = originalTotal - bestTotal;
 
-showBestCombinationResult(resultRows,bestTotal, originalTotal, savings);
+  showBestCombinationResult(resultRows, bestTotal, originalTotal, savings);
 }
 
 // find combination Modal
-function showBestCombinationResult(rows, bestTotal, originalTotal, savings){
-  const modal = document.getElementById('comboModal');
-  const body = document.getElementById('comboModalBody');
+function showBestCombinationResult(rows, bestTotal, originalTotal, savings) {
+  const modal = document.getElementById("comboModal");
+  const body = document.getElementById("comboModalBody");
 
   let rowsHTML = "";
-  rows.forEach(row => {
+  rows.forEach((row) => {
     rowsHTML += `
       <div class="combo-row">
         <div>
@@ -864,7 +1043,7 @@ function showBestCombinationResult(rows, bestTotal, originalTotal, savings){
   });
 
   let savingsHTML = "";
-  if(savings > 0){
+  if (savings > 0) {
     savingsHTML = `
       <div class="combo-savings">
         <span class="amount">You save ${savings} AFN</span>
@@ -885,31 +1064,30 @@ function showBestCombinationResult(rows, bestTotal, originalTotal, savings){
 }
 
 // close Modal property
-const findComboBtn = document.getElementById('findComboBtn');
-if(findComboBtn){
-  findComboBtn.addEventListener('click', findBestCombination);
+const findComboBtn = document.getElementById("findComboBtn");
+if (findComboBtn) {
+  findComboBtn.addEventListener("click", findBestCombination);
 }
 
-const closeComboModal = document.getElementById('closeComboModal');
-const comboModal = document.getElementById('comboModal');
-if(closeComboModal){
-  closeComboModal.addEventListener('click', () => {
+const closeComboModal = document.getElementById("closeComboModal");
+const comboModal = document.getElementById("comboModal");
+if (closeComboModal) {
+  closeComboModal.addEventListener("click", () => {
     comboModal.style.display = "none";
   });
 }
-if(comboModal){
-  comboModal.addEventListener('click', (e) => {
-    if(e.target === comboModal){
+if (comboModal) {
+  comboModal.addEventListener("click", (e) => {
+    if (e.target === comboModal) {
       comboModal.style.display = "none";
     }
   });
 }
 
 // Modal for empty cart for find combination button
-function showEmptyCartModal(){
-
-  const modal = document.getElementById('comboModal');
-  const body = document.getElementById('comboModalBody');
+function showEmptyCartModal() {
+  const modal = document.getElementById("comboModal");
+  const body = document.getElementById("comboModalBody");
 
   body.innerHTML = `
     <div class="empty-cart-message">
@@ -939,30 +1117,30 @@ function showEmptyCartModal(){
 //========= compare page =============
 let compareSelected = [];
 
-function initCompareSelect(){
-  const select = document.getElementById('compareProductSelect');
-  if(!select) return;
+function initCompareSelect() {
+  const select = document.getElementById("compareProductSelect");
+  if (!select) return;
 
-  const uniqueProducts = [...new Set(catalog.map(entry => entry.product))];
+  const uniqueProducts = [...new Set(catalog.map((entry) => entry.product))];
 
-    uniqueProducts.forEach(productName => {
-    const option = document.createElement('option');
+  uniqueProducts.forEach((productName) => {
+    const option = document.createElement("option");
     option.value = productName;
     option.textContent = productName;
     select.appendChild(option);
   });
 
-    select.addEventListener('change', () => {
+  select.addEventListener("change", () => {
     const chosen = select.value;
-    if(!chosen) return;
+    if (!chosen) return;
 
-    if(compareSelected.length >= 3){
+    if (compareSelected.length >= 3) {
       alert("You can compare up to 3 products at a time.");
       select.value = "";
       return;
     }
 
-        if(!compareSelected.includes(chosen)){
+    if (!compareSelected.includes(chosen)) {
       compareSelected.push(chosen);
       renderCompare();
     }
@@ -971,20 +1149,20 @@ function initCompareSelect(){
   });
 }
 
-function removeCompareProduct(productName){
-  compareSelected = compareSelected.filter(p => p !== productName);
+function removeCompareProduct(productName) {
+  compareSelected = compareSelected.filter((p) => p !== productName);
   renderCompare();
 }
 
-function renderCompareChips(){
-  const chipsContainer = document.getElementById('compareChips');
-  if(!chipsContainer) return;
+function renderCompareChips() {
+  const chipsContainer = document.getElementById("compareChips");
+  if (!chipsContainer) return;
 
   chipsContainer.innerHTML = "";
 
-  compareSelected.forEach(productName => {
-    const chip = document.createElement('div');
-    chip.className = 'compare-chip';
+  compareSelected.forEach((productName) => {
+    const chip = document.createElement("div");
+    chip.className = "compare-chip";
     chip.innerHTML = `
       ${productName}
       <button data-product="${productName}"><i class="fa-solid fa-xmark"></i></button>
@@ -992,21 +1170,21 @@ function renderCompareChips(){
     chipsContainer.appendChild(chip);
   });
 
-  chipsContainer.querySelectorAll('button').forEach(btn => {
-    btn.addEventListener('click', () => {
+  chipsContainer.querySelectorAll("button").forEach((btn) => {
+    btn.addEventListener("click", () => {
       removeCompareProduct(btn.dataset.product);
     });
   });
 }
 
-function renderCompareTable(){
-  const emptyState = document.getElementById('compareEmpty');
-  const tableWrap = document.getElementById('compareTableWrap');
-  const hint = document.getElementById('compareHint');
+function renderCompareTable() {
+  const emptyState = document.getElementById("compareEmpty");
+  const tableWrap = document.getElementById("compareTableWrap");
+  const hint = document.getElementById("compareHint");
 
-    if(!emptyState || !tableWrap || !hint) return;
+  if (!emptyState || !tableWrap || !hint) return;
 
-  if(compareSelected.length === 0){
+  if (compareSelected.length === 0) {
     emptyState.style.display = "block";
     tableWrap.style.display = "none";
     hint.style.display = "none";
@@ -1016,50 +1194,53 @@ function renderCompareTable(){
   emptyState.style.display = "none";
   tableWrap.style.display = "block";
 
-  const relevantEntries = catalog.filter(entry => compareSelected.includes(entry.product));
-  const shopNames = [...new Set(relevantEntries.map(entry => entry.shop))];
+  const relevantEntries = catalog.filter((entry) =>
+    compareSelected.includes(entry.product),
+  );
+  const shopNames = [...new Set(relevantEntries.map((entry) => entry.shop))];
 
-  const thead = document.getElementById('compareTableHead');
+  const thead = document.getElementById("compareTableHead");
   let headHTML = "<tr><th>Shop</th>";
-  compareSelected.forEach(p => headHTML += `<th>${p}</th>`);
+  compareSelected.forEach((p) => (headHTML += `<th>${p}</th>`));
   headHTML += "<th>Total</th></tr>";
   thead.innerHTML = headHTML;
 
-   const bestPricePerProduct = {};
-  compareSelected.forEach(productName => {
+  const bestPricePerProduct = {};
+  compareSelected.forEach((productName) => {
     const prices = catalog
-      .filter(entry => entry.product === productName)
-      .map(entry => entry.price);
+      .filter((entry) => entry.product === productName)
+      .map((entry) => entry.price);
     bestPricePerProduct[productName] = Math.min(...prices);
   });
 
-  // one row per shop 
+  // one row per shop
 
   let bodyHTML = "";
   let bestShopName = null;
   let bestShopTotal = Infinity;
   let bestShopComplete = false;
 
-  shopNames.forEach(shopName => {
+  shopNames.forEach((shopName) => {
     let rowTotal = 0;
     let hasAllProducts = true;
     let cellsHTML = "";
 
-    compareSelected.forEach(productName => {
-      const match = catalog.find(entry => entry.shop === shopName && entry.product === productName);
+    compareSelected.forEach((productName) => {
+      const match = catalog.find(
+        (entry) => entry.shop === shopName && entry.product === productName,
+      );
 
-      if(match){
+      if (match) {
         rowTotal += match.price;
         const isBest = match.price === bestPricePerProduct[productName];
-        cellsHTML += `<td class="${isBest ? 'compare-cell-best' : ''}">${match.price} AFN${isBest ? ' <span class="lowest-tag">LOWEST</span>' : ''}</td>`;
+        cellsHTML += `<td class="${isBest ? "compare-cell-best" : ""}">${match.price} AFN${isBest ? ' <span class="lowest-tag">LOWEST</span>' : ""}</td>`;
       } else {
         hasAllProducts = false;
         cellsHTML += `<td class="compare-cell-empty">Not available</td>`;
       }
     });
 
-    
-     if(hasAllProducts && rowTotal < bestShopTotal){
+    if (hasAllProducts && rowTotal < bestShopTotal) {
       bestShopTotal = rowTotal;
       bestShopName = shopName;
       bestShopComplete = true;
@@ -1074,24 +1255,27 @@ function renderCompareTable(){
     `;
   });
 
-  document.getElementById('compareTableBody').innerHTML = bodyHTML;
+  document.getElementById("compareTableBody").innerHTML = bodyHTML;
 
-    if(bestShopComplete){
-    const winningRow = document.querySelector(`tr[data-shop="${bestShopName}"]`);
-    if(winningRow){
-      winningRow.classList.add('compare-row-winner');
-      winningRow.lastElementChild.classList.add('compare-total-best');
+  if (bestShopComplete) {
+    const winningRow = document.querySelector(
+      `tr[data-shop="${bestShopName}"]`,
+    );
+    if (winningRow) {
+      winningRow.classList.add("compare-row-winner");
+      winningRow.lastElementChild.classList.add("compare-total-best");
     }
 
     hint.style.display = "block";
     hint.innerHTML = `<strong>${bestShopName}</strong> has the best total for everything you selected: <strong>${bestShopTotal} AFN</strong>.`;
   } else {
     hint.style.display = "block";
-    hint.textContent = "No single shop carries all selected products — compare prices individually above.";
+    hint.textContent =
+      "No single shop carries all selected products — compare prices individually above.";
   }
 }
 
-function renderCompare(){
+function renderCompare() {
   renderCompareChips();
   renderCompareTable();
   initCompareSelect();
@@ -1101,28 +1285,31 @@ renderCompareTable();
 renderCompare();
 
 // favorites helper used in every pages
-function getFavorites(){
-  const data = localStorage.getItem('favorites');
+function getFavorites() {
+  const data = localStorage.getItem("favorites");
   return data ? JSON.parse(data) : [];
 }
 
-function saveFavorites(favItems){
-  localStorage.setItem('favorites', JSON.stringify(favItems));
+function saveFavorites(favItems) {
+  localStorage.setItem("favorites", JSON.stringify(favItems));
   updateFavBadge();
 }
 
-function isFavorited(product, shop){
+function isFavorited(product, shop) {
   const favorites = getFavorites();
-  return favorites.some(item => item.product === product && item.shop === shop);
+  return favorites.some(
+    (item) => item.product === product && item.shop === shop,
+  );
 }
 
-
-function toggleFavorite(product, shop, price, image){
+function toggleFavorite(product, shop, price, image) {
   let favorites = getFavorites();
   const alreadySaved = isFavorited(product, shop);
 
-  if(alreadySaved){
-    favorites = favorites.filter(item => !(item.product === product && item.shop === shop));
+  if (alreadySaved) {
+    favorites = favorites.filter(
+      (item) => !(item.product === product && item.shop === shop),
+    );
   } else {
     favorites.push({ product, shop, price, image });
   }
@@ -1131,26 +1318,25 @@ function toggleFavorite(product, shop, price, image){
   return !alreadySaved;
 }
 
-function updateFavBadge(){
-  const badge = document.getElementById('favCount');
-  if(!badge) return;
+function updateFavBadge() {
+  const badge = document.getElementById("favCount");
+  if (!badge) return;
 
   const favorites = getFavorites();
   badge.textContent = favorites.length;
-  badge.style.display = favorites.length > 0 ? 'flex' : 'none';
+  badge.style.display = favorites.length > 0 ? "flex" : "none";
 }
 
 updateFavBadge();
 
-
 /*         RENDER FAVORITES PAGE      */
-function renderFavoritesPage(){
-  const container = document.getElementById('favItemsContainer');
-  if(!container) return;
+function renderFavoritesPage() {
+  const container = document.getElementById("favItemsContainer");
+  if (!container) return;
 
   const favorites = getFavorites();
 
-  if(favorites.length === 0){
+  if (favorites.length === 0) {
     container.innerHTML = `
       <div class="fav-empty">
         <div class="fav-empty-icon"><i class="fa-solid fa-heart"></i></div>
@@ -1166,7 +1352,7 @@ function renderFavoritesPage(){
 
   let rowsHTML = "";
 
-  favorites.forEach(item => {
+  favorites.forEach((item) => {
     rowsHTML += `
       <div class="fav-item">
         <div class="fav-item-thumb">
@@ -1202,19 +1388,26 @@ function renderFavoritesPage(){
   container.innerHTML = rowsHTML;
 
   // "Add to cart" favorites list
-  container.querySelectorAll('.fav-add-cart-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      addToCart(btn.dataset.product, btn.dataset.shop, parseInt(btn.dataset.price), btn.dataset.image);
+  container.querySelectorAll(".fav-add-cart-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      addToCart(
+        btn.dataset.product,
+        btn.dataset.shop,
+        parseInt(btn.dataset.price),
+        btn.dataset.image,
+      );
 
       const original = btn.textContent;
       btn.textContent = "Added ✓";
-      setTimeout(() => { btn.textContent = original; }, 1200);
+      setTimeout(() => {
+        btn.textContent = original;
+      }, 1200);
     });
   });
 
   // wire up remove unfavorites buttons
-  container.querySelectorAll('.fav-remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  container.querySelectorAll(".fav-remove-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
       toggleFavorite(btn.dataset.product, btn.dataset.shop);
       renderFavoritesPage();
     });
@@ -1224,19 +1417,16 @@ function renderFavoritesPage(){
 renderFavoritesPage();
 
 /*       CLEAR ALL FAVORITES        */
-const clearFavBtn = document.getElementById('clearFavBtn');
+const clearFavBtn = document.getElementById("clearFavBtn");
 
-if(clearFavBtn){
+if (clearFavBtn) {
+  clearFavBtn.addEventListener("click", () => {
+    if (getFavorites().length === 0) return;
 
-  clearFavBtn.addEventListener('click', () => {
+    if (document.querySelector(".clear-fav-confirm")) return;
 
-  
-    if(getFavorites().length === 0) return;
-
-    if(document.querySelector('.clear-fav-confirm')) return;
-
-    const confirmBox = document.createElement('div');
-    confirmBox.className = 'clear-fav-confirm';
+    const confirmBox = document.createElement("div");
+    confirmBox.className = "clear-fav-confirm";
 
     confirmBox.innerHTML = `
       <span>Remove all favorites?</span>
@@ -1244,88 +1434,86 @@ if(clearFavBtn){
       <button class="confirm-no">Cancel</button>
     `;
 
-    clearFavBtn.insertAdjacentElement('afterend', confirmBox);
+    clearFavBtn.insertAdjacentElement("afterend", confirmBox);
 
-    confirmBox.querySelector('.confirm-yes').addEventListener('click', () => {
+    confirmBox.querySelector(".confirm-yes").addEventListener("click", () => {
       saveFavorites([]);
       renderFavoritesPage();
 
       confirmBox.remove();
     });
 
-    confirmBox.querySelector('.confirm-no').addEventListener('click', () => {
+    confirmBox.querySelector(".confirm-no").addEventListener("click", () => {
       confirmBox.remove();
     });
   });
-
 }
 
 // =========== Alerts page ============
 
 // Alert Helper used on every page
-function getAlerts(){
-  const data = localStorage.getItem('alerts');
-  return data ? JSON.parse(data) : []
+function getAlerts() {
+  const data = localStorage.getItem("alerts");
+  return data ? JSON.parse(data) : [];
 }
 
-function saveAlerts(alertItems){
-  localStorage.setItem('alerts', JSON.stringify(alertItems));
+function saveAlerts(alertItems) {
+  localStorage.setItem("alerts", JSON.stringify(alertItems));
   updateAlertBadge();
 }
 
-function addAlert(product, targetPrice, image){
+function addAlert(product, targetPrice, image) {
   const alerts = getAlerts();
 
-  const existing = alerts.find(a => a.product === product);
-  if(existing){
+  const existing = alerts.find((a) => a.product === product);
+  if (existing) {
     existing.targetPrice = targetPrice;
     existing.enabled = true;
-  }
-  else{
-    alerts.push({product,targetPrice, image,enabled:true});
+  } else {
+    alerts.push({ product, targetPrice, image, enabled: true });
   }
   saveAlerts(alerts);
 }
 
-function removeAlert(product){
+function removeAlert(product) {
   let alerts = getAlerts();
 
-  alerts = alerts.filter(a => a.product !== product);
+  alerts = alerts.filter((a) => a.product !== product);
 
   saveAlerts(alerts);
 }
 
 // finding the cheapist price from my caltalog
-function getCurrentLowestPrice(productName){
-  const matches = catalog.filter(entry => entry.product === productName);
-  if(matches.length === 0)  return null;
-  return Math.min(...matches.map(entry => entry.price));
+function getCurrentLowestPrice(productName) {
+  const matches = catalog.filter((entry) => entry.product === productName);
+  if (matches.length === 0) return null;
+  return Math.min(...matches.map((entry) => entry.price));
 }
 
-function updateAlertBadge(){
-  const badge = document.getElementById('alertCount');
-  if(!badge) return;
+function updateAlertBadge() {
+  const badge = document.getElementById("alertCount");
+  if (!badge) return;
 
   const alerts = getAlerts();
-  const triggeredCount = alerts.filter(a => {
+  const triggeredCount = alerts.filter((a) => {
     const current = getCurrentLowestPrice(a.product);
     return a.enabled && current !== null && current <= a.targetPrice;
   }).length;
 
-    badge.textContent = triggeredCount;
-  badge.style.display = triggeredCount > 0 ? 'flex' : 'none';
+  badge.textContent = triggeredCount;
+  badge.style.display = triggeredCount > 0 ? "flex" : "none";
 }
 
 updateAlertBadge();
 
 /* RENDER ALERTS PAGE */
-function renderAlertsPage(){
-  const container = document.getElementById('alertItemsContainer');
-  if(!container) return; 
+function renderAlertsPage() {
+  const container = document.getElementById("alertItemsContainer");
+  if (!container) return;
 
   const alerts = getAlerts();
 
-  if(alerts.length === 0){
+  if (alerts.length === 0) {
     container.innerHTML = `
       <div class="alert-empty">
         <div class="alert-empty-icon"><i class="fa-solid fa-bell"></i></div>
@@ -1338,30 +1526,33 @@ function renderAlertsPage(){
 
   let rowsHTML = "";
 
-  alerts.forEach(alert => {
+  alerts.forEach((alert) => {
     const currentPrice = getCurrentLowestPrice(alert.product);
-    const isTriggered = alert.enabled && currentPrice !== null && currentPrice <= alert.targetPrice;
+    const isTriggered =
+      alert.enabled &&
+      currentPrice !== null &&
+      currentPrice <= alert.targetPrice;
 
     rowsHTML += `
       <div class="alert-item">
         <div class="alert-item-thumb">
-          <img src="${alert.image || 'images/placeholder.png'}" alt="${alert.product}">
+          <img src="${alert.image || "images/placeholder.png"}" alt="${alert.product}">
         </div>
 
         <div class="alert-item-info">
           <h5>${alert.product}
-            <span class="alert-status ${isTriggered ? 'triggered' : 'waiting'}">
-              ${isTriggered ? '🎉 Triggered' : 'Waiting'}
+            <span class="alert-status ${isTriggered ? "triggered" : "waiting"}">
+              ${isTriggered ? "🎉 Triggered" : "Waiting"}
             </span>
           </h5>
           <span>
             Notify me when price goes below ${alert.targetPrice} AFN
-            ${currentPrice !== null ? ` · Current lowest: ${currentPrice} AFN` : ''}
+            ${currentPrice !== null ? ` · Current lowest: ${currentPrice} AFN` : ""}
           </span>
         </div>
 
         <label class="switch">
-          <input type="checkbox" data-product="${alert.product}" ${alert.enabled ? 'checked' : ''}>
+          <input type="checkbox" data-product="${alert.product}" ${alert.enabled ? "checked" : ""}>
           <span class="slider"></span>
         </label>
 
@@ -1374,17 +1565,15 @@ function renderAlertsPage(){
 
   container.innerHTML = rowsHTML;
 
-
-  container.querySelectorAll('.switch input').forEach(input => {
-    input.addEventListener('change', () => {
+  container.querySelectorAll(".switch input").forEach((input) => {
+    input.addEventListener("change", () => {
       toggleAlertEnabled(input.dataset.product);
       renderAlertsPage();
     });
   });
 
-
-  container.querySelectorAll('.alert-remove-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  container.querySelectorAll(".alert-remove-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
       removeAlert(btn.dataset.product);
       renderAlertsPage();
     });
@@ -1395,143 +1584,307 @@ renderAlertsPage();
 
 /*  ADD NEW ALERT MODAL */
 
-const addAlertBtn = document.getElementById('addAlertBtn');
+const addAlertBtn = document.getElementById("addAlertBtn");
 
-const alertModal = document.getElementById('alertModal');
-const closeAlertModal = document.getElementById('closeAlertModal');
-const cancelAlertModal = document.getElementById('cancelAlertModal');
+const alertModal = document.getElementById("alertModal");
+const closeAlertModal = document.getElementById("closeAlertModal");
+const cancelAlertModal = document.getElementById("cancelAlertModal");
 
-const alertProduct = document.getElementById('alertProduct');
-const alertTargetPrice = document.getElementById('alertTargetPrice');
+const alertProduct = document.getElementById("alertProduct");
+const alertTargetPrice = document.getElementById("alertTargetPrice");
 
-const saveAlertModal = document.getElementById('saveAlertModal');
-const alertModalError = document.getElementById('alertModalError');
+const saveAlertModal = document.getElementById("saveAlertModal");
+const alertModalError = document.getElementById("alertModalError");
 
-if(addAlertBtn){
+if (addAlertBtn) {
+  addAlertBtn.addEventListener("click", () => {
+    const uniqueProducts = [...new Set(catalog.map((entry) => entry.product))];
+    alertProduct.innerHTML = '<option value="">Select a product</option>';
 
-  addAlertBtn.addEventListener('click', () => {
-
-    const uniqueProducts = [
-      ...new Set(catalog.map(entry => entry.product))
-    ];
-    alertProduct.innerHTML =
-      '<option value="">Select a product</option>';
-
-    uniqueProducts.forEach(productName => {
-
-      const option = document.createElement('option');
+    uniqueProducts.forEach((productName) => {
+      const option = document.createElement("option");
 
       option.value = productName;
       option.textContent = productName;
 
       alertProduct.appendChild(option);
-
     });
 
     alertProduct.value = "";
     alertTargetPrice.value = "";
 
     alertModalError.textContent = "";
-    alertModalError.classList.remove('show');
+    alertModalError.classList.remove("show");
 
-    alertModal.classList.add('show');
+    alertModal.classList.add("show");
     setTimeout(() => {
       alertProduct.focus();
     }, 100);
-
   });
-
 }
 
-function closeAlertModalWindow(){
-
-  alertModal.classList.remove('show');
-
+function closeAlertModalWindow() {
+  alertModal.classList.remove("show");
 }
 
-
-if(closeAlertModal){
-
-  closeAlertModal.addEventListener(
-    'click',
-    closeAlertModalWindow
-  );
-
+if (closeAlertModal) {
+  closeAlertModal.addEventListener("click", closeAlertModalWindow);
 }
 
-
-if(cancelAlertModal){
-
-  cancelAlertModal.addEventListener(
-    'click',
-    closeAlertModalWindow
-  );
-
+if (cancelAlertModal) {
+  cancelAlertModal.addEventListener("click", closeAlertModalWindow);
 }
-if(alertModal){
-
-  alertModal.addEventListener('click', (e) => {
-
-    if(e.target === alertModal){
-
+if (alertModal) {
+  alertModal.addEventListener("click", (e) => {
+    if (e.target === alertModal) {
       closeAlertModalWindow();
-
     }
-
   });
-
 }
 
-document.addEventListener('keydown', (e) => {
-
-  if(e.key === 'Escape' &&
-     alertModal.classList.contains('show')){
-
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && alertModal.classList.contains("show")) {
     closeAlertModalWindow();
-
   }
-
 });
 
-if(saveAlertModal){
-
-  saveAlertModal.addEventListener('click', () => {
-
+if (saveAlertModal) {
+  saveAlertModal.addEventListener("click", () => {
     const chosenProduct = alertProduct.value;
 
     const target = parseInt(alertTargetPrice.value);
-    if(!chosenProduct){
+    if (!chosenProduct) {
+      alertModalError.textContent = "Please select a product.";
 
-      alertModalError.textContent =
-        "Please select a product.";
-
-      alertModalError.classList.add('show');
+      alertModalError.classList.add("show");
 
       return;
-
     }
 
-    if(!target || isNaN(target) || target <= 0){
+    if (!target || isNaN(target) || target <= 0) {
+      alertModalError.textContent = "Please enter a valid target price.";
 
-      alertModalError.textContent =
-        "Please enter a valid target price.";
-
-      alertModalError.classList.add('show');
+      alertModalError.classList.add("show");
 
       return;
-
     }
 
     const image = productImages[chosenProduct];
-    addAlert(
-      chosenProduct,
-      target,
-      image
-    );
+    addAlert(chosenProduct, target, image);
 
     renderAlertsPage();
     closeAlertModalWindow();
+  });
+}
 
+// Price History codes
+// price history data
+
+const priceHistoryData = {
+  "Rice (1 kg)": [
+    { date: "1 Aug", avg: 105, low: 95, high: 125 },
+    { date: "5 Aug", avg: 110, low: 100, high: 130 },
+    { date: "10 Aug", avg: 115, low: 105, high: 135 },
+    { date: "15 Aug", avg: 120, low: 110, high: 140 },
+    { date: "20 Aug", avg: 125, low: 115, high: 145 },
+  ],
+  "Oil (1 L)": [
+    { date: "1 Aug", avg: 175, low: 165, high: 185 },
+    { date: "5 Aug", avg: 172, low: 162, high: 182 },
+    { date: "10 Aug", avg: 168, low: 160, high: 178 },
+    { date: "15 Aug", avg: 165, low: 158, high: 175 },
+    { date: "20 Aug", avg: 165, low: 160, high: 170 },
+  ],
+  "Flour (1 kg)": [
+    { date: "1 Aug", avg: 95, low: 88, high: 100 },
+    { date: "5 Aug", avg: 92, low: 85, high: 98 },
+    { date: "10 Aug", avg: 88, low: 82, high: 94 },
+    { date: "15 Aug", avg: 85, low: 80, high: 90 },
+    { date: "20 Aug", avg: 85, low: 80, high: 90 },
+  ],
+  "Sugar (1 kg)": [
+    { date: "1 Aug", avg: 80, low: 75, high: 85 },
+    { date: "5 Aug", avg: 82, low: 77, high: 87 },
+    { date: "10 Aug", avg: 84, low: 79, high: 89 },
+    { date: "15 Aug", avg: 85, low: 80, high: 90 },
+    { date: "20 Aug", avg: 85, low: 80, high: 90 },
+  ],
+  "Tea (100 g)": [
+    { date: "1 Aug", avg: 130, low: 125, high: 135 },
+    { date: "5 Aug", avg: 132, low: 126, high: 138 },
+    { date: "10 Aug", avg: 135, low: 128, high: 140 },
+    { date: "15 Aug", avg: 137, low: 130, high: 142 },
+    { date: "20 Aug", avg: 139, low: 132, high: 145 },
+  ],
+};
+
+// Line for graph
+
+function drawHistoryChart(dataPoints) {
+  const svg = document.getElementById("historyChart");
+  if (!svg) return;
+
+  const chartWidth = 620;
+  const chartHeight = 240;
+  const paddingLeft = 56; 
+  const paddingRight = 20;
+  const paddingTop = 20;
+  const paddingBottom = 30;
+
+  const plotWidth = chartWidth - paddingLeft - paddingRight;
+  const plotHeight = chartHeight - paddingTop - paddingBottom;
+
+  const prices = dataPoints.map((p) => p.avg);
+  const rawMin = Math.min(...prices);
+  const rawMax = Math.max(...prices);
+
+  const niceStep = 10;
+  const minPrice = Math.floor(rawMin / niceStep) * niceStep;
+  const maxPrice = Math.ceil(rawMax / niceStep) * niceStep;
+  const priceRange = maxPrice - minPrice || niceStep;
+
+  const tickCount = 4;
+  const ticks = [];
+  for (let i = 0; i <= tickCount; i++) {
+    ticks.push(minPrice + (priceRange / tickCount) * i);
+  }
+
+  function priceToY(price) {
+    return (
+      paddingTop + plotHeight - ((price - minPrice) / priceRange) * plotHeight
+    );
+  }
+  function indexToX(index) {
+    return paddingLeft + (index / (dataPoints.length - 1)) * plotWidth;
+  }
+
+  let gridHTML = "";
+  let yLabelsHTML = "";
+
+  ticks.forEach((tickValue) => {
+    const y = priceToY(tickValue);
+    gridHTML += `<line x1="${paddingLeft}" y1="${y.toFixed(1)}" x2="${chartWidth - paddingRight}" y2="${y.toFixed(1)}" stroke="#eef1ef" stroke-width="1"></line>`;
+    yLabelsHTML += `<text x="${paddingLeft - 10}" y="${(y + 4).toFixed(1)}" text-anchor="end" font-size="11" fill="#98a2b3">${Math.round(tickValue)}</text>`;
   });
 
+
+  const coords = dataPoints.map((point, index) => ({
+    x: indexToX(index),
+    y: priceToY(point.avg),
+  }));
+
+  let pathD = "";
+  coords.forEach((c, i) => {
+    pathD +=
+      (i === 0 ? "M" : "L") + c.x.toFixed(1) + "," + c.y.toFixed(1) + " ";
+  });
+
+  const baselineY = paddingTop + plotHeight;
+  const areaD =
+    pathD +
+    `L${coords[coords.length - 1].x.toFixed(1)},${baselineY} L${coords[0].x.toFixed(1)},${baselineY} Z`;
+
+  let dotsHTML = "";
+  coords.forEach((c, i) => {
+    dotsHTML += `
+      <circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="9" fill="transparent" class="chart-hover-dot" data-value="${dataPoints[i].avg}" data-date="${dataPoints[i].date}"></circle>
+      <circle cx="${c.x.toFixed(1)}" cy="${c.y.toFixed(1)}" r="4" fill="#178a4c" stroke="#fff" stroke-width="2" pointer-events="none"></circle>
+    `;
+  });
+
+
+  const axisLine = `<line x1="${paddingLeft}" y1="${paddingTop}" x2="${paddingLeft}" y2="${baselineY}" stroke="#d9dedb" stroke-width="1.2"></line>`;
+  const axisTitle = `<text x="14" y="${chartHeight / 2}" text-anchor="middle" font-size="11" font-weight="600" fill="#667085" transform="rotate(-90 14 ${chartHeight / 2})">Price (AFN)</text>`;
+
+  svg.setAttribute("viewBox", `0 0 ${chartWidth} ${chartHeight}`);
+  svg.innerHTML = `
+    ${gridHTML}
+    ${axisLine}
+    <path d="${areaD}" fill="#e6f7ec" stroke="none"></path>
+    <path d="${pathD.trim()}" fill="none" stroke="#178a4c" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+    ${dotsHTML}
+    ${yLabelsHTML}
+    ${axisTitle}
+  `;
+
+
+  const labelsContainer = document.getElementById("historyChartLabels");
+  labelsContainer.innerHTML = dataPoints
+    .map((p) => `<span>${p.date}</span>`)
+    .join("");
+
+  svg.querySelectorAll(".chart-hover-dot").forEach((dot) => {
+    const titleEl = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "title",
+    );
+    titleEl.textContent = `${dot.dataset.date}: ${dot.dataset.value} AFN`;
+    dot.appendChild(titleEl);
+  });
 }
+
+function renderPriceHistoryPage(productName) {
+  const dataPoints = priceHistoryData[productName];
+  if (!dataPoints) return;
+
+  const title = document.getElementById("historyTitle");
+  const crumb = document.getElementById("historyCrumb");
+  const subtitle = document.getElementById("historySubtitle");
+  if (title) title.textContent = `${productName} — Price History`;
+  if (crumb) crumb.textContent = productName;
+  if (subtitle)
+    subtitle.textContent =
+      "Track how prices have changed over the last month across all shops.";
+  document.title = `${productName} Price History · Bazaar Check`;
+
+
+  drawHistoryChart(dataPoints);
+
+
+  const tbody = document.getElementById("historyTableBody");
+  if (tbody) {
+    let rowsHTML = "";
+    [...dataPoints].reverse().forEach((point) => {
+      rowsHTML += `
+        <tr>
+          <td>${point.date}</td>
+          <td>${point.avg} AFN</td>
+          <td>${point.low} AFN</td>
+          <td>${point.high} AFN</td>
+        </tr>
+      `;
+    });
+    tbody.innerHTML = rowsHTML;
+  }
+}
+
+function initHistoryPage() {
+  const select = document.getElementById("historyProductSelect");
+  if (!select) return; 
+
+  Object.keys(priceHistoryData).forEach((productName) => {
+    const option = document.createElement("option");
+    option.value = productName;
+    option.textContent = productName;
+    select.appendChild(option);
+  });
+
+ 
+  const urlParams = new URLSearchParams(window.location.search);
+  const requestedProduct = urlParams.get("product");
+
+  const matchedProduct = Object.keys(priceHistoryData).find((name) =>
+    name.toLowerCase().includes((requestedProduct || "").toLowerCase()),
+  );
+
+  const startingProduct = matchedProduct || Object.keys(priceHistoryData)[0];
+  select.value = startingProduct;
+
+  renderPriceHistoryPage(startingProduct);
+
+  select.addEventListener("change", () => {
+    renderPriceHistoryPage(select.value);
+  });
+}
+
+initHistoryPage();
