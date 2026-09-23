@@ -304,7 +304,7 @@ const productImages = {
   "Sugar (1 kg)": "images/sugar.png",
 };
 
-// Only run this logic if we're actually on the search page
+//  search page
 const priceTableBody = document.querySelector(".price-table tbody");
 
 if (priceTableBody && document.querySelector(".page-head h1")) {
@@ -312,7 +312,7 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
   const searchQuery = searchParams.get("q");
   const categoryFilter = searchParams.get("category");
 
-  // --- Step 4a: filter the catalog based on the URL ---
+
   let results = catalog;
 
   if (searchQuery) {
@@ -325,7 +325,7 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
     results = results.filter((item) => item.category === categoryFilter);
   }
 
-  // -- update the page heading to reflect what's shown ---
+
   const heading = document.querySelector(".page-head h1");
   const subheading = document.querySelector(".page-head p");
 
@@ -341,15 +341,13 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
   }
   subheading.textContent = `${results.length} result${results.length !== 1 ? "s" : ""} found.`;
 
-  // ---highlight the matching filter link as active ---
+
   document.querySelectorAll(".filter-item[data-category]").forEach((link) => {
     link.classList.remove("active");
     if (link.dataset.category === (categoryFilter || "all")) {
       link.classList.add("active");
     }
   });
-
-  // -- render the table or an empty state---
   function renderTable(rows) {
     if (rows.length === 0) {
       document.querySelector(".table-card").innerHTML = `
@@ -361,7 +359,6 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
       return;
     }
 
-    // find the lowest price among current results, to tag it
     const lowestPrice = Math.min(...rows.map((r) => r.price));
 
     let rowsHTML = "";
@@ -390,7 +387,6 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
 
   renderTable(results);
 
-  // ---update the stat boxes based on current results ---
   function renderStats(rows) {
     const statRow = document.querySelector(".stat-row");
     if (!statRow) return;
@@ -427,7 +423,7 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
 
   renderStats(results);
 
-  // ---  hook up sorting to work on the CURRENT filtered results ---
+  
   const sortSelect = document.querySelector(".sort-select");
   if (sortSelect) {
     sortSelect.addEventListener("change", () => {
@@ -496,7 +492,7 @@ if (data) {
 // favorit button
 
 document.querySelectorAll(".fav-btn").forEach((btn) => {
-  // on page load, check if this exact product is already saved, and show it as active
+  
   const product = btn.dataset.product;
   const shop = btn.dataset.shop;
 
@@ -1888,3 +1884,325 @@ function initHistoryPage() {
 }
 
 initHistoryPage();
+
+// Profile page
+
+
+function getUser() {
+    const data = localStorage.getItem("user");
+
+    if (data) {
+        return JSON.parse(data);
+    }
+
+    return null;
+}
+
+function saveUser(userData){
+  localStorage.setItem('user', JSON.stringify(userData));
+}
+
+
+function renderProfilePage() {
+    const nameEl = document.getElementById("profileName");
+
+
+    if (!nameEl) return;
+
+    const user = getUser();
+
+    // NO USER LOGGED IN
+
+if (!user) {
+    requireLogin();
+    return;
+}
+
+    // USER EXISTS
+
+    document.getElementById("profileAvatar").src = user.avatar || "";
+    document.getElementById("profileName").textContent = user.name || "";
+    document.getElementById("profileEmail").textContent = user.email || "";
+
+    if (user.memberSince) {
+        const [year, month] = user.memberSince.split("-");
+
+        const monthNames = [
+            "January", "February", "March", "April",
+            "May", "June", "July", "August",
+            "September", "October", "November", "December"
+        ];
+
+        document.getElementById("profileSince").textContent =
+            `Member since ${monthNames[parseInt(month) - 1]} ${year}`;
+    } else {
+        document.getElementById("profileSince").textContent = "";
+    }
+
+    document.getElementById("infoName").textContent = user.name || "";
+    document.getElementById("infoEmail").textContent = user.email || "";
+    document.getElementById("infoPhone").textContent = user.phone || "";
+    document.getElementById("infoLocation").textContent = user.location || "";
+
+
+    // ACTIVITY
+
+    const favorites = getFavorites();
+    const alerts = getAlerts();
+    const cart = getCart();
+
+    const activeAlerts = alerts.filter(a => a.enabled).length;
+
+    const cartItemCount = cart.reduce(
+        (sum, item) => sum + item.qty,
+        0
+    );
+
+    const cartValue = cart.reduce(
+        (sum, item) => sum + (item.price * item.qty),
+        0
+    );
+
+    document.getElementById("statFavorites").textContent = favorites.length;
+    document.getElementById("statAlerts").textContent = activeAlerts;
+    document.getElementById("statCart").textContent = cartItemCount;
+    document.getElementById("statCartValue").textContent = cartValue + " AFN";
+}
+renderProfilePage();
+
+/*  FILL TOPBAR USER INFO  */
+const topbarName = document.getElementById("topbarName");
+const topbarAvatar = document.getElementById("topbarAvatar");
+
+if (topbarName && topbarAvatar) {
+
+    const user = getUser();
+
+    if (user) {
+        topbarName.textContent = user.name || "";
+        topbarAvatar.src = user.avatar || "";
+    } else {
+        topbarName.textContent = "";
+        topbarAvatar.src = "";
+    }
+}
+
+/*  AUTH STATE HELPERS (getUser/saveUser already exist above — reused, not duplicated) */
+
+function isLoggedIn(){
+  return getUser() !== null;
+}
+
+function logoutUser(){
+  localStorage.removeItem('user');
+  updateTopbarUser();
+}
+
+/* TOPBAR USER DISPLAY (runs on every page) */
+function updateTopbarUser(){
+  const nameEl = document.getElementById('topbarName');
+  const avatarEl = document.getElementById('topbarAvatar');
+  const defaultIcon = document.getElementById('topbarDefaultIcon');
+  if(!nameEl) return; 
+
+  const user = getUser();
+
+  if(user){
+    nameEl.textContent = user.name || "My Account";
+    if(user.avatar){
+      avatarEl.src = user.avatar;
+      avatarEl.style.display = "block";
+      defaultIcon.style.display = "none";
+    } else {
+      avatarEl.style.display = "none";
+      defaultIcon.style.display = "block";
+    }
+  } else {
+    nameEl.textContent = "Login";
+    avatarEl.style.display = "none";
+    avatarEl.removeAttribute('src');
+    defaultIcon.style.display = "block";
+  }
+}
+updateTopbarUser();
+
+/*  showMessage — reusable login-required popup */
+function showMessage(title, text, actionLabel, onAction){
+  const modal = document.getElementById('siteMessage');
+  if(!modal) return;
+
+  document.getElementById('siteMessageTitle').textContent = title;
+  document.getElementById('siteMessageText').textContent = text;
+
+  const actionBtn = document.getElementById('siteMessageActionBtn');
+  actionBtn.textContent = actionLabel;
+
+
+  const freshBtn = actionBtn.cloneNode(true);
+  actionBtn.parentNode.replaceChild(freshBtn, actionBtn);
+  freshBtn.addEventListener('click', () => {
+    modal.style.display = "none";
+    if(onAction) onAction();
+  });
+
+  modal.style.display = "flex";
+}
+
+const siteMessageCloseBtn = document.getElementById('siteMessageCloseBtn');
+const siteMessage = document.getElementById('siteMessage');
+if(siteMessageCloseBtn){
+  siteMessageCloseBtn.addEventListener('click', () => { siteMessage.style.display = "none"; });
+}
+if(siteMessage){
+  siteMessage.addEventListener('click', (e) => {
+    if(e.target === siteMessage) siteMessage.style.display = "none";
+  });
+}
+
+/* requireLogin — call this to protect any action */
+function requireLogin(){
+  showMessage(
+    "You're not logged in",
+    "Please log in to your Bazaar Check account to access this feature.",
+    "Login Now",
+    () => openAuthModal('login')
+  );
+}
+
+/*  INTERCEPT CLICKS ON PROTECTED LINKS */
+document.querySelectorAll('[data-protected="true"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    if(!isLoggedIn()){
+      e.preventDefault();
+      requireLogin();
+    }
+  });
+});
+
+/*  AUTH MODAL (login/register) */
+function openAuthModal(view){
+  const modal = document.getElementById('authModal');
+  if(!modal) return;
+
+  document.getElementById('authLoginView').style.display = view === 'login' ? 'block' : 'none';
+  document.getElementById('authRegisterView').style.display = view === 'register' ? 'block' : 'none';
+  modal.style.display = "flex";
+}
+
+const authModal = document.getElementById('authModal');
+const authModalClose = document.getElementById('authModalClose');
+if(authModalClose){
+  authModalClose.addEventListener('click', () => { authModal.style.display = "none"; });
+}
+if(authModal){
+  authModal.addEventListener('click', (e) => {
+    if(e.target === authModal) authModal.style.display = "none";
+  });
+}
+
+const switchToRegister = document.getElementById('switchToRegister');
+if(switchToRegister){
+  switchToRegister.addEventListener('click', (e) => {
+    e.preventDefault();
+    openAuthModal('register');
+  });
+}
+const switchToLogin = document.getElementById('switchToLogin');
+if(switchToLogin){
+  switchToLogin.addEventListener('click', (e) => {
+    e.preventDefault();
+    openAuthModal('login');
+  });
+}
+
+/* ---- Login submit ---- */
+const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+if(loginSubmitBtn){
+  loginSubmitBtn.addEventListener('click', () => {
+    const errorBox = document.getElementById('loginError');
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+
+    function showLoginError(msg){
+      errorBox.textContent = msg;
+      errorBox.style.display = "block";
+    }
+
+    if(!email || !password){
+      showLoginError("Please enter your email and password.");
+      return;
+    }
+
+    const existing = JSON.parse(localStorage.getItem('registeredUser') || 'null');
+
+    if(existing && existing.email === email && existing.password === password){
+      errorBox.style.display = "none";
+      saveUser(existing);
+      document.getElementById('authModal').style.display = "none";
+      updateTopbarUser();
+      renderProfilePage();
+    } else {
+      showLoginError("Incorrect email or password.");
+    }
+  });
+}
+
+/* ---- Register submit ---- */
+const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+if(registerSubmitBtn){
+  registerSubmitBtn.addEventListener('click', () => {
+    const name = document.getElementById('registerName').value.trim();
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const phone = document.getElementById('registerPhone').value.trim();
+    const location = document.getElementById('registerLocation').value.trim();
+
+    if(!name || !email || !password){
+      alert("Please fill in every field.");
+      return;
+    }
+
+    const newUser = {
+      name,
+      email,
+      password,
+      avatar: registerAvatarData || "",   
+      phone,
+      location,
+      memberSince: new Date().toISOString().slice(0, 7)
+    };
+
+    localStorage.setItem('registeredUser', JSON.stringify(newUser));
+    saveUser(newUser);
+    document.getElementById('authModal').style.display = "none";
+    updateTopbarUser();
+    renderProfilePage();
+  });
+}
+
+const logoutLink = document.getElementById('logoutLink');
+if(logoutLink){
+  logoutLink.addEventListener('click', () => {
+    logoutUser(); 
+  });
+}
+
+/* ---- Avatar upload preview ---- */
+let registerAvatarData = ""; 
+
+const registerAvatarInput = document.getElementById('registerAvatarInput');
+if(registerAvatarInput){
+  registerAvatarInput.addEventListener('change', () => {
+    const file = registerAvatarInput.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      registerAvatarData = reader.result;
+      document.getElementById('avatarPreviewImg').src = registerAvatarData;
+      document.getElementById('avatarPreviewImg').style.display = "block";
+      document.getElementById('avatarPreviewIcon').style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  });
+}

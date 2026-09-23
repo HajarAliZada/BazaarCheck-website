@@ -41,25 +41,28 @@
 
         <!-- <button id="darkModeBtn" class="icon-btn">🌙 </button> -->
 
-        <a href="cart.html" class="icon-btn" style="position:relative;">
+        <a href="cart.html" data-protected="true" class="icon-btn" style="position:relative;">
     <i class="fa-solid fa-cart-shopping"></i>
     <span id="cartCount" class="cart-badge" style="display:none;">0</span>
 </a>
-       <a href="alerts.html" class="icon-btn" style="position:relative;">
+       <a href="alerts.html" data-protected="true" class="icon-btn" style="position:relative;">
     <i class="fa-regular fa-bell"></i>
     <span id="alertCount" class="cart-badge" style="display:none;">0</span>
 </a>
 
-             <a href="favorites.html" class="icon-btn" style="position:relative;">
+             <a href="favorites.html" data-protected="true" class="icon-btn" style="position:relative;">
     <i class="fa-regular fa-heart"></i>
     <span id="favCount" class="cart-badge" style="display:none;">0</span>
 </a>
     
 
-        <a href="#" class="user-chip">
-          <img src="images/1.png" alt="user" />
-          <span class="name">Hajar Ali</span>
-        </a>
+<a href="profile.html" data-protected="true" class="user-chip" id="userChip" data-protected="true">
+  <div class="topbar-avatar">
+    <i class="fa-regular fa-circle-user" id="topbarDefaultIcon"></i>
+    <img id="topbarAvatar" alt="Profile picture">
+  </div>
+  <span class="name" id="topbarName">Login</span>
+</a>
       </div>
     </header>
 
@@ -85,68 +88,136 @@
           Home
         </a>
 
-        <a href="search.html">
+        <a href="search.html" data-protected="true">
           <i class="fa-solid fa-magnifying-glass"></i>
           Search
         </a>
 
-        <a href="categories.html">
+        <a href="categories.html" data-protected="true">
           <i class="fa-solid fa-layer-group"></i>
           Categories
         </a>
 
-        <a href="shops.html">
+        <a href="shops.html" data-protected="true">
           <i class="fa-solid fa-shop"></i>
           Shops
         </a>
 
-        <a href="cart.html">
+        <a href="cart.html" data-protected="true">
           <i class="fa-solid fa-cart-shopping"></i>
           My Cart
         </a>
 
-        <a href="cart.html">
+        <a href="compare.html" data-protected="true">
           <i class="fa-solid fa-code-compare"></i>
           Compare
         </a>
 
-        <a href="cart.html">
+        <a href="favorites.html" data-protected="true">
           <i class="fa-solid fa-heart"></i>
           Favorites
         </a>
 
-        <a href="cart.html">
+        <a href="alerts.html" data-protected="true">
           <i class="fa-solid fa-bell"></i>
           Alerts
         </a>
 
-        <a href="cart.html">
+        <a href="price-history.html" data-protected="true">
           <i class="fa-solid fa-chart-line"></i>
           Price History
         </a>
 
-        <a href="profile.html">
+        <a href="profile.html" data-protected="true">
           <i class="fa-regular fa-circle-user"></i>
           Profile
         </a>
 
-        <a href="cart.html">
+        <a href="settings.html" data-protected="true">
           <i class="fa-solid fa-gear"></i>
           settings
         </a>
 
         <hr />
 
-        <a href="cart.html">
-          <i class="fa-solid fa-right-from-bracket"></i>
-          Logout
-        </a>
+       <a href="index.html" id="logoutLink">
+  <i class="fa-solid fa-right-from-bracket"></i>
+  Logout
+</a>
       </nav>
     </aside>
 
     <!-- Backdrop -->
 
     <div class="backdrop" id="backdrop"></div>
+
+    <!-- Login / Register -->
+<!-- ==================== AUTH MODAL (login/register) ==================== -->
+<div class="auth-modal" id="authModal" style="display:none;">
+  <div class="auth-modal-box">
+    <button class="auth-modal-close" id="authModalClose"><i class="fa-solid fa-xmark"></i></button>
+
+    <!-- LOGIN VIEW -->
+    <div id="authLoginView">
+      <h2>Welcome back</h2>
+      <p class="auth-modal-sub">Log in to your Bazaar Check account.</p>
+
+      <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="Enter your email"></div>
+      <div class="field"><label>Password</label><input type="password" id="loginPassword" placeholder="Enter your password"></div>
+
+      <p class="auth-error" id="loginError" style="display:none;"></p>
+
+      <button class="btn-primary-full" id="loginSubmitBtn">Login</button>
+      <p class="auth-modal-switch">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+    </div>
+
+    <!-- REGISTER VIEW -->
+    <div id="authRegisterView" style="display:none;">
+      <h2>Create your account</h2>
+      <p class="auth-modal-sub">Join Bazaar Check to save favorites, alerts, and more.</p>
+
+      <div class="avatar-upload">
+        <div class="avatar-upload-preview" id="avatarPreviewWrap">
+          <img id="avatarPreviewImg" style="display:none;">
+          <i class="fa-regular fa-circle-user" id="avatarPreviewIcon"></i>
+        </div>
+        <label for="registerAvatarInput" class="avatar-upload-btn">
+          <i class="fa-solid fa-camera"></i> Upload Photo
+        </label>
+        <input type="file" id="registerAvatarInput" accept="image/*" hidden>
+      </div>
+
+      <div class="field"><label>Full Name</label><input type="text" id="registerName" placeholder="Enter your name"></div>
+      <div class="field"><label>Email</label><input type="email" id="registerEmail" placeholder="Enter your email"></div>
+
+      <div class="field-row">
+        <div class="field"><label>Password</label><input type="password" id="registerPassword" placeholder="Create a password"></div>
+        <div class="field"><label>Confirm Password</label><input type="password" id="registerConfirmPassword" placeholder="Re-enter password"></div>
+      </div>
+
+      <div class="field-row">
+        <div class="field"><label>Phone</label><input type="text" id="registerPhone" placeholder="+93 7X XXX XXXX"></div>
+        <div class="field"><label>Location</label><input type="text" id="registerLocation" placeholder="City, Country"></div>
+      </div>
+
+      <p class="auth-error" id="registerError" style="display:none;"></p>
+
+      <button class="btn-primary-full" id="registerSubmitBtn">Register</button>
+      <p class="auth-modal-switch">Already have an account? <a href="#" id="switchToLogin">Login</a></p>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== LOGIN-REQUIRED MESSAGE ==================== -->
+<div class="site-message" id="siteMessage" style="display:none;">
+  <div class="site-message-box">
+    <div class="site-message-icon"><i class="fa-solid fa-lock"></i></div>
+    <h3 id="siteMessageTitle">You're not logged in</h3>
+    <p id="siteMessageText">Please log in to your Bazaar Check account to access this feature.</p>
+    <button class="btn-primary-full" id="siteMessageActionBtn">Login Now</button>
+    <button class="btn-ghost-full" id="siteMessageCloseBtn">Cancel</button>
+  </div>
+</div>
 
     <!-- Hero -->
 
@@ -170,22 +241,22 @@
 </div>
         </div>
         <div class="chip-row">
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">🍚</span>Rice</a
           >
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">🧴</span>Oil</a
           >
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">🌾</span>Flour</a
           >
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">🧂</span>Sugar</a
           >
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">🍵</span>Tea</a
           >
-          <a href="categories.html" class="chip"
+          <a href="categories.html" data-protected="true" class="chip"
             ><span class="emoji">➕</span>More</a
           >
         </div>
@@ -204,20 +275,20 @@
             >Most searched products today</span
           >
         </h3>
-        <a href="search.html">View All →</a>
+        <a href="search.html" data-protected="true">View All →</a>
       </div>
 
 <div class="grid grid-5">
 
 <div class="product-card">
-   <button class="fav-btn"
+   <button class="fav-btn" data-protected="true"
          data-product="Rice (1 kg)"
         data-shop="Shop C"
         data-price="115"
         data-image="images/rice2.png">
         <i class="fa-regular fa-heart simple-heart"></i>
       </button>
-     <a href="product-details.html?product=rice" class="product-link">
+     <a href="product-details.html?product=rice" data-protected="true" class="product-link">
         <div class="thumb">
             <img src="images/rice2.png" alt="Rice">
         </div>
@@ -226,7 +297,7 @@
         <p class="price">115 AFN</p>
     </a>
 
-    <button class="add-cart-btn"
+    <button class="add-cart-btn" data-protected="true"
         data-product="Rice (1 kg)"
         data-shop="Haji Zaki Shop"
         data-price="115"
@@ -237,14 +308,14 @@
 </div>
 
     <div class="product-card">
-        <button class="fav-btn"
+        <button class="fav-btn" data-protected="true"
          data-product="Oil (1 L)"
         data-shop="Haji Zaki Shop"
         data-price="170 AFG"
         data-image="images/oil.png">
         <i class="fa-regular fa-heart simple-heart"></i>
       </button>
-        <a href="product-details.html?product=oil" class="product-link">
+        <a href="product-details.html?product=oil" data-protected="true" class="product-link">
       <div class="thumb">
         <img src="images/oil.png" alt="oil" />
       </div>
@@ -254,7 +325,7 @@
       </a>
 
       
-    <button class="add-cart-btn"
+    <button class="add-cart-btn" data-protected="true"
         data-product="Oil (1 L)" 
         data-shop="Haji Zaki Shop"
         data-price="170"
@@ -266,14 +337,14 @@
   
 
     <div class="product-card">
-         <button class="fav-btn"
-         data-product="Sugar(1 kg)"
+         <button class="fav-btn" data-protected="true"
+         data-product="Sugar (1 kg)"
         data-shop="Solaiman Shop"
         data-price="85 AFG"
         data-image="images/sugar.png">
         <i class="fa-regular fa-heart simple-heart"></i>
     </button>
-      <a href="product-details.html?product=sugar" class="product-link">
+      <a href="product-details.html?product=sugar" data-protected="true" class="product-link">
       <div class="thumb">
         <img src="images/sugar.png" alt="sugar" />
       </div>
@@ -282,7 +353,7 @@
       <p class="price">85 AFN</p>
       </a>
 
-        <button class="add-cart-btn"
+        <button class="add-cart-btn" data-protected="true"
         data-product="Sugar (1 kg)"
         data-shop="Solaiman Shop"
         data-price="85"
@@ -293,14 +364,14 @@
     </div>
   
     <div class="product-card">
-       <button class="fav-btn"
-         data-product="Tea (100 gr)"
+       <button class="fav-btn" data-protected="true"
+         data-product="Tea (100 g)"
         data-shop="Kefayat SuperMarket"
         data-price="140 AFG"
         data-image="images/tea.png">
         <i class="fa-regular fa-heart simple-heart"></i>
     </button>
-       <a href="product-details.html?product=tea" class="product-link">
+       <a href="product-details.html?product=tea" data-protected="true" class="product-link">
       <div class="thumb">
         <img src="images/tea.png" alt="tea-bag" />
       </div>
@@ -308,8 +379,8 @@
       <p class="from">From</p>
       <p class="price">140 AFN</p>
       </a>
-     <button class="add-cart-btn"
-        data-product="Tea (100 gr)" 
+     <button class="add-cart-btn" data-protected="true"
+        data-product="Tea (100 g)" 
         data-shop="Mahaly shop"
         data-price="140"
         data-image="images/tea.png">
@@ -319,14 +390,14 @@
     </div>
 
     <div class="product-card">
-       <button class="fav-btn"
+       <button class="fav-btn" data-protected="true"
          data-product="Flour (1 kg)"
         data-shop="Mahaly Shop"
         data-price="90 AFG"
         data-image="images/flour.png">
         <i class="fa-regular fa-heart simple-heart"></i>
     </button>
-       <a href="product-details.html?product=flour" class="product-link">
+       <a href="product-details.html?product=flour" data-protected="true" class="product-link">
       <div class="thumb">
         <img src="images/flour.png" alt="flour" />
       </div>
@@ -334,7 +405,7 @@
       <p class="from">From</p>
       <p class="price">90 AFN</p>
         </a>
-            <button class="add-cart-btn"
+            <button class="add-cart-btn" data-protected="true"
         data-product="Flour (1 kg)"
         data-shop="Rezaiee Shop"
         data-price="90"
@@ -407,18 +478,18 @@
 
         <div class="foot-col">
           <h5>Product</h5>
-          <a href="search.html">Search</a>
-          <a href="categories.html">Categories</a>
-          <a href="compare.html">Compare</a>
-          <a href="alerts.html">Price Alerts</a>
+          <a href="search.html" data-protected="true">Search</a>
+          <a href="categories.html" data-protected="true">Categories</a>
+          <a href="compare.html" data-protected="true">Compare</a>
+          <a href="alerts.html" data-protected="true">Price Alerts</a>
         </div>
 
         <div class="foot-col">
           <h5>Account</h5>
-          <a href="profile.html">Profile</a>
-          <a href="settings.html">Settings</a>
-          <a href="login.html">Login</a>
-          <a href="register.html">Register</a>
+          <a href="profile.html" data-protected="true">Profile</a>
+          <a href="settings.html" data-protected="true">Settings</a>
+          <a href="login.html" data-protected="true">Login</a>
+          <a href="register.html" data-protected="true">Register</a>
         </div>
 
         <div class="foot-col">
