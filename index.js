@@ -1,3 +1,6 @@
+document.addEventListener('DOMContentLoaded', () => {
+  updateTopbarUser();
+});
 const sidebar = document.getElementById("sidebar");
 const backdrop = document.getElementById("backdrop");
 const menuBtn = document.querySelector(".menu-btn");
@@ -492,32 +495,51 @@ if (data) {
 // favorit button
 
 document.querySelectorAll(".fav-btn").forEach((btn) => {
-  
-  const product = btn.dataset.product;
-  const shop = btn.dataset.shop;
+    const product = btn.dataset.product;
+    const shop = btn.dataset.shop;
 
-  if (product && shop && isFavorited(product, shop)) {
-    btn.classList.add("is-favorited");
-    btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-  }
-
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const price = parseInt(btn.dataset.price);
-    const image = btn.dataset.image;
-
-    const nowFavorited = toggleFavorite(product, shop, price, image);
-
-    if (nowFavorited) {
-      btn.classList.add("is-favorited");
-      btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
-    } else {
-      btn.classList.remove("is-favorited");
-      btn.innerHTML = '<i class="fa-regular fa-heart"></i>';
+    // Show existing favorite state only if user is logged in
+    if (
+        product &&
+        shop &&
+        isLoggedIn() &&
+        isFavorited(product, shop)
+    ) {
+        btn.classList.add("is-favorited");
+        btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
     }
-  });
+
+    btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        // IMPORTANT:
+        // If user is not logged in, stop here.
+        if (!isLoggedIn()) {
+            requireLogin();
+            return;
+        }
+
+        const price = parseInt(btn.dataset.price);
+        const image = btn.dataset.image;
+
+        const nowFavorited = toggleFavorite(
+            product,
+            shop,
+            price,
+            image
+        );
+
+        if (nowFavorited) {
+            btn.classList.add("is-favorited");
+            btn.innerHTML =
+                '<i class="fa-solid fa-heart"></i>';
+        } else {
+            btn.classList.remove("is-favorited");
+            btn.innerHTML =
+                '<i class="fa-regular fa-heart"></i>';
+        }
+    });
 });
 
 // favorite button on product details page
@@ -768,12 +790,15 @@ if (shopData) {
 /*      CART HELPERS (used on every page) */
 
 function getCart() {
-  const cartData = localStorage.getItem("cart");
+  const cartData = localStorage.getItem("cart_" + getAuthNamespace());
   return cartData ? JSON.parse(cartData) : [];
 }
 
 function saveCart(cartItems) {
-  localStorage.setItem("cart", JSON.stringify(cartItems));
+  localStorage.setItem(
+    "cart_" + getAuthNamespace(),
+    JSON.stringify(cartItems)
+  );
   updateCartBadge();
 }
 
@@ -1282,14 +1307,22 @@ renderCompare();
 
 // favorites helper used in every pages
 function getFavorites() {
-  const data = localStorage.getItem("favorites");
-  return data ? JSON.parse(data) : [];
+
+    const key = "favorites_" + getAuthNamespace();
+    const data = localStorage.getItem(key);
+
+    return data ? JSON.parse(data) : [];
 }
 
 function saveFavorites(favItems) {
-  localStorage.setItem("favorites", JSON.stringify(favItems));
-  updateFavBadge();
+
+    const key = "favorites_" + getAuthNamespace();
+
+    localStorage.setItem(key, JSON.stringify(favItems));
+
+    updateFavBadge();
 }
+
 
 function isFavorited(product, shop) {
   const favorites = getFavorites();
@@ -1449,13 +1482,20 @@ if (clearFavBtn) {
 
 // Alert Helper used on every page
 function getAlerts() {
-  const data = localStorage.getItem("alerts");
-  return data ? JSON.parse(data) : [];
+
+    const key = "alerts_" + getAuthNamespace();
+    const data = localStorage.getItem(key);
+
+    return data ? JSON.parse(data) : [];
 }
 
 function saveAlerts(alertItems) {
-  localStorage.setItem("alerts", JSON.stringify(alertItems));
-  updateAlertBadge();
+
+    const key = "alerts_" + getAuthNamespace();
+
+    localStorage.setItem(key, JSON.stringify(alertItems));
+
+    updateAlertBadge();
 }
 
 function addAlert(product, targetPrice, image) {
@@ -1898,6 +1938,16 @@ function getUser() {
     return null;
 }
 
+function getAuthNamespace() {
+  const user = getUser();
+
+  if (user && user.email) {
+    return user.email.trim().toLowerCase();
+  }
+
+  return "guest";
+}
+
 function saveUser(userData){
   localStorage.setItem('user', JSON.stringify(userData));
 }
@@ -1995,7 +2045,37 @@ function isLoggedIn(){
 
 function logoutUser(){
   localStorage.removeItem('user');
+  refreshAfterAuthChange();
+}
+
+function syncFavButtonsUI(){
+  document.querySelectorAll(".fav-btn").forEach((btn) => {
+    const product = btn.dataset.product;
+    const shop = btn.dataset.shop;
+    if (!product || !shop) return;
+
+    const shouldBeFavorited = isLoggedIn() && isFavorited(product, shop);
+
+    if (shouldBeFavorited) {
+      btn.classList.add("is-favorited");
+      btn.innerHTML = '<i class="fa-solid fa-heart"></i>';
+    } else {
+      btn.classList.remove("is-favorited");
+      btn.innerHTML = '<i class="fa-regular fa-heart simple-heart"></i>';
+    }
+  });
+}
+
+function refreshAfterAuthChange(){
   updateTopbarUser();
+  updateCartBadge();
+  updateFavBadge();
+  updateAlertBadge();
+  syncFavButtonsUI();
+  renderFavoritesPage();
+  renderAlertsPage();
+  renderCart();
+  renderProfilePage();
 }
 
 /* TOPBAR USER DISPLAY (runs on every page) */
@@ -2003,28 +2083,40 @@ function updateTopbarUser(){
   const nameEl = document.getElementById('topbarName');
   const avatarEl = document.getElementById('topbarAvatar');
   const defaultIcon = document.getElementById('topbarDefaultIcon');
-  if(!nameEl) return; 
-
   const user = getUser();
 
-  if(user){
-    nameEl.textContent = user.name || "My Account";
-    if(user.avatar){
-      avatarEl.src = user.avatar;
-      avatarEl.style.display = "block";
-      defaultIcon.style.display = "none";
+  if(nameEl){
+    if(user){
+      nameEl.textContent = user.name || "My Account";
+
+      if(user.avatar){
+        avatarEl.src = user.avatar;
+        avatarEl.style.display = "block";
+        defaultIcon.style.display = "none";
+      } else {
+        avatarEl.style.display = "none";
+        defaultIcon.style.display = "block";
+      }
     } else {
+      nameEl.textContent = "Login";
       avatarEl.style.display = "none";
+      avatarEl.removeAttribute('src');
       defaultIcon.style.display = "block";
     }
-  } else {
-    nameEl.textContent = "Login";
-    avatarEl.style.display = "none";
-    avatarEl.removeAttribute('src');
-    defaultIcon.style.display = "block";
   }
+
+  updateSidebarAuthLink();
 }
 updateTopbarUser();
+
+function updateSidebarAuthLink(){
+  const authLink = document.getElementById('logoutLink');
+  if(!authLink) return;
+
+  authLink.innerHTML = isLoggedIn()
+    ? '<i class="fa-solid fa-right-from-bracket"></i> Logout'
+    : '<i class="fa-solid fa-right-to-bracket"></i> Login';
+}
 
 /*  showMessage — reusable login-required popup */
 function showMessage(title, text, actionLabel, onAction){
@@ -2070,7 +2162,7 @@ function requireLogin(){
 }
 
 /*  INTERCEPT CLICKS ON PROTECTED LINKS */
-document.querySelectorAll('[data-protected="true"]').forEach(link => {
+document.querySelectorAll('[data-protected="true"]:not(.fav-btn)').forEach(link => {
   link.addEventListener('click', (e) => {
     if(!isLoggedIn()){
       e.preventDefault();
@@ -2177,13 +2269,22 @@ if(registerSubmitBtn){
     document.getElementById('authModal').style.display = "none";
     updateTopbarUser();
     renderProfilePage();
+    refreshAfterAuthChange();
   });
 }
 
 const logoutLink = document.getElementById('logoutLink');
+
 if(logoutLink){
-  logoutLink.addEventListener('click', () => {
-    logoutUser(); 
+  logoutLink.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    if(isLoggedIn()){
+      logoutUser();
+    } else {
+      closeSidebar();
+      openAuthModal('login');
+    }
   });
 }
 
