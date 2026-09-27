@@ -2307,3 +2307,29 @@ if(registerAvatarInput){
     reader.readAsDataURL(file);
   });
 }
+
+
+/*  FAQ ACCORDION */
+document.querySelectorAll('.faq-question').forEach(button => {
+  button.addEventListener('click', () => {
+    const item = button.closest('.faq-item');
+    const answer = item.querySelector('.faq-answer');
+    const isOpen = item.classList.contains('open');
+
+  
+    document.querySelectorAll('.faq-item.open').forEach(openItem => {
+      if(openItem !== item){
+        openItem.classList.remove('open');
+        openItem.querySelector('.faq-answer').style.maxHeight = null;
+      }
+    });
+
+    if(isOpen){
+      item.classList.remove('open');
+      answer.style.maxHeight = null;
+    } else {
+      item.classList.add('open');
+      answer.style.maxHeight = answer.scrollHeight + "px";
+    }
+  });
+});

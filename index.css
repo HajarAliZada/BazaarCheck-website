@@ -3116,7 +3116,6 @@ body.dark{
     to{ opacity:1; transform:translateY(0) scale(1); }
 }
 
-/* error box, refined */
 .auth-error{
     display:flex;
     align-items:center;
@@ -3127,6 +3126,288 @@ body.dark{
     content:"⚠";
     font-size:14px;
 }
+/*  WHY BAZAARCHECK  */
+.why-grid{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:28px;
+    align-items:center;
+    max-width:1300px;
+    margin:0 auto;
+    padding:0 24px;
+}
+
+.why-brand{
+    background:linear-gradient(150deg, var(--surface), var(--primary-light) 180%);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:36px 30px;
+    text-align:center;
+    box-shadow:var(--shadow-sm);
+}
+.why-brand-logo{
+    display:flex;
+    justify-content:center;
+    margin-bottom:18px;
+}
+.why-logo-dot{
+    width:72px;
+    height:72px;
+    font-size:34px;
+    border-radius:20px;
+    box-shadow:0 12px 26px rgba(23,138,76,0.28);
+}
+.why-brand h2{
+    font-size:24px;
+    margin:0 0 12px;
+    color:var(--black);
+}
+.why-brand p{
+    color:var(--text-light);
+    font-size:14px;
+    line-height:1.7;
+    margin:0 auto 22px;
+    max-width:340px;
+}
+.why-brand-cta{
+    max-width:220px;
+    margin:0 auto;
+}
+
+.why-feature-strip{
+    grid-template-columns:repeat(2, 1fr);
+    margin:0;
+}
+
+/* ============ TESTIMONIALS  ============ */
+.testimonials-section{
+    max-width:1300px;
+    margin:44px auto 0;
+    padding:0 24px;
+}
+.testimonial-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+}
+.testimonial-card{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:28px 22px 22px;
+    transition:var(--transition);
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+}
+.testimonial-card::before{
+    content:"\201C";
+    position:absolute;
+    top:-6px;
+    right:16px;
+    font-size:80px;
+    font-family:Georgia, serif;
+    color:var(--primary-light);
+    opacity:0.5;
+    line-height:1;
+    pointer-events:none;
+}
+.testimonial-card::after{
+    content:"";
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:4px;
+    background:linear-gradient(90deg, var(--primary), var(--primary-light));
+    transform:scaleX(0);
+    transform-origin:left;
+    transition:transform var(--transition);
+}
+.testimonial-card:hover{
+    box-shadow:var(--shadow-md);
+    transform:translateY(-6px);
+    border-color:var(--primary-light);
+}
+.testimonial-card:hover::after{
+    transform:scaleX(1);
+}
+.testimonial-stars{
+    color:#f5a524;
+    font-size:14px;
+    letter-spacing:2px;
+    margin-bottom:12px;
+    position:relative;
+    z-index:1;
+}
+.testimonial-text{
+    font-size:13.5px;
+    color:var(--text);
+    line-height:1.7;
+    margin:0 0 20px;
+    position:relative;
+    z-index:1;
+    font-style:italic;
+}
+.testimonial-user{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding-top:16px;
+    border-top:1px dashed var(--border);
+    position:relative;
+    z-index:1;
+}
+.testimonial-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--primary-light), var(--primary));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    flex-shrink:0;
+    box-shadow:0 4px 10px rgba(23,138,76,0.25);
+}
+.testimonial-user h5{
+    margin:0;
+    font-size:13.5px;
+    color:var(--black);
+    font-weight:700;
+}
+.testimonial-user span{
+    font-size:11.5px;
+    color:var(--text-light);
+}
+
+.testimonial-avatar{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    background:linear-gradient(135deg, var(--primary-light), var(--primary));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:19px;
+    flex-shrink:0;
+    box-shadow:0 4px 10px rgba(23,138,76,0.25);
+    overflow:hidden;
+}
+
+.testimonial-avatar img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    display:block;
+} 
+
+
+/* FAQ  Sectionn */
+.faq-section{
+    max-width:1300px;   
+    margin:44px auto 0;
+    padding:0 24px;
+}
+.faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+    max-width:900px;  
+}
+
+.faq-section{
+    max-width:900px;
+    margin:44px auto 0;
+    padding:0 24px;
+}
+.faq-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+.faq-item{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:var(--radius-md);
+    overflow:hidden;
+    transition:border-color var(--transition), box-shadow var(--transition);
+}
+.faq-item.open{
+    border-color:var(--primary-light);
+    box-shadow:var(--shadow-sm);
+}
+
+.faq-question{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:none;
+    border:none;
+    padding:16px 20px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--black);
+    text-align:left;
+    cursor:pointer;
+    font-family:inherit;
+}
+.faq-item.open .faq-question{
+    color:var(--primary-dark);
+}
+
+.faq-icon{
+    color:var(--text-light);
+    font-size:13px;
+    flex-shrink:0;
+    transition:transform var(--transition), color var(--transition);
+}
+.faq-item.open .faq-icon{
+    transform:rotate(180deg);
+    color:var(--primary);
+}
+
+.faq-answer{
+    max-height:0;
+    overflow:hidden;
+    transition:max-height 0.3s ease, padding 0.3s ease;
+    padding:0 20px;
+}
+.faq-item.open .faq-answer{
+    padding:0 20px 18px;
+}
+.faq-answer p{
+    margin:0;
+    font-size:13.5px;
+    color:var(--text-light);
+    line-height:1.65;
+}
+@media (max-width:1100px){
+    .testimonial-grid{
+        grid-template-columns:repeat(2, 1fr);
+    }
+}
+@media (max-width:560px){
+    .testimonial-grid{
+        grid-template-columns:1fr;
+    }
+}
+@media (max-width:1100px){
+    .why-grid{
+        grid-template-columns:1fr;
+    }
+}
+@media (max-width:560px){
+    .why-feature-strip{
+        grid-template-columns:1fr;
+    }
+    .why-brand{
+        padding:28px 20px;
+    }
+}
+
 
 @media (max-width:480px){
     .field-row{
@@ -3135,6 +3416,13 @@ body.dark{
     .auth-modal-box{
         padding:22px;
     }
+}
+
+@media (max-width:1100px){
+    .testimonial-grid{ grid-template-columns:repeat(2, 1fr); }
+}
+@media (max-width:560px){
+    .testimonial-grid{ grid-template-columns:1fr; }
 }
 
 @media (max-width:900px){
