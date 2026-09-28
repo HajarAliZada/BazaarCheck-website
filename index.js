@@ -992,10 +992,13 @@ renderCart();
 const clearCartBtn = document.getElementById("clearCartBtn");
 
 if (clearCartBtn) {
-  clearCartBtn.addEventListener("click", function () {
-    localStorage.removeItem("cart");
-    renderCart();
-    updateCartBadge();
+  clearCartBtn.addEventListener("click", () => {
+    if (getCart().length === 0) return;
+
+    showInlineConfirm(clearCartBtn, "Remove all items from your cart?", () => {
+      saveCart([]);   // also updates the cart badge
+      renderCart();
+    });
   });
 }
 
@@ -1679,7 +1682,7 @@ if (alertModal) {
 }
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && alertModal.classList.contains("show")) {
+  if (e.key === "Escape" && alertModal && alertModal.classList.contains("show")) {
     closeAlertModalWindow();
   }
 });
@@ -2238,56 +2241,6 @@ if(loginSubmitBtn){
     }
   });
 }
-
-/* ---- Register submit ---- */
-const registerSubmitBtn = document.getElementById('registerSubmitBtn');
-if(registerSubmitBtn){
-  registerSubmitBtn.addEventListener('click', () => {
-    const name = document.getElementById('registerName').value.trim();
-    const email = document.getElementById('registerEmail').value.trim();
-    const password = document.getElementById('registerPassword').value;
-    const phone = document.getElementById('registerPhone').value.trim();
-    const location = document.getElementById('registerLocation').value.trim();
-
-    if(!name || !email || !password){
-      alert("Please fill in every field.");
-      return;
-    }
-
-    const newUser = {
-      name,
-      email,
-      password,
-      avatar: registerAvatarData || "",   
-      phone,
-      location,
-      memberSince: new Date().toISOString().slice(0, 7)
-    };
-
-    localStorage.setItem('registeredUser', JSON.stringify(newUser));
-    saveUser(newUser);
-    document.getElementById('authModal').style.display = "none";
-    updateTopbarUser();
-    renderProfilePage();
-    refreshAfterAuthChange();
-  });
-}
-
-const logoutLink = document.getElementById('logoutLink');
-
-if(logoutLink){
-  logoutLink.addEventListener('click', (e) => {
-    e.preventDefault();
-
-    if(isLoggedIn()){
-      logoutUser();
-    } else {
-      closeSidebar();
-      openAuthModal('login');
-    }
-  });
-}
-
 /* ---- Avatar upload preview ---- */
 let registerAvatarData = ""; 
 
@@ -2307,7 +2260,6 @@ if(registerAvatarInput){
     reader.readAsDataURL(file);
   });
 }
-
 
 /*  FAQ ACCORDION */
 document.querySelectorAll('.faq-question').forEach(button => {
@@ -2333,3 +2285,435 @@ document.querySelectorAll('.faq-question').forEach(button => {
     }
   });
 });
+
+/*  SETTINGS PAGE */
+
+function renderSettingsPage(){
+  const nameInput = document.getElementById('settingsName');
+  if(!nameInput) return; 
+
+  const user = getUser();
+
+  if(!user){
+    requireLogin();
+    return;
+  }
+
+  document.getElementById('settingsName').value = user.name || "";
+  document.getElementById('settingsEmail').value = user.email || "";
+  document.getElementById('settingsPhone').value = user.phone || "";
+  document.getElementById('settingsLocation').value = user.location || "";
+
+  if(user.avatar){
+    document.getElementById('settingsAvatarPreviewImg').src = user.avatar;
+    document.getElementById('settingsAvatarPreviewImg').style.display = "block";
+    document.getElementById('settingsAvatarPreviewIcon').style.display = "none";
+  }
+
+  const prefs = getPreferences();
+  document.getElementById('prefPriceAlerts').checked = prefs.priceAlerts;
+  document.getElementById('prefWeeklyDigest').checked = prefs.weeklyDigest;
+  document.getElementById('prefNewShop').checked = prefs.newShop;
+}
+
+
+let settingsAvatarData = "";
+const settingsAvatarInput = document.getElementById('settingsAvatarInput');
+if(settingsAvatarInput){
+  settingsAvatarInput.addEventListener('change', () => {
+    const file = settingsAvatarInput.files[0];
+    if(!file) return;
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      settingsAvatarData = reader.result;
+      document.getElementById('settingsAvatarPreviewImg').src = settingsAvatarData;
+      document.getElementById('settingsAvatarPreviewImg').style.display = "block";
+      document.getElementById('settingsAvatarPreviewIcon').style.display = "none";
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ---- Save Profile Changes ---- */
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+if(saveProfileBtn){
+  saveProfileBtn.addEventListener('click', () => {
+    const errorBox = document.getElementById('settingsProfileError');
+    const successBox = document.getElementById('settingsProfileSuccess');
+    errorBox.style.display = "none";
+    successBox.style.display = "none";
+
+    const name = document.getElementById('settingsName').value.trim();
+    const email = document.getElementById('settingsEmail').value.trim();
+    const phone = document.getElementById('settingsPhone').value.trim();
+    const location = document.getElementById('settingsLocation').value.trim();
+
+  
+    let hasError = false;
+
+    if(!email || !isValidEmail(email)){
+      showFieldError('settingsEmail');
+      hasError = true;
+    } else {
+      clearFieldError('settingsEmail');
+    }
+
+    if(phone && !isValidPhone(phone)){
+      showFieldError('settingsPhone');
+      hasError = true;
+    } else {
+      clearFieldError('settingsPhone');
+    }
+
+    if(hasError){
+      return;
+    }
+
+    if(!name){
+      errorBox.textContent = "Name is required.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const user = getUser();
+    if(!user) return;
+
+    const updatedUser = {
+      ...user,
+      name,
+      email,
+      phone,
+      location,
+      avatar: settingsAvatarData || user.avatar || ""
+    };
+
+    saveUser(updatedUser);
+    localStorage.setItem('registeredUser', JSON.stringify(updatedUser));
+    updateTopbarUser();
+    successBox.style.display = "flex";
+
+    localStorage.setItem('registeredUser', JSON.stringify(updatedUser));
+
+    updateTopbarUser();
+    successBox.style.display = "flex";
+    });
+}
+
+/* ---- Notification Preferences ---- */
+function getPreferences(){
+  const data = localStorage.getItem('preferences');
+  return data ? JSON.parse(data) : { priceAlerts: true, weeklyDigest: true, newShop: false };
+}
+
+function savePreferences(prefs){
+  localStorage.setItem('preferences', JSON.stringify(prefs));
+}
+
+['prefPriceAlerts', 'prefWeeklyDigest', 'prefNewShop'].forEach(id => {
+  const toggle = document.getElementById(id);
+  if(toggle){
+    toggle.addEventListener('change', () => {
+      const prefs = getPreferences();
+      prefs.priceAlerts = document.getElementById('prefPriceAlerts').checked;
+      prefs.weeklyDigest = document.getElementById('prefWeeklyDigest').checked;
+      prefs.newShop = document.getElementById('prefNewShop').checked;
+      savePreferences(prefs);
+    });
+  }
+});
+
+/* ---- Change Password ---- */
+const updatePasswordBtn = document.getElementById('updatePasswordBtn');
+if(updatePasswordBtn){
+  updatePasswordBtn.addEventListener('click', () => {
+    const errorBox = document.getElementById('passwordError');
+    const successBox = document.getElementById('passwordSuccess');
+    errorBox.style.display = "none";
+    successBox.style.display = "none";
+
+    const current = document.getElementById('currentPassword').value;
+    const newPass = document.getElementById('newPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+    function showPassError(msg){
+      errorBox.textContent = msg;
+      errorBox.style.display = "block";
+    }
+
+    const registered = JSON.parse(localStorage.getItem('registeredUser') || 'null');
+
+    if(!registered || current !== registered.password){
+      showPassError("Current password is incorrect.");
+      return;
+    }
+    if(newPass.length < 6){
+      showPassError("New password must be at least 6 characters.");
+      return;
+    }
+    if(newPass !== confirmPass){
+      showPassError("New passwords do not match.");
+      return;
+    }
+
+    registered.password = newPass;
+    localStorage.setItem('registeredUser', JSON.stringify(registered));
+    saveUser(registered); 
+
+    document.getElementById('currentPassword').value = "";
+    document.getElementById('newPassword').value = "";
+    document.getElementById('confirmNewPassword').value = "";
+
+    successBox.style.display = "flex";
+  });
+}
+
+/* ---- Delete Account ---- */
+const deleteAccountBtn = document.getElementById('deleteAccountBtn');
+if (deleteAccountBtn) {
+  deleteAccountBtn.addEventListener('click', () => {
+    showInlineConfirm(
+      deleteAccountBtn,
+      "Delete your account? This cannot be undone.",
+      () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('registeredUser');
+       
+        window.location.href = "index.html";
+      }
+    );
+  });
+}
+
+renderSettingsPage();
+
+/* SHARED VALIDATION HELPERS */
+
+function isValidEmail(value){
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function isValidPassword(value){
+ 
+  return value.length >= 6 && /[A-Za-z]/.test(value) && /[0-9]/.test(value);
+}
+
+function isValidPhone(value){
+
+  const digitsOnly = value.replace(/\D/g, "");
+  return /^[0-9+\-\s()]+$/.test(value.trim()) && digitsOnly.length >= 7 && digitsOnly.length <= 15;
+}
+
+function showFieldError(inputId){
+  const field = document.getElementById(inputId + "Field");
+  const error = document.getElementById(inputId + "Error");
+  if(field) field.classList.add('has-error');
+  if(error) error.classList.add('show');
+}
+
+function clearFieldError(inputId){
+  const field = document.getElementById(inputId + "Field");
+  const error = document.getElementById(inputId + "Error");
+  if(field) field.classList.remove('has-error');
+  if(error) error.classList.remove('show');
+}
+
+function wireFieldValidation(inputId, validatorFn, allowEmpty){
+  const input = document.getElementById(inputId);
+  if(!input) return;
+
+  input.addEventListener('blur', () => {
+    const value = input.value.trim();
+    if(allowEmpty && value === ""){
+      clearFieldError(inputId);
+      return;
+    }
+    if(!validatorFn(value)){
+      showFieldError(inputId);
+    } else {
+      clearFieldError(inputId);
+    }
+  });
+
+  input.addEventListener('input', () => {
+
+    if(input.classList && document.getElementById(inputId + "Field")?.classList.contains('has-error')){
+      const value = input.value.trim();
+      if(validatorFn(value) || (allowEmpty && value === "")){
+        clearFieldError(inputId);
+      }
+    }
+  });
+}
+
+/* ---- Register page field validation ---- */
+wireFieldValidation('registerEmail', isValidEmail, false);
+wireFieldValidation('registerPassword', isValidPassword, false);
+wireFieldValidation('registerPhone', isValidPhone, true);
+
+/* ---- Settings page field validation ---- */
+wireFieldValidation('settingsEmail', isValidEmail, false);
+wireFieldValidation('settingsPhone', isValidPhone, true); 
+const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+if(registerSubmitBtn){
+  registerSubmitBtn.addEventListener('click', () => {
+    const name = document.getElementById('registerName').value.trim();
+    const email = document.getElementById('registerEmail').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const phone = document.getElementById('registerPhone').value.trim();
+    const location = document.getElementById('registerLocation').value.trim();
+
+  
+    let hasError = false;
+
+    if(!email || !isValidEmail(email)){
+      showFieldError('registerEmail');
+      hasError = true;
+    } else {
+      clearFieldError('registerEmail');
+    }
+
+    if(!password || !isValidPassword(password)){
+      showFieldError('registerPassword');
+      hasError = true;
+    } else {
+      clearFieldError('registerPassword');
+    }
+
+    if(phone && !isValidPhone(phone)){
+      showFieldError('registerPhone');
+      hasError = true;
+    } else {
+      clearFieldError('registerPhone');
+    }
+
+    if (!confirmPassword || confirmPassword !== password) {
+  showFieldError('registerConfirmPassword');
+  hasError = true;
+} else {
+  clearFieldError('registerConfirmPassword');
+}
+
+    if(hasError){
+      return; 
+    }
+
+    if(!name || !email || !password){
+      alert("Please fill in every field.");
+      return;
+    }
+
+   
+    const newUser = {
+      name,
+      email,
+      password,
+      avatar: registerAvatarData || "",
+      phone,
+      location,
+      memberSince: new Date().toISOString().slice(0, 7)
+    };
+
+    localStorage.setItem('registeredUser', JSON.stringify(newUser));
+    saveUser(newUser);
+    document.getElementById('authModal').style.display = "none";
+    updateTopbarUser();
+    renderProfilePage();
+    refreshAfterAuthChange();
+  });
+}
+
+/* SIDEBAR LOGIN / LOGOUT LINK */
+const logoutLink = document.getElementById("logoutLink");
+
+if (logoutLink) {
+  logoutLink.addEventListener("click", (e) => {
+    e.preventDefault();
+    closeSidebar();
+
+    if (isLoggedIn()) {
+      logoutUser();                       
+      window.location.href = "index.html"; 
+    } else {
+      openAuthModal("login");
+    }
+  });
+}
+
+/* PASSWORD SHOW / HIDE TOGGLE */
+function addPasswordToggles() {
+  document.querySelectorAll('input[type="password"]').forEach((input) => {
+    if (input.parentElement.classList.contains("password-wrap")) return;
+
+    const wrap = document.createElement("div");
+    wrap.className = "password-wrap";
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "password-toggle";
+    btn.setAttribute("aria-label", "Show or hide password");
+    btn.innerHTML = '<i class="fa-regular fa-eye"></i>';
+
+    btn.addEventListener("click", () => {
+      const show = input.type === "password";
+      input.type = show ? "text" : "password";
+      btn.innerHTML = show
+        ? '<i class="fa-regular fa-eye-slash"></i>'
+        : '<i class="fa-regular fa-eye"></i>';
+    });
+
+    wrap.appendChild(btn);
+  });
+}
+
+addPasswordToggles();
+
+function passwordsMatch() {
+  const password = document.getElementById('registerPassword').value;
+  const confirm = document.getElementById('registerConfirmPassword').value;
+  return confirm !== "" && confirm === password;
+}
+
+wireFieldValidation('registerConfirmPassword', passwordsMatch, false);
+
+const registerPasswordInput = document.getElementById('registerPassword');
+if (registerPasswordInput) {
+  registerPasswordInput.addEventListener('input', () => {
+    const confirmInput = document.getElementById('registerConfirmPassword');
+    if (confirmInput && confirmInput.value !== "") {
+      if (passwordsMatch()) {
+        clearFieldError('registerConfirmPassword');
+      } else {
+        showFieldError('registerConfirmPassword');
+      }
+    }
+  });
+}
+
+/* REUSABLE INLINE CONFIRM BOX  */
+function showInlineConfirm(anchorBtn, message, onYes) {
+  
+  if (document.querySelector(".clear-fav-confirm")) return;
+
+  const box = document.createElement("div");
+  box.className = "clear-fav-confirm";
+  box.innerHTML = `
+    <span>${message}</span>
+    <button class="confirm-yes">Yes</button>
+    <button class="confirm-no">Cancel</button>
+  `;
+
+  anchorBtn.insertAdjacentElement("afterend", box);
+
+  box.querySelector(".confirm-yes").addEventListener("click", () => {
+    box.remove();
+    onYes();
+  });
+
+  box.querySelector(".confirm-no").addEventListener("click", () => {
+    box.remove();
+  });
+}
+

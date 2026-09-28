@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>Settings . Bazaar Check</title>
+</head>
+<body>
+
+        <header class="topbar">
+  <button class="menu-btn">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="logo">
+        <img src="images/logo.png" alt="logo" class="logo-png" />
+      </div>
+
+      <form class="search-box">
+        <span class="search-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </span>
+
+        <input
+          type="text"
+          placeholder="Search for products (e.g. rice, oil, flour...)"
+        />
+
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="topbar-right">
+
+        <!-- <button id="darkModeBtn" class="icon-btn">🌙 </button> -->
+
+        <a href="cart.html" data-protected="true" class="icon-btn" style="position:relative;">
+    <i class="fa-solid fa-cart-shopping"></i>
+    <span id="cartCount" class="cart-badge" style="display:none;">0</span>
+</a>
+       <a href="alerts.html" data-protected="true" class="icon-btn" style="position:relative;">
+    <i class="fa-regular fa-bell"></i>
+    <span id="alertCount" class="cart-badge" style="display:none;">0</span>
+</a>
+
+             <a href="favorites.html" data-protected="true" class="icon-btn" style="position:relative;">
+    <i class="fa-regular fa-heart"></i>
+    <span id="favCount" class="cart-badge" style="display:none;">0</span>
+</a>
+    
+
+<a href="profile.html" data-protected="true" class="user-chip" id="userChip" data-protected="true">
+  <div class="topbar-avatar">
+    <i class="fa-regular fa-circle-user" id="topbarDefaultIcon"></i>
+    <img id="topbarAvatar" alt="Profile picture">
+  </div>
+  <span class="name" id="topbarName">Login</span>
+</a>
+      </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-head">
+        <div class="brand">
+          <img src="images/logo.png" alt="Bazaar Check logo" class="logo-png" />
+
+          <div class="brand-info">
+            <span class="brand-name">Bazaar Check</span>
+            <span class="brand-tagline">Smart shopping</span>
+          </div>
+        </div>
+
+        <button class="close-btn" id="closeBtn">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <nav>
+        <a href="index.html">
+          <i class="fa-solid fa-house"></i>
+          Home
+        </a>
+
+        <a href="search.html">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          Search
+        </a>
+
+        <a href="categories.html" >
+          <i class="fa-solid fa-layer-group"></i>
+          Categories
+        </a>
+
+        <a href="shops.html" >
+          <i class="fa-solid fa-shop"></i>
+          Shops
+        </a>
+
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-shopping"></i>
+          My Cart
+        </a>
+
+        <a href="compare.html">
+          <i class="fa-solid fa-code-compare"></i>
+          Compare
+        </a>
+
+        <a href="favorites.html">
+          <i class="fa-solid fa-heart"></i>
+          Favorites
+        </a>
+
+        <a href="alerts.html">
+          <i class="fa-solid fa-bell"></i>
+          Alerts
+        </a>
+
+        <a href="price-history.html">
+          <i class="fa-solid fa-chart-line"></i>
+          Price History
+        </a>
+
+        <a href="profile.html">
+          <i class="fa-regular fa-circle-user"></i>
+          Profile
+        </a>
+
+        <a href="settings.html"  class="active">
+          <i class="fa-solid fa-gear"></i>
+          settings
+        </a>
+
+        <hr />
+
+       <a href="index.html" id="logoutLink">
+  <i class="fa-solid fa-right-from-bracket"></i>
+  Logout
+</a>
+      </nav>
+    </aside>
+
+    <!-- Backdrop -->
+
+    <div class="backdrop" id="backdrop"></div>
+
+    <main class="page">
+
+        <div class="crumbs">
+            <a href="index.html">Home</a>
+            <span>/</span>
+            <span class="current">Settings</span>
+        </div>
+
+        <div class="page-head">
+            <h1>Settings</h1>
+            <p>Manage your account, notifications, and security.</p>
+        </div>
+
+        <div class="settings-grid">
+
+            <!-- LEFT: Edit Profile -->
+            <div class="card card-pad">
+                <h3 class="profile-card-title">Edit Profile</h3>
+
+                <div class="avatar-upload">
+                    <div class="avatar-upload-preview" id="settingsAvatarPreviewWrap">
+                        <img id="settingsAvatarPreviewImg" style="display:none;">
+                        <i class="fa-regular fa-circle-user" id="settingsAvatarPreviewIcon"></i>
+                    </div>
+                    <label for="settingsAvatarInput" class="avatar-upload-btn">
+                        <i class="fa-solid fa-camera"></i> Change Photo
+                    </label>
+                    <input type="file" id="settingsAvatarInput" accept="image/*" hidden>
+                </div>
+
+                <div class="field"><label>Full Name</label><input type="text" id="settingsName"></div>
+                <div class="field"><label>Email</label><input type="email" id="settingsEmail"></div>
+                <div class="field"><label>Phone</label><input type="tel" id="settingsPhone"></div>
+                <div class="field"><label>Location</label><input type="text" id="settingsLocation"></div>
+
+                <p class="auth-error" id="settingsProfileError" style="display:none;"></p>
+                <p class="settings-success" id="settingsProfileSuccess" style="display:none;">
+                    <i class="fa-solid fa-circle-check"></i> Profile updated.
+                </p>
+
+                <button class="btn-primary-full" id="saveProfileBtn" style="max-width:220px;">Save Changes</button>
+            </div>
+
+        
+            <div>
+                <div class="card card-pad" style="margin-bottom:20px;">
+                    <h3 class="profile-card-title">Notifications</h3>
+
+                    <div class="settings-toggle-row">
+                        <div>
+                            <h5>Price drop alerts</h5>
+                            <span>Get notified when a favorited item's price drops</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefPriceAlerts">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-toggle-row">
+                        <div>
+                            <h5>Weekly deals digest</h5>
+                            <span>A summary of the best deals near you</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefWeeklyDigest">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="settings-toggle-row">
+                        <div>
+                            <h5>New shop nearby</h5>
+                            <span>Notify when a new shop joins near you</span>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="prefNewShop">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card card-pad" style="margin-bottom:20px;">
+                    <h3 class="profile-card-title">Change Password</h3>
+
+                    <div class="field"><label>Current Password</label><input type="password" id="currentPassword" placeholder="••••••••"></div>
+                    <div class="field"><label>New Password</label><input type="password" id="newPassword" placeholder="••••••••"></div>
+                    <div class="field"><label>Confirm New Password</label><input type="password" id="confirmNewPassword" placeholder="••••••••"></div>
+
+                    <p class="auth-error" id="passwordError" style="display:none;"></p>
+                    <p class="settings-success" id="passwordSuccess" style="display:none;">
+                        <i class="fa-solid fa-circle-check"></i> Password updated.
+                    </p>
+
+                    <button class="btn-outline" id="updatePasswordBtn">Update Password</button>
+                </div>
+
+                <div class="card card-pad danger-zone">
+                    <h3 class="profile-card-title" style="color:var(--danger);">Danger Zone</h3>
+                    <p class="danger-text">Deleting your account removes your profile information. Your cart, favorites, and alerts will remain on this device unless you clear them separately.</p>
+                    <button class="btn-danger-outline" id="deleteAccountBtn">Delete Account</button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+
+     <!-- ===== SECTION: FOOTER ===== -->
+    <footer class="site-footer">
+      <div class="foot-top">
+        <div class="foot-brand">
+          <div class="logo"><span class="logo-dot">🛒</span> BazaarCheck</div>
+          <p>
+            Compare prices from shops near you and always pay less for the
+            things you buy every day.
+          </p>
+          <div class="foot-social">
+            <a href="#" aria-label="Location">📍</a>
+            <a href="#" aria-label="Email">✉️</a>
+            <a href="#" aria-label="Phone">📞</a>
+          </div>
+        </div>
+
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="search.html" data-protected="true">Search</a>
+          <a href="categories.html" data-protected="true">Categories</a>
+          <a href="compare.html" data-protected="true">Compare</a>
+          <a href="alerts.html" data-protected="true">Price Alerts</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Account</h5>
+          <a href="profile.html" data-protected="true">Profile</a>
+          <a href="settings.html" data-protected="true">Settings</a>
+          <a href="login.html" data-protected="true">Login</a>
+          <a href="register.html" data-protected="true">Register</a>
+        </div>
+
+        <div class="foot-col">
+          <h5>Company</h5>
+          <a href="#">About Us</a>
+          <a href="#">How it Works</a>
+          <a href="shops.html">Partner Shops</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+
+      <div class="foot-bottom">
+        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span>Made for smarter, cheaper shopping.</span>
+      </div>
+    </footer>
+
+    <script src="index.js"></script>
+    
+</body>
+</html>

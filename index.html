@@ -188,15 +188,34 @@
       </div>
 
       <div class="field"><label>Full Name</label><input type="text" id="registerName" placeholder="Enter your name"></div>
-      <div class="field"><label>Email</label><input type="email" id="registerEmail" placeholder="Enter your email"></div>
+
+     <div class="field" id="registerEmailField">
+  <label>Email</label>
+  <input type="email" id="registerEmail" placeholder="Enter your email">
+  <span class="field-error" id="registerEmailError">Please enter a valid email address.</span>
+</div>
 
       <div class="field-row">
-        <div class="field"><label>Password</label><input type="password" id="registerPassword" placeholder="Create a password"></div>
-        <div class="field"><label>Confirm Password</label><input type="password" id="registerConfirmPassword" placeholder="Re-enter password"></div>
-      </div>
+        <div class="field" id="registerPasswordField">
+  <label>Password</label>
+  <input type="password" id="registerPassword" placeholder="Create a password">
+  <span class="field-hint">At least 6 characters, with a letter and a number.</span>
+  <span class="field-error" id="registerPasswordError">Password must be at least 6 characters and include a letter and a number.</span>
+</div>
+
+       <div class="field" id="registerConfirmPasswordField">
+  <label>Confirm Password</label>
+  <input type="password" id="registerConfirmPassword" placeholder="Re-enter password">
+  <span class="field-error" id="registerConfirmPasswordError">Passwords do not match.</span>
+</div>
+</div>
 
       <div class="field-row">
-        <div class="field"><label>Phone</label><input type="text" id="registerPhone" placeholder="+93 7X XXX XXXX"></div>
+        <div class="field" id="registerPhoneField">
+  <label>Phone</label>
+  <input type="tel" id="registerPhone">
+  <span class="field-error" id="registerPhoneError">Please enter a valid phone number.</span>
+</div>
         <div class="field"><label>Location</label><input type="text" id="registerLocation" placeholder="City, Country"></div>
       </div>
 
@@ -680,7 +699,7 @@
       </div>
 
       <div class="foot-bottom">
-        <span><<span id="year"></span> BazaarCheck. All rights reserved.</span>
+        <span><span id="year"></span> BazaarCheck. All rights reserved.</span>
         <span>Made for smarter, cheaper shopping.</span>
       </div>
     </footer>
