@@ -6,7 +6,7 @@ const backdrop = document.getElementById("backdrop");
 const menuBtn = document.querySelector(".menu-btn");
 const closeBtn = document.getElementById("closeBtn");
 
-menuBtn.addEventListener("click", () => {
+menuBtn?.addEventListener("click", () => {
   sidebar.classList.add("open");
   backdrop.classList.add("show");
 });
@@ -15,8 +15,8 @@ function closeSidebar() {
   sidebar.classList.remove("open");
   backdrop.classList.remove("show");
 }
-closeBtn.addEventListener("click", closeSidebar);
-backdrop.addEventListener("click", closeSidebar);
+closeBtn?.addEventListener("click", closeSidebar);
+backdrop?.addEventListener("click", closeSidebar);
 // Dark mode button
 /*
 const button = document.getElementById("darkModeBtn");
@@ -41,36 +41,37 @@ const products = {
     name: "Rice (1 kg)",
     image: "images/rice2.png",
     rating: "4.6 (120 reviews)",
-    priceRange: "115 AFN - 145 AFN",
+    priceRange: "115 AFN - 135 AFN",
     shops: [
       {
-        name: "Halal Shop",
-        shopId: "shopA",
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
         price: 115,
         distance: "0.8 km",
         lowest: true,
       },
       {
-        name: "Solaiman Shop",
-        shopId: "shopB",
+        name: "Halal Shop",
+        shopId: "shopA",
         price: 120,
         distance: "1.2 km",
         lowest: false,
       },
       {
-        name: "Kefayat SuperMarket",
-        shopId: "shopC",
-        price: 145,
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 135,
         distance: "1.5 km",
         lowest: false,
       },
     ],
   },
+
   oil: {
     name: "Oil (1 L)",
     image: "images/oil.png",
     rating: "4.3 (95 reviews)",
-    priceRange: "160 AFN – 180 AFN",
+    priceRange: "160 AFN - 170 AFN",
     shops: [
       {
         name: "Halal Shop",
@@ -86,20 +87,14 @@ const products = {
         distance: "0.8 km",
         lowest: false,
       },
-      {
-        name: "Rezaiee Market",
-        shopId: "shopD",
-        price: 180,
-        distance: "2.1 km",
-        lowest: false,
-      },
     ],
   },
+
   flour: {
     name: "Flour (1 kg)",
     image: "images/flour.png",
     rating: "4.1 (60 reviews)",
-    priceRange: "80 AFN – 95 AFN",
+    priceRange: "80 AFN - 90 AFN",
     shops: [
       {
         name: "Solaiman Shop",
@@ -112,6 +107,29 @@ const products = {
         name: "Kefayat SuperMarket",
         shopId: "shopC",
         price: 90,
+        distance: "0.8 km",
+        lowest: false,
+      },
+    ],
+  },
+
+  tea: {
+    name: "Tea (100 g)",
+    image: "images/tea.png",
+    rating: "4.1 (60 reviews)",
+    priceRange: "138 AFN - 140 AFN",
+    shops: [
+      {
+        name: "Halal Shop",
+        shopId: "shopA",
+        price: 138,
+        distance: "1.2 km",
+        lowest: true,
+      },
+      {
+        name: "Kefayat SuperMarket",
+        shopId: "shopC",
+        price: 140,
         distance: "0.8 km",
         lowest: false,
       },
@@ -122,70 +140,25 @@ const products = {
     name: "Sugar (1 kg)",
     image: "images/sugar.png",
     rating: "4.1 (60 reviews)",
-    priceRange: "70 AFN – 95 AFN",
+    priceRange: "85 AFN - 135 AFN",
     shops: [
       {
-        name: "Solaiman Shop",
-        shopId: "shopB",
-        price: 80,
-        distance: "1.5 km",
-        lowest: true,
-      },
-      {
-        name: "Kefayat SuperMarket",
-        shopId: "shopC",
-        price: 90,
-        distance: "0.8 km",
-        lowest: false,
-      },
-      {
-        name: "Halal Shop",
-        shopId: "shopA",
-        price: 170,
-        distance: "0.8 km",
-        lowest: false,
-      },
-      {
-        name: "Rezaiee Market",
-        shopId: "shopD",
-        price: 180,
-        distance: "2.1 km",
-        lowest: false,
-      },
-    ],
-  },
-
-  tea: {
-    name: "Tea (100 g)",
-    image: "images/tea.png",
-    rating: "4.1 (60 reviews)",
-    priceRange: "80 AFN – 95 AFN",
-    shops: [
-      {
-        name: "Solaiman Shop",
-        shopId: "shopB",
-        price: 80,
-        distance: "1.5 km",
-        lowest: true,
-      },
-      {
-        name: "Halal Shop",
-        shopId: "shopA",
-        price: 160,
+        name: "Mahaly Shop",
+        shopId: "shopG",
+        price: 85,
         distance: "1.2 km",
-        lowest: false,
+        lowest: true,
       },
       {
-        name: "Kefayat SuperMarket",
-        shopId: "shopC",
-        price: 90,
-        distance: "0.8 km",
+        name: "Solaiman Shop",
+        shopId: "shopB",
+        price: 135,
+        distance: "1.5 km",
         lowest: false,
       },
     ],
   },
 };
-
 // The full catalog — every product, at every shop, with its category
 const catalog = [
   {
@@ -351,16 +324,30 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
       link.classList.add("active");
     }
   });
+
+  const shopIdByName = {
+  "Halal Shop": "shopA",
+  "Solaiman Shop": "shopB",
+  "Kefayat SuperMarket": "shopC",
+  "Rezaiee Market": "shopD",
+  "Haji Zaki Shop": "shopF",
+  "Mahaly Shop": "shopG"
+};
+
   function renderTable(rows) {
     if (rows.length === 0) {
-      document.querySelector(".table-card").innerHTML = `
+  priceTableBody.innerHTML = `
+    <tr>
+      <td colspan="5">
         <div class="empty-state">
           <h3>No products found</h3>
           <p>Try a different search term or category.</p>
         </div>
-      `;
-      return;
-    }
+      </td>
+    </tr>
+  `;
+  return;
+}
 
     const lowestPrice = Math.min(...rows.map((r) => r.price));
 
@@ -380,7 +367,7 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
           </td>
           <td>${item.distance} km</td>
           <td>⭐ ${item.rating}</td>
-          <td><a href="shop.html" class="btn-view">View</a></td>
+          <td><a href="shop.html?shop=${shopIdByName[item.shop]}" class="btn-view">View</a></td>
         </tr>
       `;
     });
@@ -543,31 +530,73 @@ document.querySelectorAll(".fav-btn").forEach((btn) => {
 });
 
 // favorite button on product details page
-const favBtnDetails = document.getElementById("favBtn");
-if (favBtnDetails) {
-  favBtnDetails.addEventListener("click", () => {
-    favBtnDetails.classList.toggle("is-favorited");
-
-    if (favBtnDetails.classList.contains("is-favorited")) {
-      favBtnDetails.innerHTML =
-        '<img src="images/red-heart.png" class="filled-heart"> Added to favorites';
-    } else {
-      favBtnDetails.innerHTML =
-        '<i class="fa-regular fa-heart simple-heart"></i> Add to favorites';
-    }
-  });
-}
-
 // price alert button on product details page
+const favBtnDetails = document.getElementById("favBtn");
 const alertBtn = document.getElementById("alertBtn");
-if (alertBtn) {
+
+const detailsKey = new URLSearchParams(location.search).get("product");
+const detailsProduct = products[detailsKey];
+
+if (favBtnDetails && detailsProduct) {
+  const cheapest =
+    detailsProduct.shops.find(s => s.lowest) || detailsProduct.shops[0];
+
+  const setFavUI = (on) => {
+    favBtnDetails.classList.toggle("is-favorited", on);
+
+    favBtnDetails.innerHTML = on
+      ? '<i class="fa-solid fa-heart"></i> Added to favorites'
+      : '<i class="fa-regular fa-heart"></i> Add to favorites';
+  };
+
+  setFavUI(
+    isLoggedIn() &&
+    isFavorited(detailsProduct.name, cheapest.name)
+  );
+
+  favBtnDetails.addEventListener("click", () => {
+    if (!isLoggedIn()) {
+      requireLogin();
+      return;
+    }
+
+    setFavUI(
+      toggleFavorite(
+        detailsProduct.name,
+        cheapest.name,
+        cheapest.price,
+        detailsProduct.image
+      )
+    );
+  });
+}
+
+if (alertBtn && detailsProduct) {
   alertBtn.addEventListener("click", () => {
-    const target = prompt("Notify me when the price drops below (AFN):");
-    if (target) {
-      alert(`You will be notified when the price drops below ${target} AFN`);
+    if (!isLoggedIn()) {
+      requireLogin();
+      return;
+    }
+
+    const target = parseInt(
+      prompt("Notify me when the price drops below (AFN):")
+    );
+
+    if (target > 0) {
+      addAlert(
+        detailsProduct.name,
+        target,
+        detailsProduct.image
+      );
+
+      alert(
+        `You will be notified when the price drops below ${target} AFN`
+      );
     }
   });
 }
+
+
 
 // Auto fill year in footer
 const yearSpan = document.getElementById("year");
@@ -575,16 +604,6 @@ if (yearSpan) {
   yearSpan.textContent = new Date().getFullYear();
 }
 
-// selecting the filter that is clicked
-const filterItems = document.querySelectorAll(".filter-item");
-
-filterItems.forEach((item) => {
-  item.addEventListener("click", (e) => {
-    e.preventDefault();
-    document.querySelector(".filter-item.active")?.classList.remove("active");
-    item.classList.add("active");
-  });
-});
 
 // toggle filter sidebar
 const filterToggle = document.querySelector(".filter-toggle");
@@ -595,50 +614,7 @@ if (filterToggle) {
   });
 }
 
-const sortSelect = document.querySelector(".sort-select");
-const tableBody = document.querySelector(".price-table tbody");
 
-function getPrice(row) {
-  return parseInt(row.querySelector(".price-cell").textContent);
-}
-
-function getDistance(row) {
-  return parseFloat(row.children[3].textContent);
-}
-
-function getRating(row) {
-  return parseFloat(row.children[4].textContent.replace("⭐", "").trim());
-}
-
-if (sortSelect) {
-  sortSelect.addEventListener("change", () => {
-    const rows = Array.from(tableBody.querySelectorAll("tr"));
-
-    const value = sortSelect.value;
-
-    rows.sort((a, b) => {
-      if (value === "price-low") {
-        return getPrice(a) - getPrice(b);
-      }
-
-      if (value === "price-high") {
-        return getPrice(b) - getPrice(a);
-      }
-
-      if (value === "distance") {
-        return getDistance(a) - getDistance(b);
-      }
-
-      if (value === "rating") {
-        return getRating(b) - getRating(a);
-      }
-
-      return 0;
-    });
-
-    rows.forEach((row) => tableBody.appendChild(row));
-  });
-}
 
 // shop dynemic cards
 
@@ -846,6 +822,11 @@ document.querySelectorAll(".add-cart-btn").forEach((button) => {
     event.preventDefault();
     event.stopPropagation();
 
+       if (!isLoggedIn()) {
+      requireLogin();
+      return;
+    }
+
     const product = button.dataset.product;
     const shop = button.dataset.shop;
     const price = parseInt(button.dataset.price);
@@ -1021,6 +1002,7 @@ function findBestCombination() {
     const matches = catalog.filter(
       (entry) => entry.product === cartItem.product,
     );
+    if (matches.length === 0) return;
     let cheapest = matches[0];
     matches.forEach((entry) => {
       if (entry.price < cheapest.price) {
@@ -1302,10 +1284,8 @@ function renderCompareTable() {
 function renderCompare() {
   renderCompareChips();
   renderCompareTable();
-  initCompareSelect();
 }
-
-renderCompareTable();
+initCompareSelect();
 renderCompare();
 
 // favorites helper used in every pages
@@ -1499,6 +1479,16 @@ function saveAlerts(alertItems) {
     localStorage.setItem(key, JSON.stringify(alertItems));
 
     updateAlertBadge();
+}
+
+function toggleAlertEnabled(product) {
+    const alerts = getAlerts();
+    const a = alerts.find(x => x.product === product);
+
+    if (a) {
+        a.enabled = !a.enabled;
+        saveAlerts(alerts);
+    }
 }
 
 function addAlert(product, targetPrice, image) {
@@ -2023,22 +2013,7 @@ if (!user) {
 }
 renderProfilePage();
 
-/*  FILL TOPBAR USER INFO  */
-const topbarName = document.getElementById("topbarName");
-const topbarAvatar = document.getElementById("topbarAvatar");
 
-if (topbarName && topbarAvatar) {
-
-    const user = getUser();
-
-    if (user) {
-        topbarName.textContent = user.name || "";
-        topbarAvatar.src = user.avatar || "";
-    } else {
-        topbarName.textContent = "";
-        topbarAvatar.src = "";
-    }
-}
 
 /*  AUTH STATE HELPERS (getUser/saveUser already exist above — reused, not duplicated) */
 
@@ -2081,18 +2056,16 @@ function refreshAfterAuthChange(){
   renderProfilePage();
 }
 
-/* TOPBAR USER DISPLAY (runs on every page) */
-function updateTopbarUser(){
+function updateTopbarUser() {
   const nameEl = document.getElementById('topbarName');
   const avatarEl = document.getElementById('topbarAvatar');
   const defaultIcon = document.getElementById('topbarDefaultIcon');
   const user = getUser();
 
-  if(nameEl){
-    if(user){
+  if (nameEl && avatarEl && defaultIcon) {
+    if (user) {
       nameEl.textContent = user.name || "My Account";
-
-      if(user.avatar){
+      if (user.avatar) {
         avatarEl.src = user.avatar;
         avatarEl.style.display = "block";
         defaultIcon.style.display = "none";
@@ -2107,10 +2080,8 @@ function updateTopbarUser(){
       defaultIcon.style.display = "block";
     }
   }
-
   updateSidebarAuthLink();
 }
-updateTopbarUser();
 
 function updateSidebarAuthLink(){
   const authLink = document.getElementById('logoutLink');
@@ -2165,7 +2136,7 @@ function requireLogin(){
 }
 
 /*  INTERCEPT CLICKS ON PROTECTED LINKS */
-document.querySelectorAll('[data-protected="true"]:not(.fav-btn)').forEach(link => {
+document.querySelectorAll('[data-protected="true"]:not(.fav-btn):not(.add-cart-btn)').forEach(link => {
   link.addEventListener('click', (e) => {
     if(!isLoggedIn()){
       e.preventDefault();
@@ -2211,11 +2182,19 @@ if(switchToLogin){
 }
 
 /* ---- Login submit ---- */
+
 const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+
 if(loginSubmitBtn){
   loginSubmitBtn.addEventListener('click', () => {
+
     const errorBox = document.getElementById('loginError');
-    const email = document.getElementById('loginEmail').value.trim();
+
+    const email = document.getElementById('loginEmail')
+      .value
+      .trim()
+      .toLowerCase();
+
     const password = document.getElementById('loginPassword').value;
 
     function showLoginError(msg){
@@ -2228,14 +2207,21 @@ if(loginSubmitBtn){
       return;
     }
 
-    const existing = JSON.parse(localStorage.getItem('registeredUser') || 'null');
+    const allUsers = JSON.parse(
+      localStorage.getItem('users') || '{}'
+    );
 
-    if(existing && existing.email === email && existing.password === password){
+    const existing = allUsers[email];
+
+    if(existing && existing.password === password){
       errorBox.style.display = "none";
+
       saveUser(existing);
+
       document.getElementById('authModal').style.display = "none";
-      updateTopbarUser();
-      renderProfilePage();
+
+      refreshAfterAuthChange();
+
     } else {
       showLoginError("Incorrect email or password.");
     }
@@ -2337,7 +2323,7 @@ if(settingsAvatarInput){
 
 /* ---- Save Profile Changes ---- */
 const saveProfileBtn = document.getElementById('saveProfileBtn');
-if(saveProfileBtn){
+if (saveProfileBtn) {
   saveProfileBtn.addEventListener('click', () => {
     const errorBox = document.getElementById('settingsProfileError');
     const successBox = document.getElementById('settingsProfileSuccess');
@@ -2349,55 +2335,61 @@ if(saveProfileBtn){
     const phone = document.getElementById('settingsPhone').value.trim();
     const location = document.getElementById('settingsLocation').value.trim();
 
-  
     let hasError = false;
 
-    if(!email || !isValidEmail(email)){
-      showFieldError('settingsEmail');
-      hasError = true;
-    } else {
-      clearFieldError('settingsEmail');
-    }
+    if (!email || !isValidEmail(email)) { showFieldError('settingsEmail'); hasError = true; }
+    else { clearFieldError('settingsEmail'); }
 
-    if(phone && !isValidPhone(phone)){
-      showFieldError('settingsPhone');
-      hasError = true;
-    } else {
-      clearFieldError('settingsPhone');
-    }
+    if (phone && !isValidPhone(phone)) { showFieldError('settingsPhone'); hasError = true; }
+    else { clearFieldError('settingsPhone'); }
 
-    if(hasError){
-      return;
-    }
+    if (hasError) return;
 
-    if(!name){
+    if (!name) {
       errorBox.textContent = "Name is required.";
       errorBox.style.display = "block";
       return;
     }
 
     const user = getUser();
-    if(!user) return;
+    if (!user) return;
 
     const updatedUser = {
       ...user,
       name,
-      email,
+      email: email.toLowerCase(),
       phone,
       location,
       avatar: settingsAvatarData || user.avatar || ""
     };
 
+    const allUsers = JSON.parse(localStorage.getItem('users') || '{}');
+    const oldEmail = user.email.toLowerCase();
+    const newEmail = email.toLowerCase();
+
+    if (newEmail !== oldEmail) {
+      if (allUsers[newEmail]) {
+        errorBox.textContent = "This email is already used.";
+        errorBox.style.display = "block";
+        return;
+      }
+      delete allUsers[oldEmail];
+
+      ['cart_', 'favorites_', 'alerts_'].forEach(prefix => {
+        const val = localStorage.getItem(prefix + oldEmail);
+        if (val !== null) {
+          localStorage.setItem(prefix + newEmail, val);
+          localStorage.removeItem(prefix + oldEmail);
+        }
+      });
+    }
+
+    allUsers[newEmail] = updatedUser;
+    localStorage.setItem('users', JSON.stringify(allUsers));
     saveUser(updatedUser);
-    localStorage.setItem('registeredUser', JSON.stringify(updatedUser));
     updateTopbarUser();
     successBox.style.display = "flex";
-
-    localStorage.setItem('registeredUser', JSON.stringify(updatedUser));
-
-    updateTopbarUser();
-    successBox.style.display = "flex";
-    });
+  });
 }
 
 /* ---- Notification Preferences ---- */
@@ -2433,20 +2425,22 @@ if(updatePasswordBtn){
     successBox.style.display = "none";
 
     const current = document.getElementById('currentPassword').value;
-    const newPass = document.getElementById('newPassword').value;
-    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+const newPass = document.getElementById('newPassword').value;
+const confirmPass = document.getElementById('confirmNewPassword').value;
 
     function showPassError(msg){
       errorBox.textContent = msg;
       errorBox.style.display = "block";
     }
 
-    const registered = JSON.parse(localStorage.getItem('registeredUser') || 'null');
+  const user = getUser();
+const allUsers = JSON.parse(localStorage.getItem('users') || '{}');
+const stored = user && allUsers[user.email.toLowerCase()];
 
-    if(!registered || current !== registered.password){
-      showPassError("Current password is incorrect.");
-      return;
-    }
+if(!stored || current !== stored.password){
+  showPassError("Current password is incorrect.");
+  return;
+} 
     if(newPass.length < 6){
       showPassError("New password must be at least 6 characters.");
       return;
@@ -2456,9 +2450,10 @@ if(updatePasswordBtn){
       return;
     }
 
-    registered.password = newPass;
-    localStorage.setItem('registeredUser', JSON.stringify(registered));
-    saveUser(registered); 
+   stored.password = newPass;
+allUsers[user.email.toLowerCase()] = stored;
+localStorage.setItem('users', JSON.stringify(allUsers));
+saveUser(stored); 
 
     document.getElementById('currentPassword').value = "";
     document.getElementById('newPassword').value = "";
@@ -2475,12 +2470,24 @@ if (deleteAccountBtn) {
     showInlineConfirm(
       deleteAccountBtn,
       "Delete your account? This cannot be undone.",
-      () => {
-        localStorage.removeItem('user');
-        localStorage.removeItem('registeredUser');
-       
-        window.location.href = "index.html";
-      }
+     () => {
+  const u = getUser();
+  const all = JSON.parse(localStorage.getItem('users') || '{}');
+
+  if (u) {
+    const k = u.email.toLowerCase();
+
+    delete all[k];
+    localStorage.setItem('users', JSON.stringify(all));
+
+    ['cart_', 'favorites_', 'alerts_'].forEach(p => {
+      localStorage.removeItem(p + k);
+    });
+  }
+
+  localStorage.removeItem('user');
+  window.location.href = "index.html";
+}
     );
   });
 }
@@ -2560,6 +2567,7 @@ if(registerSubmitBtn){
     const name = document.getElementById('registerName').value.trim();
     const email = document.getElementById('registerEmail').value.trim();
     const password = document.getElementById('registerPassword').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
     const phone = document.getElementById('registerPhone').value.trim();
     const location = document.getElementById('registerLocation').value.trim();
 
@@ -2614,8 +2622,21 @@ if(registerSubmitBtn){
       memberSince: new Date().toISOString().slice(0, 7)
     };
 
-    localStorage.setItem('registeredUser', JSON.stringify(newUser));
-    saveUser(newUser);
+   const allUsers = JSON.parse(localStorage.getItem('users') || '{}');
+const key = email.toLowerCase();
+
+if (allUsers[key]) {
+  const err = document.getElementById('registerError');
+  err.textContent = "An account with this email already exists.";
+  err.style.display = "block";
+  return;
+}
+
+newUser.email = key;
+allUsers[key] = newUser;
+
+localStorage.setItem('users', JSON.stringify(allUsers));
+saveUser(newUser);
     document.getElementById('authModal').style.display = "none";
     updateTopbarUser();
     renderProfilePage();
@@ -2717,3 +2738,9 @@ function showInlineConfirm(anchorBtn, message, onYes) {
   });
 }
 
+document.getElementById('userChip')?.addEventListener('click', (e) => {
+  if (!isLoggedIn()) { e.preventDefault(); openAuthModal('login'); }
+});
+
+document.getElementById('footLogin')?.addEventListener('click', e => { e.preventDefault(); openAuthModal('login'); });
+document.getElementById('footRegister')?.addEventListener('click', e => { e.preventDefault(); openAuthModal('register'); });
