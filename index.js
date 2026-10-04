@@ -1922,12 +1922,10 @@ initHistoryPage();
 
 
 function getUser() {
-    const data = localStorage.getItem("user");
-
+    const data = sessionStorage.getItem("user");
     if (data) {
         return JSON.parse(data);
     }
-
     return null;
 }
 
@@ -1942,7 +1940,7 @@ function getAuthNamespace() {
 }
 
 function saveUser(userData){
-  localStorage.setItem('user', JSON.stringify(userData));
+  sessionStorage.setItem('user', JSON.stringify(userData));
 }
 
 
@@ -2022,7 +2020,7 @@ function isLoggedIn(){
 }
 
 function logoutUser(){
-  localStorage.removeItem('user');
+  sessionStorage.removeItem('user');
   refreshAfterAuthChange();
 }
 
@@ -2485,7 +2483,7 @@ if (deleteAccountBtn) {
     });
   }
 
-  localStorage.removeItem('user');
+  sessionStorage.removeItem('user');
   window.location.href = "index.html";
 }
     );
