@@ -2,6 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+  (function(){
+    var theme = localStorage.getItem('bazaarCheckTheme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="index.css" />
     <link
@@ -164,6 +170,22 @@
             <h1>Settings</h1>
             <p>Manage your account, notifications, and security.</p>
         </div>
+
+                  <!--   Dark Mode    -->
+
+          <div class="card card-pad" style="margin-bottom:20px;">
+    <h3 class="profile-card-title">Appearance</h3>
+    <div class="settings-toggle-row">
+        <div>
+            <h5>Dark Mode</h5>
+            <span>Switch between light and dark theme</span>
+        </div>
+        <label class="switch">
+            <input type="checkbox" id="prefDarkMode">
+            <span class="slider"></span>
+        </label>
+    </div>
+</div>
 
         <div class="settings-grid">
 

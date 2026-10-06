@@ -285,141 +285,115 @@ const priceTableBody = document.querySelector(".price-table tbody");
 
 if (priceTableBody && document.querySelector(".page-head h1")) {
   const searchParams = new URLSearchParams(window.location.search);
-  const searchQuery = searchParams.get("q");
-  const categoryFilter = searchParams.get("category");
+  const urlSearchQuery = searchParams.get("q") || "";
+  const urlCategory = searchParams.get("category") || "all";
 
-
-  let results = catalog;
-
-  if (searchQuery) {
-    results = results.filter((item) =>
-      item.product.toLowerCase().includes(searchQuery.toLowerCase()),
-    );
-  }
-
-  if (categoryFilter && categoryFilter !== "all") {
-    results = results.filter((item) => item.category === categoryFilter);
-  }
-
-
+  const categorySelect = document.getElementById("categorySelect");
+  const shopSelect = document.getElementById("shopSelect");
   const heading = document.querySelector(".page-head h1");
   const subheading = document.querySelector(".page-head p");
 
-  if (searchQuery) {
-    heading.textContent = `Search Results for "${searchQuery}"`;
-  } else if (categoryFilter && categoryFilter !== "all") {
-    heading.textContent =
-      categoryFilter.charAt(0).toUpperCase() +
-      categoryFilter.slice(1) +
-      " Products";
-  } else {
-    heading.textContent = "All Products";
+  if (categorySelect) {
+    [...new Set(catalog.map(e => e.category))].forEach(cat => {
+      const opt = document.createElement("option");
+      opt.value = cat;
+      opt.textContent = cat.charAt(0).toUpperCase() + cat.slice(1).replace("-", " ");
+      categorySelect.appendChild(opt);
+    });
+    categorySelect.value = urlCategory;
   }
-  subheading.textContent = `${results.length} result${results.length !== 1 ? "s" : ""} found.`;
 
+  if (shopSelect) {
+    [...new Set(catalog.map(e => e.shop))].forEach(shop => {
+      const opt = document.createElement("option");
+      opt.value = shop;
+      opt.textContent = shop;
+      shopSelect.appendChild(opt);
+    });
+  }
 
-  document.querySelectorAll(".filter-item[data-category]").forEach((link) => {
-    link.classList.remove("active");
-    if (link.dataset.category === (categoryFilter || "all")) {
-      link.classList.add("active");
-    }
-  });
+  let currentResults = [];
 
-  const shopIdByName = {
-  "Halal Shop": "shopA",
-  "Solaiman Shop": "shopB",
-  "Kefayat SuperMarket": "shopC",
-  "Rezaiee Market": "shopD",
-  "Haji Zaki Shop": "shopF",
-  "Mahaly Shop": "shopG"
-};
+  function filterProducts() {
+    const liveInput = document.querySelector(".search-box input");
+    const query = (liveInput && liveInput.value.trim()) ? liveInput.value.trim().toLowerCase() : urlSearchQuery.toLowerCase();
+    const selectedCategory = categorySelect ? categorySelect.value : "all";
+    const selectedShop = shopSelect ? shopSelect.value : "all";
 
-  function renderTable(rows) {
-    if (rows.length === 0) {
-  priceTableBody.innerHTML = `
-    <tr>
-      <td colspan="5">
-        <div class="empty-state">
-          <h3>No products found</h3>
-          <p>Try a different search term or category.</p>
-        </div>
-      </td>
-    </tr>
-  `;
-  return;
-}
-
-    const lowestPrice = Math.min(...rows.map((r) => r.price));
-
-    let rowsHTML = "";
-    rows.forEach((item) => {
-      rowsHTML += `
-        <tr>
-          <td>
-            <div class="shop-cell">
-              <span class="shop-avatar">🏪</span> ${item.shop}
-            </div>
-          </td>
-          <td>${item.product}</td>
-          <td class="price-cell">
-            ${item.price} AFN
-            ${item.price === lowestPrice ? '<span class="lowest-tag">LOWEST</span>' : ""}
-          </td>
-          <td>${item.distance} km</td>
-          <td>⭐ ${item.rating}</td>
-          <td><a href="shop.html?shop=${shopIdByName[item.shop]}" class="btn-view">View</a></td>
-        </tr>
-      `;
+    const results = catalog.filter(item => {
+      const matchesSearch = !query || item.product.toLowerCase().includes(query);
+      const matchesCategory = selectedCategory === "all" || item.category === selectedCategory;
+      const matchesShop = selectedShop === "all" || item.shop === selectedShop;
+      return matchesSearch && matchesCategory && matchesShop;
     });
 
-    priceTableBody.innerHTML = rowsHTML;
+    if (query) {
+      heading.textContent = `Search Results for "${query}"`;
+    } else if (selectedCategory !== "all") {
+      heading.textContent = selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1) + " Products";
+    } else {
+      heading.textContent = "All Products";
+    }
+    subheading.textContent = `${results.length} result${results.length !== 1 ? "s" : ""} found.`;
+
+    document.querySelectorAll(".filter-item[data-category]").forEach(link => {
+      link.classList.remove("active");
+      if (link.dataset.category === selectedCategory) link.classList.add("active");
+    });
+
+    currentResults = results;
+    renderTable(results);
+    renderStats(results);
   }
 
-  renderTable(results);
+  function renderTable(rows) {
+       if (rows.length === 0) {
+      priceTableBody.innerHTML = `
+        <tr><td colspan="6" class="empty-state"><h3>No products found</h3><p>Try a different search term, category, or shop.</p></td></tr>`;
+      return;
+    }
+    const lowestPrice = Math.min(...rows.map(r => r.price));
+    let rowsHTML = "";
+    rows.forEach(item => {
+      rowsHTML += `
+        <tr>
+          <td><div class="shop-cell"><span class="shop-avatar">🏪</span> ${item.shop}</div></td>
+          <td>${item.product}</td>
+          <td class="price-cell">${item.price} AFN ${item.price === lowestPrice ? '<span class="lowest-tag">LOWEST</span>' : ""}</td>
+          <td>${item.distance} km</td>
+          <td>⭐ ${item.rating}</td>
+          <td><a href="shop.html" class="btn-view">View</a></td>
+        </tr>`;
+    });
+    priceTableBody.innerHTML = rowsHTML;
+  }
 
   function renderStats(rows) {
     const statRow = document.querySelector(".stat-row");
     if (!statRow) return;
-
-    if (rows.length === 0) {
-      statRow.style.display = "none";
-      return;
-    }
+    if (rows.length === 0) { statRow.style.display = "none"; return; }
     statRow.style.display = "grid";
-
-    const prices = rows.map((r) => r.price);
+    const prices = rows.map(r => r.price);
     const cheapest = Math.min(...prices);
-    const cheapestShop = rows.find((r) => r.price === cheapest).shop;
-    const average = Math.round(
-      prices.reduce((sum, p) => sum + p, 0) / prices.length,
-    );
+    const cheapestShop = rows.find(r => r.price === cheapest).shop;
+    const average = Math.round(prices.reduce((s, p) => s + p, 0) / prices.length);
     const highest = Math.max(...prices);
-
     statRow.innerHTML = `
-      <div class="stat-box">
-        <div class="stat-label">🏷️ Cheapest Price</div>
-        <div class="stat-value">${cheapest} AFN <span>at ${cheapestShop}</span></div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">📊 Average Price</div>
-        <div class="stat-value">${average} AFN</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-label">📈 Price Range</div>
-        <div class="stat-value">${cheapest} – ${highest} AFN</div>
-      </div>
-    `;
+      <div class="stat-box"><div class="stat-label">🏷️ Cheapest Price</div><div class="stat-value">${cheapest} AFN <span>at ${cheapestShop}</span></div></div>
+      <div class="stat-box"><div class="stat-label">📊 Average Price</div><div class="stat-value">${average} AFN</div></div>
+      <div class="stat-box"><div class="stat-label">📈 Price Range</div><div class="stat-value">${cheapest} – ${highest} AFN</div></div>`;
   }
 
-  renderStats(results);
+  filterProducts();
 
-  
+  if (categorySelect) categorySelect.addEventListener("change", filterProducts);
+  if (shopSelect) shopSelect.addEventListener("change", filterProducts);
+
   const sortSelect = document.querySelector(".sort-select");
   if (sortSelect) {
     sortSelect.addEventListener("change", () => {
-      const sorted = [...results];
+      const sorted = [...currentResults];
       const value = sortSelect.value;
-
       sorted.sort((a, b) => {
         if (value === "price-low") return a.price - b.price;
         if (value === "price-high") return b.price - a.price;
@@ -427,56 +401,9 @@ if (priceTableBody && document.querySelector(".page-head h1")) {
         if (value === "rating") return b.rating - a.rating;
         return 0;
       });
-
       renderTable(sorted);
     });
   }
-}
-
-const params = new URLSearchParams(window.location.search);
-const productId = params.get("product");
-
-console.log(productId);
-
-const data = products[productId];
-
-console.log(data);
-
-if (data) {
-  document.querySelector(".product-summary h2").textContent = data.name;
-  document.querySelector(".summary-thumb img").src = data.image;
-  document.querySelector(".summary-thumb img").alt = data.name;
-  document.querySelector(".summary-rating").textContent =
-    "⭐⭐⭐⭐⭐ " + data.rating;
-  document.querySelector(".summary-price").textContent = data.priceRange;
-  document.title = data.name + " · Bazaar Check";
-}
-if (data) {
-  document.querySelector(".current").textContent = data.name;
-}
-
-if (data) {
-  const tbody = document.getElementById("shopRows");
-  let rowsHTML = "";
-
-  data.shops.forEach((shop) => {
-    rowsHTML += `
-        <tr>
-        <td>
-        <div class="shop-cell">
-        <span class="shop-avatar">🏪</span> ${shop.name}
-        </div>
-        </td>
-        <td class="price-cell">
-        ${shop.price} AFN
-        ${shop.lowest ? '<span class="lowest-tag">Lowest</span>' : ""}
-        </td>
-        <td>${shop.distance}</td>
-        <td><a href="shop.html?shop=${shop.shopId}" class="btn-view"> View in shop</a></td>
-        </tr>
-        `;
-  });
-  tbody.innerHTML = rowsHTML;
 }
 
 // favorit button
@@ -1340,6 +1267,25 @@ function updateFavBadge() {
 }
 
 updateFavBadge();
+
+// Dark mode
+function getTheme(){
+  return localStorage.getItem('bazaarCheckTheme') || 'light';
+}
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('bazaarCheckTheme', theme);
+  const toggle = document.getElementById('prefDarkMode');
+  if(toggle) toggle.checked = (theme === 'dark');
+}
+function toggleTheme(){
+  applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+}
+applyTheme(getTheme());
+const darkModeToggle = document.getElementById('prefDarkMode');
+if(darkModeToggle){
+  darkModeToggle.addEventListener('change', toggleTheme);
+}
 
 /*         RENDER FAVORITES PAGE      */
 function renderFavoritesPage() {
@@ -2663,6 +2609,7 @@ if (logoutLink) {
 function addPasswordToggles() {
   document.querySelectorAll('input[type="password"]').forEach((input) => {
     if (input.parentElement.classList.contains("password-wrap")) return;
+     if (input.id.startsWith("register") || input.closest("#authRegisterView")) return;
 
     const wrap = document.createElement("div");
     wrap.className = "password-wrap";

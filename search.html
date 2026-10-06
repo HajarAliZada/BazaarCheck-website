@@ -2,6 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>
+  (function(){
+    var theme = localStorage.getItem('bazaarCheckTheme') || 'light';
+    document.documentElement.setAttribute('data-theme', theme);
+  })();
+</script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="index.css" />
@@ -14,7 +20,7 @@
     <title>Search Results . Bazaar Check</title>
   </head>
 
-  <body>
+  <body class="search-page">
     <!-- ==================== TOPBAR ==================== -->
     <header class="topbar">
       <button class="menu-btn">
@@ -171,6 +177,11 @@
 
       <!-- ==================== SEARCH LAYOUT ==================== -->
       <div class="search-layout">
+
+          <button type="button" class="filter-toggle">
+    <i class="fa-solid fa-sliders"></i> Filters
+  </button>
+
         <!-- ==================== FILTER SIDEBAR ==================== -->
        <aside class="filters">
     <h4>Filters</h4>
@@ -186,34 +197,22 @@
     <a href="search.html?shop=all" class="filter-item" data-shop="all">All Shops</a>
 </aside>
         <!-- ==================== RESULTS COLUMN ==================== -->
-        <div class="results-col">
+               <div class="results-col">
           <!-- ==================== TOOLBAR ==================== -->
           <div class="toolbar">
-            <button class="filter-toggle">
-              <i class="fa-solid fa-bars"></i>Filters
-            </button>
-
             <div class="toolbar-left">
-              <select class="select-box">
-                <option>All Categories</option>
-                <option>Food</option>
-                <option>Beverages</option>
+              <select class="select-box" id="categorySelect">
+                <option value="all">All Categories</option>
               </select>
-
-              <select class="select-box">
-                <option>All Shops</option>
-                <option>Shop A</option>
-                <option>Shop B</option>
+              <select class="select-box" id="shopSelect">
+                <option value="all">All Shops</option>
               </select>
             </div>
 
             <select class="select-box sort-select">
               <option value="price-low">Sort by: Price (Low to High)</option>
-
               <option value="price-high">Price (High to Low)</option>
-
               <option value="distance">Distance</option>
-
               <option value="rating">Rating</option>
             </select>
           </div>
