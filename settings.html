@@ -31,7 +31,7 @@
         <img src="images/logo.png" alt="logo" class="logo-png" />
       </div>
 
-      <form class="search-box">
+      <form class="search-box" action="search.html" method="GET">
         <span class="search-icon">
           <i class="fa-solid fa-magnifying-glass"></i>
         </span>
@@ -223,38 +223,37 @@
                     <h3 class="profile-card-title">Notifications</h3>
 
                     <div class="settings-toggle-row">
-                        <div>
-                            <h5>Price drop alerts</h5>
-                            <span>Get notified when a favorited item's price drops</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="prefPriceAlerts">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+  <div>
+    <h5>Price drop alerts</h5>
+    <span>Show a badge on the bell when a product reaches your target price</span>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="prefPriceAlerts">
+    <span class="slider"></span>
+  </label>
+</div>
 
-                    <div class="settings-toggle-row">
-                        <div>
-                            <h5>Weekly deals digest</h5>
-                            <span>A summary of the best deals near you</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="prefWeeklyDigest">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
+<div class="settings-toggle-row">
+  <div>
+    <h5>Weekly deals digest <span class="coming-soon-tag">Coming soon</span></h5>
+    <span>A summary of the best deals near you</span>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="prefWeeklyDigest" disabled>
+    <span class="slider"></span>
+  </label>
+</div>
 
-                    <div class="settings-toggle-row">
-                        <div>
-                            <h5>New shop nearby</h5>
-                            <span>Notify when a new shop joins near you</span>
-                        </div>
-                        <label class="switch">
-                            <input type="checkbox" id="prefNewShop">
-                            <span class="slider"></span>
-                        </label>
-                    </div>
-                </div>
+<div class="settings-toggle-row">
+  <div>
+    <h5>New shop nearby <span class="coming-soon-tag">Coming soon</span></h5>
+    <span>Notify when a new shop joins near you</span>
+  </div>
+  <label class="switch">
+    <input type="checkbox" id="prefNewShop" disabled>
+    <span class="slider"></span>
+  </label>
+</div>
 
                 <div class="card card-pad" style="margin-bottom:20px;">
                     <h3 class="profile-card-title">Change Password</h3>

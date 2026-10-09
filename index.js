@@ -280,6 +280,34 @@ const productImages = {
   "Sugar (1 kg)": "images/sugar.png",
 };
 
+/* CATEGORIES PAGE: real counts */
+const categoriesGrid = document.querySelector(".categories-grid");
+if (categoriesGrid) {
+  const totalProducts = new Set(catalog.map(e => e.product)).size;
+  let activeCategories = 0;
+
+  categoriesGrid.querySelectorAll(".category-card[data-category]").forEach(card => {
+    const cat = card.dataset.category;
+    const count = new Set(
+      catalog.filter(e => e.category === cat).map(e => e.product)
+    ).size;
+    const countEl = card.querySelector(".category-card-count");
+
+    if (count > 0) {
+      activeCategories++;
+      countEl.textContent = `${count} product${count !== 1 ? "s" : ""}`;
+    } else {
+      card.classList.add("coming-soon");
+      countEl.textContent = "Coming soon";
+      card.addEventListener("click", e => e.preventDefault());
+    }
+  });
+
+  document.getElementById("catTotalProducts").textContent = totalProducts;
+  document.getElementById("catTotalCategories").textContent = activeCategories;
+}
+
+
 //  search page
 const priceTableBody = document.querySelector(".price-table tbody");
 
@@ -1469,6 +1497,11 @@ function updateAlertBadge() {
   const badge = document.getElementById("alertCount");
   if (!badge) return;
 
+  if (!getPreferences().priceAlerts) {
+    badge.style.display = "none";
+    return;
+  }
+
   const alerts = getAlerts();
   const triggeredCount = alerts.filter((a) => {
     const current = getCurrentLowestPrice(a.product);
@@ -2242,8 +2275,6 @@ function renderSettingsPage(){
 
   const prefs = getPreferences();
   document.getElementById('prefPriceAlerts').checked = prefs.priceAlerts;
-  document.getElementById('prefWeeklyDigest').checked = prefs.weeklyDigest;
-  document.getElementById('prefNewShop').checked = prefs.newShop;
 }
 
 
@@ -2347,16 +2378,15 @@ function savePreferences(prefs){
 }
 
 ['prefPriceAlerts', 'prefWeeklyDigest', 'prefNewShop'].forEach(id => {
-  const toggle = document.getElementById(id);
-  if(toggle){
-    toggle.addEventListener('change', () => {
-      const prefs = getPreferences();
-      prefs.priceAlerts = document.getElementById('prefPriceAlerts').checked;
-      prefs.weeklyDigest = document.getElementById('prefWeeklyDigest').checked;
-      prefs.newShop = document.getElementById('prefNewShop').checked;
-      savePreferences(prefs);
-    });
-  }
+const prefPriceAlerts = document.getElementById('prefPriceAlerts');
+if (prefPriceAlerts) {
+  prefPriceAlerts.addEventListener('change', () => {
+    const prefs = getPreferences();
+    prefs.priceAlerts = prefPriceAlerts.checked;
+    savePreferences(prefs);
+    updateAlertBadge(); 
+  });
+}
 });
 
 /* ---- Change Password ---- */
@@ -2689,3 +2719,46 @@ document.getElementById('userChip')?.addEventListener('click', (e) => {
 
 document.getElementById('footLogin')?.addEventListener('click', e => { e.preventDefault(); openAuthModal('login'); });
 document.getElementById('footRegister')?.addEventListener('click', e => { e.preventDefault(); openAuthModal('register'); });
+
+/* CONTACT PAGE */
+wireFieldValidation('contactEmail', isValidEmail, false);
+
+const sendMessageBtn = document.getElementById('sendMessageBtn');
+if (sendMessageBtn) {
+ 
+  const currentUser = getUser();
+  if (currentUser) {
+    document.getElementById('contactName').value = currentUser.name || "";
+    document.getElementById('contactEmail').value = currentUser.email || "";
+  }
+
+  sendMessageBtn.addEventListener('click', () => {
+    const errorBox = document.getElementById('contactError');
+    const successBox = document.getElementById('contactSuccess');
+    errorBox.style.display = "none";
+    successBox.style.display = "none";
+
+    const name = document.getElementById('contactName').value.trim();
+    const email = document.getElementById('contactEmail').value.trim();
+    const message = document.getElementById('contactMessage').value.trim();
+
+    if (!email || !isValidEmail(email)) {
+      showFieldError('contactEmail');
+      return;
+    }
+    clearFieldError('contactEmail');
+
+    if (!name || !message) {
+      errorBox.textContent = "Please fill in your name and message.";
+      errorBox.style.display = "block";
+      return;
+    }
+
+    const messages = JSON.parse(localStorage.getItem('contactMessages') || '[]');
+    messages.push({ name, email, message, date: new Date().toISOString() });
+    localStorage.setItem('contactMessages', JSON.stringify(messages));
+
+    document.getElementById('contactMessage').value = "";
+    successBox.style.display = "flex";
+  });
+}
